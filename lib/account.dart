@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:page_transition/page_transition.dart';
 //routes 
-import 'routes/account_infomation.dart';
-import 'routes/password_setting.dart';
+import 'routes/account/account_infomation.dart';
+import 'routes/account/password_setting.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
