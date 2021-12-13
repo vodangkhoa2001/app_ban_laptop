@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
             child: SizedBox(
           height: 60,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
