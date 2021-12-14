@@ -24,10 +24,10 @@ class _OrderState extends State<Order> {
             fit: BoxFit.cover,
           )]
           ),
-          Column(children: [Text('Sản phẩm 1')]),
+          Column(children: const [Text('Sản phẩm 1')]),
           Column(children: [
-            ElevatedButton(onPressed: (){}, child: Text('Mua lại')),
-            ElevatedButton(onPressed: (){}, child: Text('Hủy'))
+            ElevatedButton(onPressed: (){}, child: const Text('Mua lại')),
+            ElevatedButton(onPressed: (){}, child: const Text('Hủy'))
           ],),
         ],
         ),),
