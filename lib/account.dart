@@ -21,6 +21,7 @@ class _AccountState extends State<Account> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true ,
         title: const Text('Tài Khoản'),
       ),
       body: ListView(

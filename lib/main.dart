@@ -100,6 +100,7 @@ class _HomePageState extends State<HomePage> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //trang chủ
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -124,6 +125,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  //mua hàng
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -142,12 +144,16 @@ class _HomePageState extends State<HomePage> {
                         Text(
                           'Mua Hàng',
                           style: TextStyle(
-                              color:
-                                  currentTab == 1 ? primaryColor : Colors.grey),
-                        )
+                              color:currentTab == 1 ? primaryColor : Colors.grey
+                          ),
+                        ),
+                       
                       ],
+                      
+                      
                     ),
                   ),
+                  //tư vấn
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -172,6 +178,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  //tài khoản
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
