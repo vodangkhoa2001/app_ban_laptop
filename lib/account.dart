@@ -1,10 +1,17 @@
+import 'package:ban_laptop/routes/account/terms_and_condition.dart';
 import 'package:flutter/material.dart';
 // page transition lib
 import 'package:flutter/cupertino.dart';
 import 'package:page_transition/page_transition.dart';
 //routes 
-import 'routes/account_infomation.dart';
-import 'routes/password_setting.dart';
+import 'routes/account/account_infomation.dart';
+import 'routes/account/contact.dart';
+import 'routes/account/password_setting.dart';
+import 'routes/account/terms_and_condition.dart';
+import 'routes/account/membership_benefits.dart';
+import 'routes/account/frequently_asked_question.dart';
+import 'routes/account/order.dart';
+
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -41,17 +48,22 @@ class _AccountState extends State<Account> {
           const SizedBox(
             height: 20,
           ),
-          const Card(
+          Card(
             child: ListTile(
-                title: Text('Đơn hàng'),
-                leading: Icon(
+                title: const Text('Đơn hàng'),
+                leading: const Icon(
                   Icons.article,
                   size: sizeIcon,
                 ),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.chevron_right,
                   size: sizeIcon,
-                )),
+                ),
+                onTap: () {
+                  Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const Order()));              
+                },
+            ),
+                
           ),
           Card(
             child: Column(
@@ -79,34 +91,46 @@ class _AccountState extends State<Account> {
                     size: sizeIcon,
                   ),
                   onTap: () {
-                Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const PasswordSetting()));              
-              },
+                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const PasswordSetting()));              
+                  },
                 ),
               ],
             ),
           ),
           Card(
             child: Column(
-              children: const [
+              children: [
                 ListTile(
-                  title: Text('Quyền lợi thành viên'),
-                  leading: Icon(Icons.stars, size: sizeIcon),
-                  trailing: Icon(Icons.chevron_right, size: sizeIcon),
+                  title: const Text('Quyền lợi thành viên'),
+                  leading:const Icon(Icons.stars, size: sizeIcon),
+                  trailing:const Icon(Icons.chevron_right, size: sizeIcon),
+                  onTap: () {
+                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const Membership()));              
+                  },
                 ),
                 ListTile(
-                  title: Text('Điều khoản & Điều kiện'),
-                  leading: Icon(Icons.checklist_outlined, size: sizeIcon),
-                  trailing: Icon(Icons.chevron_right, size: sizeIcon),
+                  title: const Text('Điều khoản & Điều kiện'),
+                  leading: const Icon(Icons.checklist_outlined, size: sizeIcon),
+                  trailing: const Icon(Icons.chevron_right, size: sizeIcon),
+                  onTap: () {
+                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const TermsAndCondition()));              
+                  },
                 ),
                 ListTile(
-                  title: Text('Câu hỏi thường gặp'),
-                  leading: Icon(Icons.help_outline, size: sizeIcon),
-                  trailing: Icon(Icons.chevron_right, size: sizeIcon),
+                  title: const Text('Câu hỏi thường gặp'),
+                  leading: const Icon(Icons.help_outline, size: sizeIcon),
+                  trailing: const Icon(Icons.chevron_right, size: sizeIcon),
+                  onTap: () {
+                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const FrequentlyAskedQuestion()));              
+                  },
                 ),
                 ListTile(
-                  title: Text('Liên hệ'),
-                  leading: Icon(Icons.support_agent_outlined, size: sizeIcon),
-                  trailing: Icon(Icons.chevron_right, size: sizeIcon),
+                  title: const Text('Liên hệ'),
+                  leading: const Icon(Icons.support_agent_outlined, size: sizeIcon),
+                  trailing: const Icon(Icons.chevron_right, size: sizeIcon),
+                  onTap: () {
+                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const Contacts()));              
+                  },
                 ),
               ],
             ),
