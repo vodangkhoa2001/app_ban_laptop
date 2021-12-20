@@ -1,4 +1,5 @@
 import 'package:ban_laptop/routes/account/terms_and_condition.dart';
+import 'package:ban_laptop/routes/login_signup/login_signup.dart';
 import 'package:flutter/material.dart';
 // page transition lib
 import 'package:flutter/cupertino.dart';
@@ -29,6 +30,7 @@ class _AccountState extends State<Account> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tài Khoản'),
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
         children: [
@@ -135,6 +137,16 @@ class _AccountState extends State<Account> {
               ],
             ),
           ),
+          Card(
+            child: ListTile(
+                  title: Text('Đăng xuất',style: TextStyle(color: Colors.redAccent[200]),),
+                  leading: Icon(Icons.logout, size: sizeIcon,color: Colors.redAccent[200]),
+                  //trailing: Icon(Icons.chevron_right, size: sizeIcon,colorsColors.red[300],),
+                  onTap: () {
+                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const Login_SignUp()));              
+                  },
+                ),
+          )
         ],
       ),
     );

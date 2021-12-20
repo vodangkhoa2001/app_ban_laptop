@@ -47,14 +47,14 @@ class _EditAccountState extends State<EditAccount> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(15,0,15,0),
+            padding:const EdgeInsets.fromLTRB(15,0,15,0),
             child: Column(
               children: [
                 const ListTile(
                   title: Text('Giới tính'),
                 ),
                 RadioListTile(
-                  title: Text('Nam'),
+                  title: const Text('Nam'),
                   value: 1,
                   groupValue: _val,
                   onChanged: (value) {
@@ -64,7 +64,7 @@ class _EditAccountState extends State<EditAccount> {
                   },
                 ),
               RadioListTile(
-                title: Text('Nữ'),
+                title: const Text('Nữ'),
                 value: 2,
                 groupValue: _val,
                 onChanged: (value) {

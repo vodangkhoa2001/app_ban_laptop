@@ -13,6 +13,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Trang chủ'),
+          automaticallyImplyLeading: false,
         ),
         body: const Center(
           child: Text(

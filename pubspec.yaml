@@ -67,6 +67,9 @@ flutter:
      - assets/images/brands/dell_logo.png
      - assets/images/products/asus.jpg
      - assets/images/products/macOs.jpg
+     - assets/images/google_icon.png
+     - assets/images/App_Store.png
+     - assets/images/CH_Play.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
