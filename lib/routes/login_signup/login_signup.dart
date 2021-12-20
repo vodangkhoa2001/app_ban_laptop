@@ -1,41 +1,25 @@
 import 'dart:ui';
 
+import 'package:ban_laptop/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(const MyApp());
-// }
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Đồ Án',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false, //Bỏ Debug Banner
-      home: MyHomePage(title: ""),
-    );
-  }
-}
+import 'package:flutter/painting.dart';
+import 'package:page_transition/page_transition.dart';
 
 bool? isChecked = false;
+// ignore: camel_case_types
+class Login_SignUp extends StatefulWidget {
+  const Login_SignUp({Key? key, this.title}) : super(key: key);
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  final String? title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _Login_SignUpState createState() => _Login_SignUpState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+
+// ignore: camel_case_types
+class _Login_SignUpState extends State<Login_SignUp> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -98,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Nhập Email/Số Điện Thoại",
+                            "Nhập Email/Số Điện Thoại",style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 10,
@@ -116,9 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Nhập Mật Khẩu",
+                            children: const[
+                              Text(
+                                "Nhập Mật Khẩu",style: TextStyle(fontWeight: FontWeight.bold)
                               ),
                             ],
                           ),
@@ -134,13 +118,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               labelText: "Nhập Mật Khẩu",
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           TextButton(
                             onPressed: () {},
                             child: const Text(
-                              "Quên Mật Khẩu?",
+                              "Quên mật khẩu?",
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
@@ -161,7 +145,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(150, 48),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const HomePage()));              
+                    },
                     child: const Text(
                       'Đăng Nhập',
                       style: TextStyle(fontSize: 20),
@@ -196,15 +182,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.facebook),
+                      icon: const Icon(Icons.facebook,color:Colors.blue),
                       iconSize: 50,
                     ),
                     const SizedBox(
-                      width: 50,
+                      width: 80,
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Image.asset("images/google_icon.png"),
+                      icon: Image.asset("assets/images/google_icon.png",width: 40,),
                       iconSize: 50,
                     ),
                   ],
@@ -232,7 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "images/App_Store.png",
+                        "assets/images/App_Store.png",
                         width: 120,
                         height: 150,
                       ),
@@ -240,7 +226,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: 30,
                       ),
                       Image.asset(
-                        "images/CH_Play.png",
+                        "assets/images/CH_Play.png",
                         width: 120,
                         height: 150,
                       ),
@@ -269,9 +255,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           Column(
                             children: [
                               Row(
-                                children: [
+                                children: const [
                                   Expanded(
-                                    child: const TextField(
+                                    child: TextField(
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor: Colors.white,
@@ -284,7 +270,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     width: 10,
                                   ),
                                   Expanded(
-                                    child: const TextField(
+                                    child: TextField(
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor: Colors.white,
@@ -324,9 +310,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 10,
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Expanded(
-                                child: const TextField(
+                                child: TextField(
                                   obscureText: true,
                                   decoration: InputDecoration(
                                     filled: true,
@@ -340,7 +326,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 width: 10,
                               ),
                               Expanded(
-                                child: const TextField(
+                                child: TextField(
                                   obscureText: true,
                                   decoration: InputDecoration(
                                     filled: true,
@@ -367,9 +353,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 10,
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Expanded(
-                                child: const TextField(
+                                child: TextField(
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
@@ -382,7 +368,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 width: 10,
                               ),
                               Expanded(
-                                child: const TextField(
+                                child: TextField(
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
@@ -423,10 +409,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           });
                         }),
                     const Text(
-                        "Tôi đã đọc và đồng ý với các và của khkmart.com.vn \nĐiều khoản sử dụng chính sách bảo mật thông tin\ncá nhân")
+                        "Tôi đã đọc và đồng ý với các Điều khoản sử dụng và chính\n sách bảo mật thông tin cá nhân của khkmart.com.vn",style: TextStyle(fontSize: 12),)
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
@@ -467,15 +453,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.facebook),
+                      icon: const Icon(Icons.facebook,color:Colors.blue),
                       iconSize: 50,
                     ),
                     const SizedBox(
-                      width: 50,
+                      width: 80,
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Image.asset("images/google_icon.png"),
+                      icon: Image.asset("assets/images/google_icon.png",width: 40,),
                       iconSize: 50,
                     ),
                   ],
@@ -503,7 +489,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "images/App_Store.png",
+                        "assets/images/App_Store.png",
                         width: 120,
                         height: 150,
                       ),
@@ -511,7 +497,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: 30,
                       ),
                       Image.asset(
-                        "images/CH_Play.png",
+                        "assets/images/CH_Play.png",
                         width: 120,
                         height: 150,
                       ),

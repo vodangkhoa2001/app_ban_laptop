@@ -12,6 +12,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
     return Scaffold(
       appBar:AppBar(
         centerTitle: true ,
+        automaticallyImplyLeading: false,
         title: const Text('Giỏ hàng'),),
       body: const Center(child: Text('Giỏ hàng'),),
     );

@@ -13,7 +13,10 @@ class _DiscountState extends State<Discount> {
     return Scaffold(
       appBar:AppBar(
         centerTitle: true,
-        title: const Text('Khuyến mãi'),),
+        title: const Text('Khuyến mãi'),
+        automaticallyImplyLeading: false,
+      ),
+        
       body: const Center(child: Text('Khuyến mãi'),),
     );
   }

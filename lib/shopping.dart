@@ -27,6 +27,7 @@ class _ShoppingState extends State<Shopping> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Mua hàng'),
+          automaticallyImplyLeading: false,
         ),
         body: PageStorage(
           child: currentScreen,
