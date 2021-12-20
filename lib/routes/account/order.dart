@@ -21,8 +21,8 @@ class _OrderState extends State<Order> {
             // labelColor: Colors.blue,
             
             tabs: [
-            Tab(text: 'Đơn hàng',),
-            Tab(text: 'Đã hủy',)
+            Tab(child: Text('Đơn hàng',style: TextStyle(fontSize: 20,),),),
+            Tab(child: Text('Đã hủy',style: TextStyle(fontSize: 20,),),)
           ],),
         ),
         body: TabBarView(

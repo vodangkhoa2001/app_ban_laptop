@@ -35,6 +35,7 @@ class _CategoryState extends State<Category> {
       length: list.length,
       child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             centerTitle: true,
             title: const Text('Danh mục'),
             bottom: TabBar(

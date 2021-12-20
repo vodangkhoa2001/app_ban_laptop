@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'routes/login_signup/login_signup.dart';
 import 'account.dart';
 import 'chat.dart';
 import 'home.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: LoadingScreen(),
       debugShowCheckedModeBanner: false,
+      
     );
   }
 }
@@ -36,7 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.initState();
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
+          .pushReplacement(MaterialPageRoute(builder: (_) => const Login_SignUp()));
     });
   }
 
@@ -74,7 +76,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const primaryColor =  Color(0xFF4478DE);
+  static const primaryColor = Color(0xFF4478DE);
   int currentTab = 0;
   final List<Widget> screens = [
     const Dashboard(),
@@ -144,13 +146,10 @@ class _HomePageState extends State<HomePage> {
                         Text(
                           'Mua Hàng',
                           style: TextStyle(
-                              color:currentTab == 1 ? primaryColor : Colors.grey
-                          ),
+                              color:
+                                  currentTab == 1 ? primaryColor : Colors.grey),
                         ),
-                       
                       ],
-                      
-                      
                     ),
                   ),
                   //tư vấn

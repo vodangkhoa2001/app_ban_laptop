@@ -13,6 +13,7 @@ class _ChatState extends State<Chat> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tư Vấn Khách Hàng'),
+        automaticallyImplyLeading: false,
       ),
       body: const Center(
         child: Text(
