@@ -17,10 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Shop KHK mart',
       home: LoadingScreen(),
       debugShowCheckedModeBanner: false,
-      
     );
   }
 }
@@ -37,8 +36,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => const Login_SignUp()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const Login_SignUp()));
     });
   }
 
