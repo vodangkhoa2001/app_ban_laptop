@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:ban_laptop/routes/shopping/shoppingbag_screen.dart';
 import 'routes/login_signup/login_signup.dart';
 import 'account.dart';
 import 'chat.dart';
@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Shop KHK mart',
       home: LoadingScreen(),
+      //home: ShoppingBag(),
       debugShowCheckedModeBanner: false,
     );
   }
