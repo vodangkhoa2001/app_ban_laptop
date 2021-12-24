@@ -40,7 +40,8 @@ class _AccountState extends State<Account> {
               title: const Text('Username'),
               subtitle: const Text('Phone number'),
               leading: const CircleAvatar(
-                child: Icon(Icons.person),
+                backgroundImage: AssetImage(
+                              'assets/images/avatars/avatar_user_1.jpg'),
               ),
               onTap: () {
                 Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const AccountInfo()));              
@@ -83,7 +84,7 @@ class _AccountState extends State<Account> {
                       });
                     }),
                 ListTile(
-                  title: const Text('Cài đặt mật khẩu'),
+                  title: const Text('Thay đổi mật khẩu'),
                   leading: const Icon(
                     Icons.settings,
                     size: sizeIcon,
