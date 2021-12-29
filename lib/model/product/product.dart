@@ -19,6 +19,7 @@ List<Product> demoProducts = [
   Product(
     images: [
       "assets/images/products/macOs.jpg",
+      "assets/images/products/asus.jpg",
     ],
     colors: [
       Colors.white,
@@ -30,6 +31,7 @@ List<Product> demoProducts = [
   Product(
     images: [
       "assets/images/products/asus.jpg",
+      "assets/images/products/macOs.jpg",
     ],
     colors: [
       Colors.white,
