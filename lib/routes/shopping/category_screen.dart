@@ -8,6 +8,9 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../../productDetail.dart';
 //product
 // import 'package:ban_laptop/model/product/product.dart';
 
