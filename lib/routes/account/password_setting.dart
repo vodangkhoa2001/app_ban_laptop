@@ -8,15 +8,15 @@ class PasswordSetting extends StatefulWidget {
 }
 
 class _PasswordSettingState extends State<PasswordSetting> {
-  bool _passwordVisible = true;
-  bool _passwordVisible1 = true;
-  bool _passwordVisible2 = true;
+  bool _passwordVisible = false;
+  bool _passwordVisible1 = false;
+  bool _passwordVisible2 = false;
   @override
   // ignore: must_call_super
   void initState() {
-    _passwordVisible = false;
-    _passwordVisible1 = false;
-    _passwordVisible2 = false;
+    _passwordVisible = true;
+    _passwordVisible1 = true;
+    _passwordVisible2 = true;
   }
 
   // ignore: non_constant_identifier_names, unnecessary_new
@@ -41,6 +41,7 @@ class _PasswordSettingState extends State<PasswordSetting> {
                 height: 20,
               ),
               TextFormField(
+                autofocus: true,
                 obscureText: _passwordVisible,
                 controller: present_pass,
                 decoration: InputDecoration(

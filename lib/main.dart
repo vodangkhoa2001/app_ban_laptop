@@ -1,5 +1,5 @@
 import 'dart:async';
-
+// import 'package:ban_laptop/routes/shopping/shoppingbag_screen.dart';
 import 'routes/login_signup/login_signup.dart';
 import 'account.dart';
 import 'chat.dart';
@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
       home: const LoadingScreen(),
       theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
       debugShowCheckedModeBanner: false,
-      
     );
   }
 }
@@ -38,8 +37,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => const Login_SignUp()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const Login_SignUp()));
     });
   }
 
