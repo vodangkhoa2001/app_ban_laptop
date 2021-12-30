@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:page_transition/page_transition.dart';
 
+import 'forgot_password_1.dart';
+
 bool? isChecked = false;
+
 // ignore: camel_case_types
 class Login_SignUp extends StatefulWidget {
   const Login_SignUp({Key? key, this.title}) : super(key: key);
@@ -16,7 +19,6 @@ class Login_SignUp extends StatefulWidget {
   @override
   _Login_SignUpState createState() => _Login_SignUpState();
 }
-
 
 // ignore: camel_case_types
 class _Login_SignUpState extends State<Login_SignUp> {
@@ -33,6 +35,7 @@ class _Login_SignUpState extends State<Login_SignUp> {
           //     height: 150,
           //   ),
           // ],
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           bottom: const TabBar(
             tabs: [
@@ -82,7 +85,8 @@ class _Login_SignUpState extends State<Login_SignUp> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Nhập Email/Số Điện Thoại",style: TextStyle(fontWeight: FontWeight.bold),
+                            "Nhập Email/Số Điện Thoại",
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 10,
@@ -100,10 +104,10 @@ class _Login_SignUpState extends State<Login_SignUp> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const[
-                              Text(
-                                "Nhập Mật Khẩu",style: TextStyle(fontWeight: FontWeight.bold)
-                              ),
+                            children: const [
+                              Text("Nhập Mật Khẩu",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                             ],
                           ),
                           const SizedBox(
@@ -122,7 +126,15 @@ class _Login_SignUpState extends State<Login_SignUp> {
                             height: 10,
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.rightToLeftWithFade,
+                                  child: const ForgotPassword1(),
+                                ),
+                              );
+                            },
                             child: const Text(
                               "Quên mật khẩu?",
                               style: TextStyle(
@@ -146,7 +158,11 @@ class _Login_SignUpState extends State<Login_SignUp> {
                       minimumSize: const Size(150, 48),
                     ),
                     onPressed: () {
-                      Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const HomePage()));              
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeftWithFade,
+                              child: const HomePage()));
                     },
                     child: const Text(
                       'Đăng Nhập',
@@ -182,7 +198,7 @@ class _Login_SignUpState extends State<Login_SignUp> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.facebook,color:Colors.blue),
+                      icon: const Icon(Icons.facebook, color: Colors.blue),
                       iconSize: 50,
                     ),
                     const SizedBox(
@@ -190,7 +206,10 @@ class _Login_SignUpState extends State<Login_SignUp> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Image.asset("assets/images/google_icon.png",width: 40,),
+                      icon: Image.asset(
+                        "assets/images/google_icon.png",
+                        width: 40,
+                      ),
                       iconSize: 50,
                     ),
                   ],
@@ -409,7 +428,9 @@ class _Login_SignUpState extends State<Login_SignUp> {
                           });
                         }),
                     const Text(
-                        "Tôi đã đọc và đồng ý với các Điều khoản sử dụng và chính\n sách bảo mật thông tin cá nhân của khkmart.com.vn",style: TextStyle(fontSize: 12),)
+                      "Tôi đã đọc và đồng ý với các Điều khoản sử dụng và chính\n sách bảo mật thông tin cá nhân của khkmart.com.vn",
+                      style: TextStyle(fontSize: 12),
+                    )
                   ],
                 ),
                 const SizedBox(
@@ -453,7 +474,7 @@ class _Login_SignUpState extends State<Login_SignUp> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.facebook,color:Colors.blue),
+                      icon: const Icon(Icons.facebook, color: Colors.blue),
                       iconSize: 50,
                     ),
                     const SizedBox(
@@ -461,7 +482,10 @@ class _Login_SignUpState extends State<Login_SignUp> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Image.asset("assets/images/google_icon.png",width: 40,),
+                      icon: Image.asset(
+                        "assets/images/google_icon.png",
+                        width: 40,
+                      ),
                       iconSize: 50,
                     ),
                   ],

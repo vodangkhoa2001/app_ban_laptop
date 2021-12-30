@@ -1,6 +1,8 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'category_screen.dart';
 
 class ShoppingBag extends StatefulWidget {
   const ShoppingBag({Key? key}) : super(key: key);
@@ -45,7 +47,15 @@ class _ShoppingBagState extends State<ShoppingBag> {
             Icons.keyboard_arrow_left,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.rightToLeftWithFade,
+                child: const Category(),
+              ),
+            );
+          },
         ),
       ),
       body: ListView(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ban_laptop/routes/login_signup/forgot_password_1.dart';
 import 'package:ban_laptop/routes/shopping/shoppingbag_screen.dart';
 import 'routes/login_signup/login_signup.dart';
 import 'account.dart';
@@ -19,8 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Shop KHK mart',
-      home: LoadingScreen(),
-      //home: ShoppingBag(),
+      //home: LoadingScreen(),
+      home: ForgotPassword1(),
       debugShowCheckedModeBanner: false,
     );
   }
