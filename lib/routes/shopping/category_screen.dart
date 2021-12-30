@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../productDetail.dart';
+import '../../product_detail.dart';
 //product
 // import 'package:ban_laptop/model/product/product.dart';
 
@@ -90,7 +90,12 @@ class _CategoryState extends State<Category> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all(color: Colors.blue)),
-                                child: Stack(
+                                child: 
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: const Details()));              
+                                  },
+                                  child: Stack(
                                   children: [
                                     Positioned(
                                       child: Image.asset(
@@ -155,6 +160,7 @@ class _CategoryState extends State<Category> {
                                                               size: 20,
                                                               color:
                                                                   Colors.white),
+                                                    
                                                   ],
                                                 ),
                                                 InkWell(
@@ -180,7 +186,8 @@ class _CategoryState extends State<Category> {
                                     )
                                   ],
                                 ),
-                              )),
+                                ),
+                                )),
                             ],
                           );
                         }),

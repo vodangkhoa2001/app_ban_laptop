@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 // ignore_for_file: avoid_print
-=======
-import 'dart:html';
->>>>>>> 6918783ef9e136eb3ebc1eb5e608b09e1299280a
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 
@@ -43,12 +40,9 @@ class _ShoppingBagState extends State<ShoppingBag> {
         automaticallyImplyLeading: false,
         title: const Text('Giỏ hàng'),
         //elevation: 0.0,
-<<<<<<< HEAD
         backgroundColor: Colors.white,
         foregroundColor: Colors.blue,
-=======
         //backgroundColor: Colors.grey,
->>>>>>> 6918783ef9e136eb3ebc1eb5e608b09e1299280a
         leading: IconButton(
           icon: const Icon(
             Icons.keyboard_arrow_left,
@@ -330,7 +324,6 @@ class _ShoppingBagState extends State<ShoppingBag> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),
-                        // ignore: avoid_print
                         onPressed: () => print('Chưa nhập mã'),
                         child: const Text('Áp dụng'),
                       ),

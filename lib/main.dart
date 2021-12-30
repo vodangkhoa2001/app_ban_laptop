@@ -5,7 +5,7 @@ import 'account.dart';
 import 'chat.dart';
 import 'home.dart';
 import 'shopping.dart';
-import 'productDetail.dart';
+import 'product_detail.dart';
 import 'package:flutter/material.dart';
 
 void main() {
