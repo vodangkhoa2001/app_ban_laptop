@@ -16,6 +16,7 @@ class _AccountInfoState extends State<AccountInfo> {
         appBar: AppBar(
           title: const Text('Thông tin tài khoản'),
           actions: [
+            // ignore: deprecated_member_use
             FlatButton(
                 onPressed: () {
                   Navigator.push(
@@ -34,6 +35,34 @@ class _AccountInfoState extends State<AccountInfo> {
           children: [
             Column(
               children: [
+                Container(
+                  padding: const EdgeInsets.only(top:10,bottom:10),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: const[
+                       SizedBox(
+                          child: CircleAvatar(
+                        radius: 40.0,
+                        backgroundColor: Colors.white,
+                        child: CircleAvatar(
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 12.0,
+                              child: Icon(
+                                Icons.camera_alt,
+                                size: 15.0,
+                                color: Color(0xFF404040),
+                              ),
+                            ),
+                          ),
+                          radius: 45.0,
+                          backgroundImage: AssetImage(
+                              'assets/images/avatars/avatar_user_1.jpg'),
+                        ),
+                      ))
+                    ])),
                 Card(
                   child: Column(
                     children: const [
@@ -51,7 +80,7 @@ class _AccountInfoState extends State<AccountInfo> {
                           style: TextStyle(color: Colors.black54, fontSize: 18),
                         ),
                         trailing:
-                            Text('0355501316', style: TextStyle(fontSize: 20)),
+                            Text('0329290298', style: TextStyle(fontSize: 20)),
                       ),
                       ListTile(
                         title: Text(
@@ -95,6 +124,7 @@ class _AccountInfoState extends State<AccountInfo> {
                       ),
                       ButtonBar(
                         children: [
+                          // ignore: deprecated_member_use
                           FlatButton(
                               onPressed: () {},
                               child: const Text('Sửa',

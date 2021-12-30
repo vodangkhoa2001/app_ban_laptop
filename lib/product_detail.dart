@@ -1,5 +1,7 @@
-// ignore: file_names
-import 'package:ban_laptop/routes/shopping/category_screen.dart';
+
+// import 'package:ban_laptop/routes/shopping/category_screen.dart';
+import 'package:ban_laptop/main.dart';
+import 'package:ban_laptop/shopping.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -18,25 +20,25 @@ class _DetailsState extends State<Details> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Chi tiết sản phẩm'),
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            // ignore: deprecated_member_use
-            child: FlatButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.rightToLeftWithFade,
-                    child: const Category(),
-                  ),
-                );
-              },
-              child: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          // leading: Padding(
+          //   padding: const EdgeInsets.only(left: 20),
+          //   // ignore: deprecated_member_use
+          //   child: FlatButton(
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         PageTransition(
+          //           type: PageTransitionType.rightToLeftWithFade,
+          //           child: const HomePage(),
+          //         ),
+          //       );
+          //     },
+          //     child: const Icon(
+          //       Icons.arrow_back_ios,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          // ),
           bottom: const TabBar(
             tabs: [
               Tab(

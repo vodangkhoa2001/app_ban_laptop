@@ -1,4 +1,5 @@
-import 'dart:html';
+// ignore_for_file: avoid_print
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -41,11 +42,13 @@ class _ShoppingBagState extends State<ShoppingBag> {
         automaticallyImplyLeading: false,
         title: const Text('Giỏ hàng'),
         //elevation: 0.0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.blue,
         //backgroundColor: Colors.grey,
         leading: IconButton(
           icon: const Icon(
             Icons.keyboard_arrow_left,
-            color: Colors.white,
+            color: Colors.blue,
           ),
           onPressed: () {
             Navigator.push(
@@ -331,7 +334,6 @@ class _ShoppingBagState extends State<ShoppingBag> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),
-                        // ignore: avoid_print
                         onPressed: () => print('Chưa nhập mã'),
                         child: const Text('Áp dụng'),
                       ),

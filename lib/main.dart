@@ -6,7 +6,6 @@ import 'account.dart';
 import 'chat.dart';
 import 'home.dart';
 import 'shopping.dart';
-import 'productDetail.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,10 +17,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Shop KHK mart',
-      //home: LoadingScreen(),
-      home: ForgotPassword1(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      home: const LoadingScreen(),
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
       debugShowCheckedModeBanner: false,
     );
   }

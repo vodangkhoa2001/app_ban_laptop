@@ -21,6 +21,7 @@ class _EditAccountState extends State<EditAccount> {
           const Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
+              autofocus:true,
               decoration: InputDecoration(
                 label: Text('Họ và tên'),
                 border: OutlineInputBorder(),
