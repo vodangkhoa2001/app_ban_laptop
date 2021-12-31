@@ -1,9 +1,9 @@
 
 // import 'package:ban_laptop/routes/shopping/category_screen.dart';
-import 'package:ban_laptop/main.dart';
-import 'package:ban_laptop/shopping.dart';
+// import 'package:ban_laptop/main.dart';
+// import 'package:ban_laptop/shopping.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+// import 'package:page_transition/page_transition.dart';
 
 class Details extends StatefulWidget {
   const Details({Key? key}) : super(key: key);

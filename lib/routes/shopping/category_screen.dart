@@ -70,8 +70,8 @@ class _CategoryState extends State<Category> {
                   //Text(i),
                   Expanded(
                       child: Container(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: GridView.builder(
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      child: GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,

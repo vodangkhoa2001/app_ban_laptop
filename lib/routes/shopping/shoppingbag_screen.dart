@@ -1,6 +1,7 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, sized_box_for_whitespace
 // import 'dart:html';
-
+import 'package:page_transition/page_transition.dart';
+import 'package:ban_laptop/thanhtoandathang/payment.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingBag extends StatefulWidget {
@@ -115,7 +116,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
                         SizedBox(
                           width: 150,
                           child: Text(
-                            "32.000.000 đ",
+                            "21.000.000 đ",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, color: Colors.red),
                           ),
@@ -223,7 +224,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
                         SizedBox(
                           width: 150,
                           child: Text(
-                            "64.990.000 đ",
+                            "31.990.000 đ",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, color: Colors.red),
                           ),
@@ -308,11 +309,11 @@ class _ShoppingBagState extends State<ShoppingBag> {
                       child: TextField(
                         decoration: InputDecoration(
                           contentPadding:
-                              const EdgeInsets.symmetric(vertical: 0),
+                              const EdgeInsets.only(left:15),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-                          hintText: '  Nhập mã giảm giá',
+                          hintText: 'Nhập mã giảm giá',
                         ),
                       ),
                     ),
@@ -321,8 +322,8 @@ class _ShoppingBagState extends State<ShoppingBag> {
                         style: ElevatedButton.styleFrom(
                           fixedSize: const Size(90, 48),
                           primary: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10))),
                         ),
                         onPressed: () => print('Chưa nhập mã'),
                         child: const Text('Áp dụng'),
@@ -341,7 +342,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
                       ),
                     ),
                     Text(
-                      "18.000.000 đ",
+                      "52.990.000 đ",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -360,7 +361,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
                       ),
                     ),
                     Text(
-                      "18.000.000 đ",
+                      "52.990.000 đ",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -373,250 +374,24 @@ class _ShoppingBagState extends State<ShoppingBag> {
             ),
           ),
           const SizedBox(
-            height: 5,
+            height: 15,
           ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            width: 200,
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.bottomLeft,
-                  child: const Text(
-                    "THÔNG TIN NHẬN HÀNG",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, bottom: 5),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.symmetric(vertical: 0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            hintText: '  Họ tên người nhận hàng',
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, bottom: 5),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            contentPadding:
-                                const EdgeInsets.symmetric(vertical: 0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            hintText: '  Số điện thoại',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    Text(
-                      "Giao hàng tận nơi",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
-                    ),
-                    Text(
-                      "Nhận tại cửa hàng",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
-                    ),
-                    // ListTile(
-                    //   leading: Radio<String>(
-                    //     value: 'Giao hàng tận nơi',
-                    //     groupValue: _khuVuc,
-                    //     onChanged: (String? value) {
-                    //       setState(() {
-                    //         _khuVuc = value;
-                    //       });
-                    //     },
-                    //   ),
-                    //   title: const Text('Giao hàng tận nơi'),
-                    // ),
-                    // ListTile(
-                    //   title: const Text('Nhận tại cửa hàng'),
-                    //   leading: Radio<String>(
-                    //     value: 'Nhận tại cửa hàng',
-                    //     groupValue: _khuVuc,
-                    //     onChanged: (String? value) {
-                    //       setState(
-                    //         () {
-                    //           _khuVuc = value;
-                    //         },
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  color: Colors.grey[200],
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          DropdownButton(
-                            icon: const Icon(Icons.arrow_drop_down_circle),
-                            items: listDrop,
-                            hint: const Text("Chọn Tỉnh/Thành phố"),
-                            onChanged: (value) => print('Bạn chọn: $value'),
-                          ),
-                          DropdownButton(
-                            items: listDrop,
-                            icon: const Icon(Icons.arrow_drop_down_circle),
-                            hint: const Text("    Chọn Quận/Huyện  "),
-                            onChanged: (value) => print('Bạn chọn: $value'),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          DropdownButton(
-                            items: listDrop,
-                            icon: const Icon(Icons.arrow_drop_down_circle),
-                            hint: const Text("     Chọn Phường/Xã  "),
-                            onChanged: (value) => print('Bạn chọn: $value'),
-                          ),
-                          Container(
-                            width: 170,
-                            height: 30,
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                // contentPadding: const EdgeInsets.all(0),
-                                // border: OutlineInputBorder(
-                                //   borderRadius: BorderRadius.circular(10.0),
-                                // ),
-                                hintText: '   Địa chỉ',
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: TextField(
-                    maxLines: 3,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      hintText: 'Ghi chú đơn hàng (Nếu có)',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            width: 200,
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.bottomLeft,
-                  child: const Text(
-                    "PHƯƠNG THỨC THANH TOÁN",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Radio<String>(
-                    value: 'Thanh toán khi nhận hàng',
-                    groupValue: _khuVuc,
-                    onChanged: (String? value) {
-                      setState(() {
-                        _khuVuc = value;
-                      });
-                    },
-                  ),
-                  title: const Text(
-                      'Thanh toán khi nhận hàng (Bạn sẽ thanh toán tiền mặt khi nhận hàng)'),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            width: 200,
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.bottomLeft,
-                  child: const Text(
-                    "Bằng cách đặt mua, bạn đồng ý với Điều khoản sử dụng và Chính sách bảo mật thông tin cá nhân của KHKmart.com.vn",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  child: Divider(
-                    thickness: 1,
-                    color: Colors.black,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      "Thành tiền",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      "18.000.000 đ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          
         ],
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 3),
+          padding: const EdgeInsets.only(bottom: 0),
           child: MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeftWithFade,
+                    child: const Payment(),
+                  ),
+                );
+            },
             color: Colors.blue,
             height: 50,
             minWidth: 100,
