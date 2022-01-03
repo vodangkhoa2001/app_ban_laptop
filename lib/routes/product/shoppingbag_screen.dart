@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print, sized_box_for_whitespace
 // import 'dart:html';
 import 'package:page_transition/page_transition.dart';
-import 'package:ban_laptop/thanhtoandathang/payment.dart';
+import 'package:ban_laptop/routes/product/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'category_screen.dart';

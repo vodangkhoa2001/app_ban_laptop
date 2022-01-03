@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../product_detail.dart';
+import 'product_detail.dart';
 //product
 // import 'package:ban_laptop/model/product/product.dart';
 

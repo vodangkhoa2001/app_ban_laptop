@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:page_transition/page_transition.dart';
 //routes 
-import 'routes/account/account_infomation.dart';
-import 'routes/account/contact.dart';
-import 'routes/account/password_setting.dart';
-import 'routes/account/terms_and_condition.dart';
-import 'routes/account/membership_benefits.dart';
-import 'routes/account/frequently_asked_question.dart';
-import 'routes/account/order.dart';
+import 'package:ban_laptop/routes/account/account_infomation.dart';
+import 'package:ban_laptop/routes/account/contact.dart';
+import 'package:ban_laptop/routes/account/password_setting.dart';
+// import 'package:ban_laptop/routes/account/terms_and_condition.dart';
+import 'package:ban_laptop/routes/account/membership_benefits.dart';
+import 'package:ban_laptop/routes/account/frequently_asked_question.dart';
+import 'package:ban_laptop/routes/account/order.dart';
 
 
 class Account extends StatefulWidget {

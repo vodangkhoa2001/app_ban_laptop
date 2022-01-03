@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 //screens
-import 'routes/shopping/category_screen.dart';
-import 'routes/shopping/discount_screen.dart';
-import 'routes/shopping/shoppingbag_screen.dart';
+import 'package:ban_laptop/routes/product/category_screen.dart';
+import 'package:ban_laptop/routes/product/discount_screen.dart';
+import 'package:ban_laptop/routes/product/shoppingbag_screen.dart';
 
 class Shopping extends StatefulWidget {
   const Shopping({Key? key}) : super(key: key);
