@@ -1,11 +1,11 @@
 import 'dart:async';
+// import 'package:ban_laptop/routes/login_signup/forgot_password_1.dart';
 // import 'package:ban_laptop/routes/shopping/shoppingbag_screen.dart';
 import 'routes/login_signup/login_signup.dart';
 import 'account.dart';
 import 'chat.dart';
 import 'home.dart';
 import 'shopping.dart';
-// import 'product_detail.dart';
 import 'package:flutter/material.dart';
 
 void main() {
