@@ -396,16 +396,145 @@ class _DetailsState extends State<Details> {
                       ),
                       const SizedBox(height: 10),
                       Container(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: TextField(
-                          maxLines: 5,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            hintText: 'Nội dung đánh giá',
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1.0,
+                            color: Colors.blue,
                           ),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
                         ),
+                        //color: Colors.blue[300],
+                        padding: const EdgeInsets.only(
+                            bottom: 20, left: 10, right: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: const Text(
+                                'Tất cả bình luận',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.blue[100],
+                              ),
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.account_circle,
+                                    color: Colors.grey,
+                                    size: 40,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: const Text(
+                                                  'Trần Hiếu Khoa',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: const Text('5 phút'),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 110),
+                                            child: Row(
+                                              children: const [
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 20.0,
+                                                ),
+                                                Icon(
+                                                  Icons.star_border,
+                                                  color: Colors.yellow,
+                                                  size: 20.0,
+                                                ),
+                                                Icon(
+                                                  Icons.star_border,
+                                                  color: Colors.yellow,
+                                                  size: 20.0,
+                                                ),
+                                                Icon(
+                                                  Icons.star_border,
+                                                  color: Colors.yellow,
+                                                  size: 20.0,
+                                                ),
+                                                Icon(
+                                                  Icons.star_border,
+                                                  color: Colors.yellow,
+                                                  size: 20.0,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                right: 190),
+                                            child: const Text(
+                                                'Sản phẩm quá tệ :(( '),
+                                          ),
+                                          Column(
+                                            children: const [
+                                              Icon(
+                                                Icons.reply,
+                                                color: Colors.blue,
+                                                size: 20.0,
+                                              ),
+                                              Text(
+                                                'Trả lời',
+                                                style: TextStyle(fontSize: 10),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        // padding: const EdgeInsets.only(top: 10),
+                        // child: TextField(
+                        //   maxLines: 5,
+                        //   decoration: InputDecoration(
+                        //     border: OutlineInputBorder(
+                        //       borderRadius: BorderRadius.circular(10.0),
+                        //     ),
+                        //     hintText: 'Nội dung đánh giá',
+                        //   ),
+                        // ),
                       ),
                       const SizedBox(height: 10),
                       Row(
