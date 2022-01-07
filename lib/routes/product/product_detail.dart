@@ -301,12 +301,14 @@ class _DetailsState extends State<Details> {
                         ),
                       ),
                       Row(
+                        //Do chạy trên chorm khác vs máy ảo nên sài như vậy cho chắc
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
                             alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.all(10),
                             height: 50,
-                            width: 234,
+                            //width: 234,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.blue,
@@ -337,9 +339,9 @@ class _DetailsState extends State<Details> {
                           const SizedBox(width: 2),
                           Container(
                             alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.all(5),
                             height: 50,
-                            width: 234,
+                            //width: 234,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.blue,
@@ -367,27 +369,27 @@ class _DetailsState extends State<Details> {
                                 Icon(
                                   Icons.star,
                                   color: Colors.yellow,
-                                  size: 30.0,
+                                  size: 28.0,
                                 ),
                                 Icon(
                                   Icons.star_border,
                                   color: Colors.yellow,
-                                  size: 30.0,
+                                  size: 28.0,
                                 ),
                                 Icon(
                                   Icons.star_border,
                                   color: Colors.yellow,
-                                  size: 30.0,
+                                  size: 28.0,
                                 ),
                                 Icon(
                                   Icons.star_border,
                                   color: Colors.yellow,
-                                  size: 30.0,
+                                  size: 28.0,
                                 ),
                                 Icon(
                                   Icons.star_border,
                                   color: Colors.yellow,
-                                  size: 30.0,
+                                  size: 28.0,
                                 ),
                               ],
                             ),
@@ -408,7 +410,7 @@ class _DetailsState extends State<Details> {
                         padding: const EdgeInsets.only(
                             bottom: 20, left: 10, right: 10),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
                               alignment: Alignment.centerLeft,
@@ -424,6 +426,7 @@ class _DetailsState extends State<Details> {
                               ),
                               padding: const EdgeInsets.all(5),
                               child: Row(
+                                //mainAxisAlignment: MainAxisAlignment.left,
                                 children: [
                                   const Icon(
                                     Icons.account_circle,
@@ -431,14 +434,16 @@ class _DetailsState extends State<Details> {
                                     size: 40,
                                   ),
                                   Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    // mainAxisAlignment:
+                                    //     MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
                                             children: [
                                               Container(
                                                 padding: const EdgeInsets.only(
@@ -459,8 +464,8 @@ class _DetailsState extends State<Details> {
                                             ],
                                           ),
                                           Container(
-                                            padding: const EdgeInsets.only(
-                                                left: 110),
+                                            padding:
+                                                const EdgeInsets.only(left: 20),
                                             child: Row(
                                               children: const [
                                                 Icon(
@@ -495,11 +500,11 @@ class _DetailsState extends State<Details> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             padding: const EdgeInsets.only(
-                                                right: 190),
+                                                right: 110),
                                             child: const Text(
                                                 'Sản phẩm quá tệ :(( '),
                                           ),
@@ -617,13 +622,17 @@ class _DetailsState extends State<Details> {
         ),
         bottomNavigationBar: BottomAppBar(
           child: Container(
-            padding: const EdgeInsets.all(5),
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            height: 52,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.blue[100],
+            ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: 100,
-                  height: 50,
+                  width: 20,
                   child: MaterialButton(
                     onPressed: () {},
                     shape: RoundedRectangleBorder(
@@ -637,18 +646,17 @@ class _DetailsState extends State<Details> {
                   ),
                 ),
                 Container(
-                  width: 200,
                   height: 50,
+                  width: 200,
+                  padding: const EdgeInsets.only(left: 30),
                   child: MaterialButton(
                     onPressed: () {},
                     color: Colors.blue,
-                    //height: 50,
-                    //minWidth: 100,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     child: const Text(
-                      "Thêm vào giỏ hàng",
+                      "Thêm vào giỏ",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -659,7 +667,6 @@ class _DetailsState extends State<Details> {
                 ),
                 SizedBox(
                   height: 50,
-                  width: 150,
                   child: MaterialButton(
                     onPressed: () {},
                     color: Colors.red[300],
@@ -673,7 +680,7 @@ class _DetailsState extends State<Details> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: 23,
                       ),
                     ),
                   ),
