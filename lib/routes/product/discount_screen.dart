@@ -14,6 +14,8 @@ class _DiscountState extends State<Discount> {
       appBar:AppBar(
         centerTitle: true,
         title: const Text('Khuyến mãi'),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.blue,
         automaticallyImplyLeading: false,
       ),
         

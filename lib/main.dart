@@ -1,10 +1,17 @@
 import 'dart:async';
-
+// import 'package:ban_laptop/routes/login_signup/forgot_password_1.dart';
+// import 'package:ban_laptop/routes/shopping/shoppingbag_screen.dart';
+<<<<<<< HEAD
+import 'package:ban_laptop/routes/login_signup/login_signup.dart';
+=======
+//import 'package:ban_laptop/screens/login_signup/login_signup.dart';
 import 'routes/login_signup/login_signup.dart';
-import 'account.dart';
-import 'chat.dart';
-import 'home.dart';
-import 'shopping.dart';
+import 'routes/product/product_detail.dart';
+>>>>>>> aeda68f31015bfe82c788d7aa42697ffce31efbf
+import 'screens/account.dart';
+import 'screens/chat.dart';
+import 'screens/home.dart';
+import 'screens/shopping.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,11 +23,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: LoadingScreen(),
+      // home: const LoadingScreen(),
+      home: const Details(),
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
       debugShowCheckedModeBanner: false,
-      
     );
   }
 }
@@ -37,8 +45,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => const Login_SignUp()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const Login_SignUp()));
     });
   }
 
@@ -89,123 +97,119 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: PageStorage(
-          child: currentScreen,
-          bucket: bucket,
-        ),
-        bottomNavigationBar: BottomAppBar(
-            child: SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //trang chủ
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = const Dashboard();
-                        currentTab = 0;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.house,
-                          color: currentTab == 0 ? primaryColor : Colors.grey,
-                        ),
-                        Text(
-                          'Trang chủ',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 0 ? primaryColor : Colors.grey),
-                        )
-                      ],
-                    ),
+      body: PageStorage(
+        child: currentScreen,
+        bucket: bucket,
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: SizedBox(
+            height: 60,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                //trang chủ
+                MaterialButton(
+                  minWidth: 40,
+                  onPressed: () {
+                    setState(() {
+                      currentScreen = const Dashboard();
+                      currentTab = 0;
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.house,
+                        color: currentTab == 0 ? primaryColor : Colors.grey,
+                      ),
+                      Text(
+                        'Trang chủ',
+                        style: TextStyle(
+                            color:
+                                currentTab == 0 ? primaryColor : Colors.grey),
+                      )
+                    ],
                   ),
-                  //mua hàng
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = const Shopping();
-                        currentTab = 1;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.shopping_cart,
-                          color: currentTab == 1 ? primaryColor : Colors.grey,
-                        ),
-                        Text(
-                          'Mua Hàng',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 1 ? primaryColor : Colors.grey),
-                        ),
-                      ],
-                    ),
+                ),
+                //mua hàng
+                MaterialButton(
+                  minWidth: 40,
+                  onPressed: () {
+                    setState(() {
+                      currentScreen = const Shopping();
+                      currentTab = 1;
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart,
+                        color: currentTab == 1 ? primaryColor : Colors.grey,
+                      ),
+                      Text(
+                        'Mua Hàng',
+                        style: TextStyle(
+                            color:
+                                currentTab == 1 ? primaryColor : Colors.grey),
+                      ),
+                    ],
                   ),
-                  //tư vấn
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = const Chat();
-                        currentTab = 2;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.chat_sharp,
-                          color: currentTab == 2 ? primaryColor : Colors.grey,
-                        ),
-                        Text(
-                          'Tư vấn',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 2 ? primaryColor : Colors.grey),
-                        )
-                      ],
-                    ),
+                ),
+                //tư vấn
+                MaterialButton(
+                  minWidth: 40,
+                  onPressed: () {
+                    setState(() {
+                      currentScreen = const Chat();
+                      currentTab = 2;
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.chat_sharp,
+                        color: currentTab == 2 ? primaryColor : Colors.grey,
+                      ),
+                      Text(
+                        'Tư vấn',
+                        style: TextStyle(
+                            color:
+                                currentTab == 2 ? primaryColor : Colors.grey),
+                      )
+                    ],
                   ),
-                  //tài khoản
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = const Account();
-                        currentTab = 3;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.person,
-                          color: currentTab == 3 ? primaryColor : Colors.grey,
-                        ),
-                        Text(
-                          'Tài khoản',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 3 ? primaryColor : Colors.grey),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        )));
+                ),
+                //tài khoản
+                MaterialButton(
+                  minWidth: 40,
+                  onPressed: () {
+                    setState(() {
+                      currentScreen = const Account();
+                      currentTab = 3;
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.person,
+                        color: currentTab == 3 ? primaryColor : Colors.grey,
+                      ),
+                      Text(
+                        'Tài khoản',
+                        style: TextStyle(
+                            color:
+                                currentTab == 3 ? primaryColor : Colors.grey),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )),
+      ),
+    );
   }
 }
