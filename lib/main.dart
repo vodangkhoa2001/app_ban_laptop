@@ -1,7 +1,7 @@
 import 'dart:async';
 // import 'package:ban_laptop/routes/login_signup/forgot_password_1.dart';
 // import 'package:ban_laptop/routes/shopping/shoppingbag_screen.dart';
-import 'package:ban_laptop/screens/login_signup/login_signup.dart';
+import 'package:ban_laptop/routes/login_signup/login_signup.dart';
 import 'screens/account.dart';
 import 'screens/chat.dart';
 import 'screens/home.dart';

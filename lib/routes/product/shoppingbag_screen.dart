@@ -3,7 +3,6 @@
 import 'package:page_transition/page_transition.dart';
 import 'package:ban_laptop/routes/product/payment.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'category_screen.dart';
 
 class ShoppingBag extends StatefulWidget {
@@ -18,7 +17,7 @@ class ShoppingBag extends StatefulWidget {
 class _ShoppingBagState extends State<ShoppingBag> {
   List<DropdownMenuItem<int>> listDrop = [];
   //late KhuVuc? _khuVuc = KhuVuc.TaiNha;
-  String? _khuVuc;
+  // String? _khuVuc;
 
   void loadData() {
     listDrop.add(
