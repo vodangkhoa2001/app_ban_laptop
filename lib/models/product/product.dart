@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Product {
+class ProductDemo {
   late final String name;
   late final List<String> images;
   late final List<Color> colors;
   late final double prices, rate;
 
-  Product({
+  ProductDemo({
     required this.images,
     required this.colors,
     required this.name,
@@ -15,8 +15,8 @@ class Product {
   });
 }
 
-List<Product> demoProducts = [
-  Product(
+List<ProductDemo> demoProducts = [
+  ProductDemo(
     images: [
       "assets/images/products/macOs.jpg",
       "assets/images/products/asus.jpg",
@@ -28,7 +28,7 @@ List<Product> demoProducts = [
     prices: 59000000,
     rate: 2.0,
   ),
-  Product(
+  ProductDemo(
     images: [
       "assets/images/products/asus.jpg",
       "assets/images/products/macOs.jpg",
@@ -40,7 +40,7 @@ List<Product> demoProducts = [
     prices: 60000000,
     rate: 5.0,
   ),
-  Product(
+  ProductDemo(
     images: [
       "assets/images/products/macOs.jpg",
     ],

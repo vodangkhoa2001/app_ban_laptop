@@ -1,13 +1,13 @@
 import 'dart:async';
 // import 'package:ban_laptop/routes/login_signup/forgot_password_1.dart';
 // import 'package:ban_laptop/routes/shopping/shoppingbag_screen.dart';
-<<<<<<< HEAD
 import 'package:ban_laptop/routes/login_signup/login_signup.dart';
-=======
+import 'package:ban_laptop/routes/product/provider/product_provider.dart';
+import 'package:provider/provider.dart';
 //import 'package:ban_laptop/screens/login_signup/login_signup.dart';
 import 'routes/login_signup/login_signup.dart';
-import 'routes/product/product_detail.dart';
->>>>>>> aeda68f31015bfe82c788d7aa42697ffce31efbf
+//import 'routes/product/product_detail.dart';
+
 import 'screens/account.dart';
 import 'screens/chat.dart';
 import 'screens/home.dart';
@@ -23,12 +23,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      // home: const LoadingScreen(),
-      home: const Details(),
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
-      debugShowCheckedModeBanner: false,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ProductProvider>(
+            create: (_) => ProductProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        //home: const LoadingScreen(),
+        home: const Dashboard(),
+        theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

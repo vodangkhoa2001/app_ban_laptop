@@ -12,7 +12,7 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  late final Product product;
+  // late final ProductDemo product;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
