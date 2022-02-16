@@ -18,13 +18,13 @@ class _SignUpState extends State<SignUp> {
   bool? isChecked = false; // kiem tra dieu kien
   bool _passwordVisible = false;
   bool _passwordVisible1 = false;
-  TextEditingController lastName = TextEditingController(); //ho
-  TextEditingController firstName = TextEditingController(); //ten
+  TextEditingController ho = TextEditingController(); 
+  TextEditingController ten = TextEditingController(); //ho
+  TextEditingController matKhau = TextEditingController(); //mat khau
+  TextEditingController tenDangNhap = TextEditingController(); //ten
   TextEditingController email = TextEditingController(); //email
-  TextEditingController phone = TextEditingController();
-  TextEditingController password = TextEditingController(); //mat khau
-  TextEditingController re_password =
-      TextEditingController(); //lap lai mat khau
+  TextEditingController sdt = TextEditingController();
+  TextEditingController xn_matKhau = TextEditingController(); //lap lai mat khau
   TextEditingController city = TextEditingController(); //thanh pho
   TextEditingController district = TextEditingController(); //huyen
   TextEditingController commune = TextEditingController(); //xa
@@ -63,15 +63,14 @@ class _SignUpState extends State<SignUp> {
 
   _signUp() async {
     var data = {
-      'lastName': lastName.text,
-      'firstName': firstName.text,
+      'HoTen': ho.text+' '+ten.text,
+      'TenDangNhap': tenDangNhap.text,
       'email': email.text,
-      'phone': phone.text,
-      'password': password.text,
-      'city': city.text,
-      'district': district.text,
-      'commune': commune.text,
-      'address': address.text
+      'SDT': sdt.text,
+      'MatKhau': matKhau.text,
+      'DiaChi':address.text+', '+commune.text+ ', ' + district.text+','+city.text,
+      
+       
     };
     var res = await CallApi().postData(data, 'account/sign-up');
     var body = json.decode(res.body);
@@ -101,14 +100,27 @@ class _SignUpState extends State<SignUp> {
                   const SizedBox(
                     height: 10,
                   ),
+                  TextField(
+                    controller: tenDangNhap,
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(),
+                      labelText: "Tên đăng nhập",
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Column(
                     children: [
                       Row(
                         children: [
+                          
                           Expanded(
                             //họ
                             child: TextField(
-                              controller: lastName,
+                              controller: ho,
                               decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -124,7 +136,7 @@ class _SignUpState extends State<SignUp> {
                           Expanded(
                             
                             child: TextField(
-                              controller: firstName,
+                              controller: ten,
                               decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -155,7 +167,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   //phone
                   TextField(
-                    controller: phone,
+                    controller: sdt,
                     decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -172,7 +184,7 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       Expanded(
                         child: TextField(
-                          controller: password,
+                          controller: matKhau,
                           obscureText: _passwordVisible,
                           decoration: InputDecoration(
                             filled: true,
@@ -201,7 +213,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       Expanded(
                         child: TextField(
-                          controller: re_password,
+                          controller: xn_matKhau,
                           obscureText: _passwordVisible1,
                           decoration: InputDecoration(
                             filled: true,

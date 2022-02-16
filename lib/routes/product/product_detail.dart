@@ -1,8 +1,10 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:ban_laptop/models/product/product.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'category_screen.dart';
+import 'package:ban_laptop/screens/shopping.dart';
 
 class Details extends StatefulWidget {
   const Details({Key? key}) : super(key: key);
@@ -25,13 +27,7 @@ class _DetailsState extends State<Details> {
             // ignore: deprecated_member_use
             child: FlatButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.rightToLeftWithFade,
-                    child: const Category(),
-                  ),
-                );
+                Navigator.pop(context);
               },
               child: const Icon(
                 Icons.arrow_back_ios,
@@ -123,13 +119,13 @@ class _DetailsState extends State<Details> {
                         height: 70,
                         width: 700,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          // borderRadius: BorderRadius.circular(10),
                           color: Colors.blue,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(1),
+                              color: Colors.black.withOpacity(0.25),
                               spreadRadius: 1, //Bán kính lan rộng
-                              blurRadius: 5, //Làm mờ bán kính
+                              blurRadius: 4, //Làm mờ bán kính
                               offset: const Offset(
                                   0, 5), // changes position of shadow
                             ),
@@ -144,8 +140,8 @@ class _DetailsState extends State<Details> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                                 decoration: TextDecoration.lineThrough,
-                                decorationColor: Colors.black,
-                                color: Colors.red,
+                                decorationColor: Colors.white,
+                                color: Colors.white,
                                 decorationStyle: TextDecorationStyle.solid,
                               ),
                             ),
@@ -154,7 +150,7 @@ class _DetailsState extends State<Details> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
-                                color: Colors.red,
+                                color: Colors.white,
                               ),
                             ),
                           ],
@@ -169,13 +165,13 @@ class _DetailsState extends State<Details> {
                         height: 50,
                         width: 700,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          // borderRadius: BorderRadius.circular(10),
                           color: Colors.blue,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(1),
+                              color: Colors.black.withOpacity(0.25),
                               spreadRadius: 1, //Bán kính lan rộng
-                              blurRadius: 5, //Làm mờ bán kính
+                              blurRadius: 4, //Làm mờ bán kính
                               offset: const Offset(
                                   0, 5), // changes position of shadow
                             ),
@@ -217,13 +213,13 @@ class _DetailsState extends State<Details> {
                         height: 50,
                         width: 700,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          // borderRadius: BorderRadius.circular(10),
                           color: Colors.blue,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(1),
+                              color: Colors.black.withOpacity(0.25),
                               spreadRadius: 1, //Bán kính lan rộng
-                              blurRadius: 5, //Làm mờ bán kính
+                              blurRadius: 4, //Làm mờ bán kính
                               offset: const Offset(
                                   0, 5), // changes position of shadow
                             ),
@@ -300,103 +296,75 @@ class _DetailsState extends State<Details> {
                           ],
                         ),
                       ),
-                      Row(
-                        //Do chạy trên chorm khác vs máy ảo nên sài như vậy cho chắc
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
+                      
                           Container(
                             alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                             height: 50,
                             //width: 234,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              // borderRadius: BorderRadius.circular(10),
                               color: Colors.blue,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(1),
+                                  color: Colors.black.withOpacity(0.25),
                                   spreadRadius: 1, //Bán kính lan rộng
-                                  blurRadius: 5, //Làm mờ bán kính
-                                  offset: const Offset(
-                                      0, 5), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Text(
-                                  "Đánh giá sản phẩm",
-                                  style: TextStyle(
-                                    //fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 2),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.all(5),
-                            height: 50,
-                            //width: 234,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.blue,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(1),
-                                  spreadRadius: 1, //Bán kính lan rộng
-                                  blurRadius: 5, //Làm mờ bán kính
+                                  blurRadius: 4, //Làm mờ bán kính
                                   offset: const Offset(
                                       0, 5), // changes position of shadow
                                 ),
                               ],
                             ),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Text(
-                                  "1",
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children:  [
+                                const Text(
+                                  "Đánh giá sản phẩm",
                                   style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 30,
+                                    //fontWeight: FontWeight.bold,
+                                    fontSize: 16,
                                     color: Colors.white,
                                   ),
                                 ),
-                                Icon(
+                                
+                                // const VerticalDivider(
+                                //   color: Colors.white,
+                                //   thickness: 2,
+                                // ),
+                                Row(
+                                  children: const [
+                                    Icon(
                                   Icons.star,
-                                  color: Colors.yellow,
+                                  color: Colors.white,
                                   size: 28.0,
                                 ),
                                 Icon(
                                   Icons.star_border,
-                                  color: Colors.yellow,
+                                  color: Colors.white,
                                   size: 28.0,
                                 ),
                                 Icon(
                                   Icons.star_border,
-                                  color: Colors.yellow,
+                                  color: Colors.white,
                                   size: 28.0,
                                 ),
                                 Icon(
                                   Icons.star_border,
-                                  color: Colors.yellow,
+                                  color: Colors.white,
                                   size: 28.0,
                                 ),
                                 Icon(
                                   Icons.star_border,
-                                  color: Colors.yellow,
+                                  color: Colors.white,
                                   size: 28.0,
                                 ),
+                                  ],
+                                )
+                              
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
