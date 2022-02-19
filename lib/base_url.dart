@@ -1,5 +1,6 @@
 const baseUrl = 'http://localhost:8000/api/';
 const imgUrl = 'http://10.0.2.2/product/images/';
+const imgUserUrl = 'http://localhost:8000/user/images/'; 
 
 //----------Product
 const productUrl = baseUrl + 'products/all';
