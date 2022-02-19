@@ -1,15 +1,29 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:ban_laptop/models/account/account.dart';
+import 'package:ban_laptop/routes/product/provider/account_provider.dart';
+import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'edit_account.dart';
 
 class AccountInfo extends StatefulWidget {
-  const AccountInfo({Key? key}) : super(key: key);
+  UserAccount account;
+  AccountInfo({Key? key, required this.account}) : super(key: key);
 
   @override
-  _AccountInfoState createState() => _AccountInfoState();
+  _AccountInfoState createState() => _AccountInfoState(account);
 }
 
 class _AccountInfoState extends State<AccountInfo> {
+  final UserAccount account;
+  _AccountInfoState(this.account);
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +37,7 @@ class _AccountInfoState extends State<AccountInfo> {
                       context,
                       PageTransition(
                           type: PageTransitionType.rightToLeftWithFade,
-                          child: const EditAccount()));
+                          child: EditAccount(account: account,)));
                 },
                 child: const Text(
                   'Sửa',
@@ -36,42 +50,40 @@ class _AccountInfoState extends State<AccountInfo> {
             Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top:10,bottom:10),
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: const[
-                       SizedBox(
-                          child: CircleAvatar(
-                        radius: 40.0,
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          child: Align(
-                            alignment: Alignment.bottomRight,
+                        children: [
+                          SizedBox(
+                              child: CircleAvatar(
+                            radius: 40.0,
+                            backgroundColor: Colors.white,
                             child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 12.0,
-                              child: Icon(
-                                Icons.camera_alt,
-                                size: 15.0,
-                                color: Color(0xFF404040),
-                              ),
-                            ),
-                          ),
-                          radius: 45.0,
-                          backgroundImage: AssetImage(
-                              'assets/images/avatars/avatar_user_1.jpg'),
-                        ),
-                      ))
-                    ])),
+                                child: const Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 12.0,
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      size: 15.0,
+                                      color: Color(0xFF404040),
+                                    ),
+                                  ),
+                                ),
+                                radius: 45.0,
+                                backgroundImage: NetworkImage(account.avatar)),
+                          ))
+                        ])),
                 Card(
                   child: Column(
-                    children: const [
+                    children: [
                       ListTile(
                         title: Text(
                           'Họ và tên',
                           style: TextStyle(color: Colors.black54, fontSize: 18),
                         ),
-                        trailing: Text('Trần Hiếu Khoa',
+                        trailing: Text(account.fullName,
                             style: TextStyle(fontSize: 20)),
                       ),
                       ListTile(
@@ -79,30 +91,22 @@ class _AccountInfoState extends State<AccountInfo> {
                           'Số điện thoại',
                           style: TextStyle(color: Colors.black54, fontSize: 18),
                         ),
-                        trailing:
-                            Text('0329290298', style: TextStyle(fontSize: 20)),
+                        trailing: Text(account.phone,
+                            style: TextStyle(fontSize: 20)),
                       ),
-                      ListTile(
-                        title: Text(
-                          'Ngày sinh',
-                          style: TextStyle(color: Colors.black54, fontSize: 18),
-                        ),
-                        trailing:
-                            Text('06/10/2001', style: TextStyle(fontSize: 20)),
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Giới tính',
-                          style: TextStyle(color: Colors.black54, fontSize: 18),
-                        ),
-                        trailing: Text('Nam', style: TextStyle(fontSize: 20)),
-                      ),
+                      // ListTile(
+                      //   title: Text(
+                      //     'Giới tính',
+                      //     style: TextStyle(color: Colors.black54, fontSize: 18),
+                      //   ),
+                      //   trailing: Text('Nam', style: TextStyle(fontSize: 20)),
+                      // ),
                       ListTile(
                         title: Text(
                           'Email',
                           style: TextStyle(color: Colors.black54, fontSize: 18),
                         ),
-                        trailing: Text('hiukhoa@gmail.com',
+                        trailing: Text(account.email,
                             style: TextStyle(fontSize: 20)),
                       )
                     ],
@@ -117,9 +121,8 @@ class _AccountInfoState extends State<AccountInfo> {
                           style: TextStyle(color: Colors.black54, fontSize: 18),
                         ),
                       ),
-                      const ListTile(
-                        title: Text(
-                            'ấp Gò Nổi, xã Ninh Điền Huyện Châu Thành Tỉnh Tây Ninh',
+                      ListTile(
+                        title: Text(account.address,
                             style: TextStyle(fontSize: 15)),
                       ),
                       ButtonBar(

@@ -29,19 +29,6 @@ class _CategoryState extends State<Category> {
   TextEditingController search = new TextEditingController();
   int currentTab = 0;
   var products = <ProductInfo>[];
-  @override
-  void initState() {
-    _getProduct();
-    super.initState();
-  }
-
-  _getProduct() {
-    CallApi().getProductData('san-pham/danh-sach').then((response) {
-      Iterable list = json.decode(response.body);
-      products = list.map((model) => ProductInfo.fromJson(model)).toList();
-    });
-  }
-
   List<String> list = ['MacOs', 'Dell', 'Asus', 'Lenovo', 'HP', 'Acer', 'MSI'];
   List<String> lstProduct = [
     'MacOs',

@@ -9,7 +9,7 @@ Future<List<Product>> getAllProduct(context) async {
 
   try {
     final response = await http.get(
-      Uri.parse(baseUrl + '/products/all'),
+      Uri.parse(baseUrl + 'products/all'),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       },

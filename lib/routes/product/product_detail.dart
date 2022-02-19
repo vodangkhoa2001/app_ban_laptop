@@ -1,4 +1,5 @@
 import 'package:ban_laptop/models/product/product.dart';
+import 'package:ban_laptop/screens/shopping.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -25,13 +26,7 @@ class _DetailsState extends State<Details> {
             // ignore: deprecated_member_use
             child: FlatButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.rightToLeftWithFade,
-                    child: const Category(),
-                  ),
-                );
+               Navigator.pop(context);
               },
               child: const Icon(
                 Icons.arrow_back_ios,
