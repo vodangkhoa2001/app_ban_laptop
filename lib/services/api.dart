@@ -31,7 +31,7 @@ class CallApi {
       email: data['Email'],
       password: data['MatKhau'],
       fullName: data['HoTen'],
-      avatar: data['HinhAnh'],
+      avatar: imgUserUrl+data['HinhAnh'],
       phone: data['SDT'],
       address: data['DiaChi'],
       account_type: data['ID_LoaiTaiKhoan'],
