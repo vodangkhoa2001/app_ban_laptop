@@ -11,7 +11,6 @@ class Order extends StatefulWidget {
 }
 
 class _OrderState extends State<Order> {
-  late final Product product;
   var fontSize = 12.0;
   var height = 150.0;
   @override

@@ -1,15 +1,31 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:ban_laptop/models/account/account.dart';
 import 'package:flutter/material.dart';
 
 class EditAccount extends StatefulWidget {
-  const EditAccount({Key? key}) : super(key: key);
-
+  EditAccount({Key? key, required this.account}) : super(key: key);
+  UserAccount account;
   @override
-  _EditAccountState createState() => _EditAccountState();
+  _EditAccountState createState() => _EditAccountState(account);
 }
 
 class _EditAccountState extends State<EditAccount> {
-  Object? _val = 1;
+  TextEditingController txtName = TextEditingController();
+  TextEditingController txtPhone = TextEditingController();
+  TextEditingController txtEmail = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      txtName.text = account.fullName;
+      txtPhone.text = account.phone;
+      txtEmail.text = account.email;
+    });
+  } 
+  UserAccount account;
+  _EditAccountState(this.account);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,70 +34,33 @@ class _EditAccountState extends State<EditAccount> {
       ),
       body: ListView(
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
-              autofocus:true,
+              autofocus: true,
+              controller: txtName,
               decoration: InputDecoration(
                 label: Text('Họ và tên'),
                 border: OutlineInputBorder(),
               ),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
+              style: TextStyle(color: Colors.grey),
+              controller: txtPhone,
               decoration: InputDecoration(
-                label: Text('0329290298'),
+                label: Text('Số điện thoại'),
                 border: OutlineInputBorder(),
                 enabled: false,
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(15),
-            child: TextField(
-              decoration: InputDecoration(
-                label: Text('Ngày sinh'),
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
           Padding(
-            padding:const EdgeInsets.fromLTRB(15,0,15,0),
-            child: Column(
-              children: [
-                const ListTile(
-                  title: Text('Giới tính'),
-                ),
-                RadioListTile(
-                  title: const Text('Nam'),
-                  value: 1,
-                  groupValue: _val,
-                  onChanged: (value) {
-                    setState(() {
-                      _val = value;
-                    });
-                  },
-                ),
-              RadioListTile(
-                title: const Text('Nữ'),
-                value: 2,
-                groupValue: _val,
-                onChanged: (value) {
-                    setState(() {
-                    _val = value;
-                  });
-                },
-              ),
-            ],
-          ),
-                    
-              
-          ),
-          const Padding(
             padding: EdgeInsets.all(15),
             child: TextField(
+              controller: txtEmail,
               decoration: InputDecoration(
                 label: Text('Email'),
                 border: OutlineInputBorder(),

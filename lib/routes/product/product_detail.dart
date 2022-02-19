@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:ban_laptop/models/product/product.dart';
+import 'package:ban_laptop/screens/shopping.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -14,7 +15,7 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  late final Product product;
+  // late final ProductDemo product;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
