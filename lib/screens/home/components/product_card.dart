@@ -1,5 +1,5 @@
 import 'package:ban_laptop/base_url.dart';
-import 'package:ban_laptop/models/product/product1.dart';
+import 'package:ban_laptop/models/product/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +33,7 @@ class _ProductCardState extends State<ProductCard> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Image.network(imgUrl +
+                  child: Image.network(imgProductUrl +
                       '/59987_laptop_asus_expertbook_b9_b9400cea_kc0593t_den_tui_5.png'),
                 ),
               ),

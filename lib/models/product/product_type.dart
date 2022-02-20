@@ -1,33 +1,21 @@
-// ignore_for_file: non_constant_identifier_names
-
 class ProductType {
-  late String id;
-  late String TenDongSanPham;
-  late int TrangThai;
-  late String? createdAt;
-  late String? updateAt;
+  int? id;
+  String? tenDongSanPham;
+  int? trangThaiDongSanPham;
 
-  ProductType({
-    required this.id,
-    required this.TenDongSanPham,
-    required this.TrangThai,
-    this.createdAt,
-    this.updateAt,
-  });
+  ProductType({this.id, this.tenDongSanPham, this.trangThaiDongSanPham});
+
   ProductType.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    TenDongSanPham = json["TenDongSanPham"];
-    TrangThai = json["TrangThai_DongSanPham"];
-    createdAt = json["created_at"];
-    updateAt = json["updated_at"];
+    id = json['id'];
+    tenDongSanPham = json['TenDongSanPham'];
+    trangThaiDongSanPham = json['TrangThai_DongSanPham'];
   }
+
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['TenDongSanPham'] = TenDongSanPham;
-    data['TrangThaiDongSanPham'] = TrangThai;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updateAt;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['TenDongSanPham'] = this.tenDongSanPham;
+    data['TrangThai_DongSanPham'] = this.trangThaiDongSanPham;
     return data;
   }
 }

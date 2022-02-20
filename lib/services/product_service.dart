@@ -1,4 +1,4 @@
-import 'package:ban_laptop/models/product/product1.dart';
+import 'package:ban_laptop/models/product/product.dart';
 import 'package:ban_laptop/base_url.dart';
 import 'dart:convert';
 import 'dart:io';
