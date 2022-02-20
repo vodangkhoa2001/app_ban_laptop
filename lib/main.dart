@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:ban_laptop/routes/login_signup/login_signup.dart';
 import 'package:ban_laptop/routes/product/category_screen.dart';
 import 'package:ban_laptop/routes/product/provider/product_provider.dart';
+import 'package:ban_laptop/screens/loading.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 // import 'package:ban_laptop/routes/product/provider/product_provider.dart';
 // import 'package:provider/provider.dart';
@@ -17,8 +19,23 @@ import 'screens/home.dart';
 import 'screens/shopping.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  final storage = new FlutterSecureStorage();
+  String ?id = await storage.read(key: 'id');
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ProductProvider>(
+            create: (_) => ProductProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        home: id==null? LoadingScreen():LoadingScreenHome(),
+        theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
+        debugShowCheckedModeBanner: false,
+      ),
+    ),
+    );
 }
 
 class MyApp extends StatelessWidget {
@@ -49,6 +66,8 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  
+
   @override
   initState() {
     super.initState();
@@ -84,6 +103,52 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 }
 
+class LoadingScreenHome extends StatefulWidget {
+  const LoadingScreenHome({Key? key}) : super(key: key);
+
+  @override
+  _LoadingScreenHomeState createState() => _LoadingScreenHomeState();
+}
+
+class _LoadingScreenHomeState extends State<LoadingScreenHome> {
+  
+
+  @override
+  initState() {
+    super.initState();
+    Timer(const Duration(seconds: 3), () {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const HomePage()));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blue[500],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //logo
+            Image.asset(
+              'assets/images/logo.png',
+              height: 120,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -93,6 +158,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   static const primaryColor = Color(0xFF4478DE);
+
   int currentTab = 0;
   final List<Widget> screens = [
     const Dashboard(),
@@ -145,6 +211,7 @@ class _HomePageState extends State<HomePage> {
                   minWidth: 40,
                   onPressed: () {
                     setState(() {
+                      
                       currentScreen = const Shopping();
                       currentTab = 1;
                     });

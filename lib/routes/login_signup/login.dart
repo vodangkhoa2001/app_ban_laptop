@@ -1,9 +1,12 @@
 import 'package:ban_laptop/main.dart';
+import 'package:ban_laptop/screens/loading.dart';
+import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'forgot_password_1.dart';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -24,6 +27,10 @@ class _LoginState extends State<Login> {
     _passwordVisible = true;
     super.initState();
   }
+  
+// Create storage
+final storage = new FlutterSecureStorage();
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +44,7 @@ class _LoginState extends State<Login> {
               height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -56,7 +63,6 @@ class _LoginState extends State<Login> {
                         labelText: "Nhập Email/Số Điện Thoại",
                       ),
                       controller: account,
-                      
                     ),
                     const SizedBox(
                       height: 10,
@@ -121,7 +127,6 @@ class _LoginState extends State<Login> {
                     ),
                   ],
                 )),
-        
           ],
         ),
         Padding(
@@ -130,12 +135,17 @@ class _LoginState extends State<Login> {
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(150, 48),
             ),
-            onPressed: () {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.rightToLeftWithFade,
-                        child: const HomePage()));
+            onPressed: () async {
+              if (account.text != '' && password.text != '') {
+                final data = await CallApi.login(account.text, password.text);
+                if (data[0] == 'true') {
+                  await storage.write(key: 'id', value: data[1]);
+                  Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoadingHome()),
+          (Route<dynamic> route) => false);
+
+                }
+              }
             },
             child: const Text(
               'Đăng Nhập',

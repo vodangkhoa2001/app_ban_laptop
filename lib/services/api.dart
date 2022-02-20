@@ -9,6 +9,8 @@ String infoUrl = baseUrl + 'account/user01';
 String urlProduct = baseUrl + 'products/all';
 String urlProductType = baseUrl + 'category';
 String urlProductByType = baseUrl + 'products/type/';
+String urlUser = baseUrl + 'account/login';
+
 class CallApi {
   postData(data, apiUrl) async {
     var fullUrl = baseUrl + apiUrl;
@@ -59,18 +61,18 @@ class CallApi {
           SoLuong: e['SoLuong'],
           MaNhaSanXuat: e['MaNhaSanXuat'],
           MaDongSanPham: e['MaDongSanPham'],
-          HinhAnh: imgUserUrl + e['HinhAnh'],
+          HinhAnh: imgProductUrl + e['HinhAnh'],
           MoTa: e['MoTa']);
     }).toList();
     return lstproduct;
   }
 
-
- static Future<List<Product>> getAllProfuctByType(int id) async {
-    final response = await http.get(Uri.parse(urlProductByType + '$id'), headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    });
+  static Future<List<Product>> getAllProfuctByType(int id) async {
+    final response = await http.get(Uri.parse(urlProductByType + '$id'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        });
     final responseData = jsonDecode(response.body);
     final data = responseData['data'] as List;
     List<Product> lstproduct = data.map((e) {
@@ -88,7 +90,6 @@ class CallApi {
     return lstproduct;
   }
 
-  
   static Future<List<ProductType>> getAllProfuctType() async {
     final response = await http.get(Uri.parse(urlProductType), headers: {
       'Content-Type': 'application/json',
@@ -103,5 +104,17 @@ class CallApi {
           trangThaiDongSanPham: e['TrangThai_DongSanPham']);
     }).toList();
     return lstProductType;
+  }
+
+//login
+  static Future<List<String>> login(String username, String password) async {
+    var response = await http.post(Uri.parse(urlUser),
+        body: jsonEncode({"TenDangNhap": username, "MatKhau": password}),
+        headers: {"Content-Type": "application/json"});
+    Map<String, dynamic> responseData = jsonDecode(response.body);
+    List<String> lst = [];
+    lst.add(responseData["status"]);
+    lst.add(responseData["data"]);
+    return lst;
   }
 }
