@@ -215,17 +215,17 @@ class _CategoryState extends State<Category>
                                                         color: Colors.white),
                                             ],
                                           ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                starPoint -= 1;
-                                              });
-                                            },
-                                            child: const Icon(
-                                                Icons.shopping_cart_rounded,
-                                                size: 20,
-                                                color: Colors.white),
-                                          )
+                                          // InkWell(
+                                          //   onTap: () {
+                                          //     setState(() {
+                                          //       starPoint -= 1;
+                                          //     });
+                                          //   },
+                                          //   child: const Icon(
+                                          //       Icons.shopping_cart_rounded,
+                                          //       size: 20,
+                                          //       color: Colors.white),
+                                          // )
                                         ],
                                       )
                                     ],

@@ -1,6 +1,6 @@
 const baseUrl = 'http://localhost:8000/api/';
-const imgProductUrl = 'http://localhost:8000/product/images/';
-const imgUserUrl = 'http://localhost:8000/user/images/'; 
+const imgProductUrl = 'http://localhost:8000/images/product/';
+const imgUserUrl = 'http://localhost:8000/images/user/'; 
 
 //----------Product
 const productUrl = baseUrl + 'products/all';
