@@ -12,6 +12,7 @@ import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'product_detail.dart';
@@ -28,16 +29,10 @@ class Category extends StatefulWidget {
 class _CategoryState extends State<Category>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
-  //static const primaryColor = Color(0xFF4478DE);
   _CategoryState({this.tabController});
   List<List<Product>> lstproduct = [];
   List<ProductType> lstProductType = [];
-  // _loadListProduct() async {
-  //   final data = await CallApi.getAllProfucts();
-  //   setState(() {
-  //     lstproduct = data;
-  //   });
-  // }
+  
 
   _loadListProductByType(int id) async {
     for (var i = 1; i <= lstProductType.length; i++) {
@@ -89,23 +84,13 @@ class _CategoryState extends State<Category>
       // loading();
     setState(() {
       _loadListProductType();
-      // _loadListProduct();
-      // _loadListProductByType(1);
     });
   }
 
   var starPoint = 5;
   TextEditingController search = new TextEditingController();
 
-  // int soLuongSP(int j){
-  //   int tong = 0;
-  //   for (var i = 0; i < lstproduct.length; i++) {
-  //     if(lstproduct[i].MaDongSanPham == lstProductType[j].id){
-  //       tong +=1;
-  //     }
-  //   }
-  //   return tong;
-  // }
+  final f = new NumberFormat("#,##0", "vi_VN");
 
   Widget tab(int i) {
     return Column(
@@ -180,11 +165,20 @@ class _CategoryState extends State<Category>
                                         ),
                                       ),
                                       Text(
-                                        lstproduct[i][index].GiaBan.toString() +
+                                        f.format(lstproduct[i][index].GiaBan) +
                                             'VND',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 16,
+                                          fontSize: 13,
+                                          decoration: TextDecoration.lineThrough
+                                        ),
+                                      ),
+                                      Text(
+                                        f.format(lstproduct[i][index].GiaNhap) +
+                                            'VND',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
                                         ),
                                       ),
                                       const SizedBox(
@@ -209,6 +203,13 @@ class _CategoryState extends State<Category>
                                                         color: Colors.white),
                                             ],
                                           ),
+                                          InkWell(
+                                            onTap: (){},
+                                            child: Icon(Icons.shopping_cart_rounded,
+                                            size: 20,
+                                            color: Colors.white,
+                                          ),
+                                          )
                                         ],
                                       )
                                     ],

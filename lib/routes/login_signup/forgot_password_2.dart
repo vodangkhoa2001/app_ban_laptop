@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'forgot_password_1.dart';
+import 'forgot_password.dart';
 import 'login_signup.dart';
 
 class ForgotPassword2 extends StatefulWidget {
@@ -37,7 +37,7 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
               context,
               PageTransition(
                 type: PageTransitionType.rightToLeftWithFade,
-                child: const ForgotPassword1(),
+                child: const ForgotPassword(),
               ),
             );
           },

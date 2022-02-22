@@ -35,7 +35,8 @@ class _AccountState extends State<Account> {
   bool _loading = false;
 
   _loadAccount() async {
-    final data = await CallApi.getUserInfo();
+    String? id = await storage.read(key: "id");
+    final data = await CallApi.getUserInfo(id!);
     setState(() {
       account = data;
     });

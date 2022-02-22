@@ -1,25 +1,31 @@
 // ignore_for_file: deprecated_member_use, sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors
 
 // import 'package:flutter/cupertino.dart';
+import 'package:ban_laptop/models/invoice/invoice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:intl/intl.dart';
 
 class OrderDetail extends StatefulWidget {
-  OrderDetail({Key? key, required this.status}) : super(key: key);
+  OrderDetail({Key? key, required this.status, required this.invoice})
+      : super(key: key);
   String status;
+  Invoice invoice;
   @override
-  _OrderDetailState createState() => _OrderDetailState(status);
+  _OrderDetailState createState() => _OrderDetailState(status, invoice);
 }
 
 class _OrderDetailState extends State<OrderDetail> {
   final String status;
-  _OrderDetailState(this.status);
+  Invoice invoice;
+  _OrderDetailState(this.status, this.invoice);
   static const colorComplete = Color(0xFF26AA99);
   // static const colorDisable = Color(0xFF7B7B7B);
   double borderRadius = 30;
   double fontSizeSmall = 10;
   double sizeIcon = 30;
   double widthLine = 20;
+  final f = new NumberFormat("#,##0", "vi_VN"); 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +46,12 @@ class _OrderDetailState extends State<OrderDetail> {
                 children: [
                   Text(
                     status,
-                    style: TextStyle(color: (status != 'Đã hủy')?Colors.green[500]:Colors.red[500]),
+                    style: TextStyle(
+                        color: (status != 'Đã hủy')
+                            ? Colors.green[500]
+                            : Colors.red[500]),
                   ),
-                  Text('ID Đơn hàng: 210612574G7G8S'),
+                  Text('ID Đơn hàng: '+ invoice.id.toString()),
                 ],
               )),
           // Column(
@@ -53,7 +62,7 @@ class _OrderDetailState extends State<OrderDetail> {
           Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
@@ -65,12 +74,12 @@ class _OrderDetailState extends State<OrderDetail> {
                 SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
-                  child: Text('Số điện thoại: 0329290298'),
+                  child: Text('Số điện thoại: '+ invoice.sDTGiaoHang.toString()),
                 ),
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                      'Địa chỉ: ấp Gò Nổi, xã Ninh Điền, huyện Châu Thành, tỉnh Tây Ninh'),
+                      'Địa chỉ: '+ invoice.diaChiGiaoHang.toString()),
                 ),
               ],
             ),
@@ -83,8 +92,8 @@ class _OrderDetailState extends State<OrderDetail> {
             children: <Widget>[
               Expanded(
                 flex: 4,
-                child: Image.asset(
-                  'assets/images/products/macOs.jpg',
+                child: Image.network(
+                  invoice.hinhAnh.toString(),
                   width: 120,
                   fit: BoxFit.cover,
                 ),
@@ -98,8 +107,8 @@ class _OrderDetailState extends State<OrderDetail> {
                         padding: const EdgeInsets.only(right: 5),
                         child: Column(
                           children: [
-                            const Text(
-                              'MacBook Pro 16" 2019 Touch Bar 2.3GHz Core i9 1TB',
+                            Text(
+                              invoice.tenSanPham.toString(),
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.bold),
                             ),
@@ -108,16 +117,16 @@ class _OrderDetailState extends State<OrderDetail> {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
+                              children: [
                                 Text(
-                                  'SL: 1',
+                                  'SL: '+ invoice.soLuong.toString(),
                                   style: TextStyle(
                                       fontSize: 14, color: Colors.grey),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(right: 10),
                                   child: Text(
-                                    '20.000.000',
+                                    f.format(invoice.tongTien) + 'VND',
                                     style: TextStyle(
                                         fontSize: 14, color: Colors.red),
                                   ),
@@ -140,7 +149,7 @@ class _OrderDetailState extends State<OrderDetail> {
             child: Table(
               border: TableBorder.all(),
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: const <TableRow>[
+              children: <TableRow>[
                 TableRow(children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(8),
@@ -153,7 +162,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text('20.000.000',
+                    child: Text(f.format(invoice.tongTien) + 'VND',
                         style: TextStyle(
                           color: Colors.red,
                         )),
@@ -171,7 +180,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text('0',
+                    child: Text('0 VND',
                         style: TextStyle(
                           color: Colors.red,
                         )),
@@ -189,13 +198,13 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text('20.000.000',
+                    child: Text(f.format(invoice.tongTien) + 'VND',
                         style: TextStyle(
                           color: Colors.red,
                         )),
                   ),
                 ]),
-                TableRow(children: <Widget>[
+                TableRow(children:const <Widget>[
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Text(
@@ -218,50 +227,48 @@ class _OrderDetailState extends State<OrderDetail> {
           const SizedBox(height: 100),
         ],
       ),
-      
       bottomSheet: Table(
         border: const TableBorder(top: BorderSide(color: Colors.blue)),
         children: [
-          (status != 'Chưa đánh giá')?
-          TableRow(
-            children: [
-               FlatButton(
-                  color: Colors.blue,
-                  onPressed: () {},
-                  child: Container(
-                      padding: const EdgeInsets.all(15),
-                      child: const Text(
-                        'Mua lại',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      )))
-            ],
-          ):
-          TableRow(
-            children: [
-              FlatButton(
-                  onPressed: () {},
-                  child: Container(
-                      padding: const EdgeInsets.all(15),
-                      child: const Text(
-                        'Đánh giá',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.blue,
-                        ),
-                      ))),
-                       FlatButton(
-                  color: Colors.blue,
-                  onPressed: () {},
-                  child: Container(
-                      padding: const EdgeInsets.all(15),
-                      child: const Text(
-                        'Mua lại',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ))),
-            ]
-          ),
+          (status != 'Chưa đánh giá')
+              ? TableRow(
+                  children: [
+                    FlatButton(
+                        color: Colors.blue,
+                        onPressed: () {},
+                        child: Container(
+                            padding: const EdgeInsets.all(15),
+                            child: const Text(
+                              'Mua lại',
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            )))
+                  ],
+                )
+              : TableRow(children: [
+                  FlatButton(
+                      onPressed: () {},
+                      child: Container(
+                          padding: const EdgeInsets.all(15),
+                          child: const Text(
+                            'Đánh giá',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ))),
+                  FlatButton(
+                      color: Colors.blue,
+                      onPressed: () {},
+                      child: Container(
+                          padding: const EdgeInsets.all(15),
+                          child: const Text(
+                            'Mua lại',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ))),
+                ]),
         ],
       ),
     );

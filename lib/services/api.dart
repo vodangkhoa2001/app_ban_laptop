@@ -1,15 +1,20 @@
 import 'dart:convert';
 import 'package:ban_laptop/base_url.dart';
 import 'package:ban_laptop/models/account/account.dart';
+import 'package:ban_laptop/models/invoice/invoice.dart';
 import 'package:ban_laptop/models/product/product.dart';
 import 'package:ban_laptop/models/product/product_type.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-String infoUrl = baseUrl + 'account/user01';
+final storage = new FlutterSecureStorage();
+
+String infoUrl = baseUrl + 'account/';
 String urlProduct = baseUrl + 'products/all';
 String urlProductType = baseUrl + 'category';
 String urlProductByType = baseUrl + 'products/type/';
 String urlUser = baseUrl + 'account/login';
+String urlInvoiceByUser = baseUrl + 'invoice/';
 
 class CallApi {
   postData(data, apiUrl) async {
@@ -24,8 +29,8 @@ class CallApi {
   _setHeaders() =>
       {'Content-type': 'aplication/json', 'Accept': 'application/json'};
 
-  static Future<UserAccount> getUserInfo() async {
-    final response = await http.get(Uri.parse(infoUrl), headers: {
+  static Future<UserAccount> getUserInfo(id) async {
+    final response = await http.get(Uri.parse(infoUrl + id), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
@@ -116,5 +121,32 @@ class CallApi {
     lst.add(responseData["status"]);
     lst.add(responseData["data"]);
     return lst;
+  }
+
+  //get invoice
+  static Future<List<Invoice>> getAllInvoiceByUser(id) async {
+    final response = await http.get(Uri.parse(urlInvoiceByUser + id), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    final responseData = jsonDecode(response.body);
+    final data = responseData['data'] as List;
+    List<Invoice> lstInvoice = data.map((e) {
+      return Invoice(
+        id: e['id'],
+        maTaiKhoan: e['MaTaiKhoan'],
+        diaChiGiaoHang: e['DiaChiGiaoHang'],
+        sDTGiaoHang: e['SDT_GiaoHang'],
+        tongTien: e['TongTien'],
+        trangThoaiHoaDon :e['TrangThoai_HoaDon'],
+        hinhAnh : imgProductUrl + e['HinhAnh'],
+        tenSanPham : e['TenSanPham'],
+        hoTen : e['HoTen'],
+        soLuong : e['SoLuong'],
+        donGia:e['GiaNhap'],    
+        createdAt :e['created_at']
+      );
+    }).toList();
+    return lstInvoice;
   }
 }

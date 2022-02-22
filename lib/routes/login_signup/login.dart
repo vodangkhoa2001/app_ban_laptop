@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'forgot_password_1.dart';
+import 'forgot_password.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -27,10 +28,13 @@ class _LoginState extends State<Login> {
     _passwordVisible = true;
     super.initState();
   }
-  
-// Create storage
-final storage = new FlutterSecureStorage();
 
+  String message = '';
+  bool checkAccount = false;
+  bool checkPassword = false;
+
+// Create storage
+  final storage = new FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +60,16 @@ final storage = new FlutterSecureStorage();
                       height: 10,
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(
+                      controller: account,
+                      decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(),
                         labelText: "Nhập Email/Số Điện Thoại",
+                        errorText: checkAccount == true
+                            ? 'Email không được bỏ trống'
+                            : null,
                       ),
-                      controller: account,
                     ),
                     const SizedBox(
                       height: 10,
@@ -85,6 +92,9 @@ final storage = new FlutterSecureStorage();
                         fillColor: Colors.white,
                         border: const OutlineInputBorder(),
                         labelText: "Nhập Mật Khẩu",
+                        errorText: checkPassword == true
+                            ? 'Mật khẩu không được bỏ trống'
+                            : null,
                         suffixIcon: IconButton(
                           icon: Icon(
                             // Based on passwordVisible state choose the icon
@@ -104,13 +114,13 @@ final storage = new FlutterSecureStorage();
                     const SizedBox(
                       height: 10,
                     ),
-                    TextButton(
-                      onPressed: () {
+                    InkWell(
+                      onTap: () {
                         Navigator.push(
                           context,
                           PageTransition(
                             type: PageTransitionType.rightToLeftWithFade,
-                            child: const ForgotPassword1(),
+                            child: const ForgotPassword(),
                           ),
                         );
                       },
@@ -136,16 +146,58 @@ final storage = new FlutterSecureStorage();
               minimumSize: const Size(150, 48),
             ),
             onPressed: () async {
+              setState(() {
+                account.text == '' ? checkAccount = true : checkAccount = false;
+                password.text == '' ? checkPassword = true : checkPassword = false;
+              });
               if (account.text != '' && password.text != '') {
                 final data = await CallApi.login(account.text, password.text);
                 if (data[0] == 'true') {
                   await storage.write(key: 'id', value: data[1]);
                   Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => LoadingHome()),
-          (Route<dynamic> route) => false);
-
+                      MaterialPageRoute(builder: (context) => LoadingHome()),
+                      (Route<dynamic> route) => false);
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (context) => Container(
+                            width: 200,
+                            child: AlertDialog(
+                              title: const Text(
+                                'Thông báo',
+                              ),
+                              content: Text(
+                                  'Email hoặc mật khẩu không chính xác'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          ));
                 }
               }
+              // else{
+              //   showDialog(
+              //         context: context,
+              //         builder: (context) => Container(
+              //               width: 200,
+              //               child: AlertDialog(
+              //                 title: const Text(
+              //                   'Thông báo',
+              //                 ),
+              //                 content: Text(
+              //                     'Email hoặc mật khẩu không được bỏ trống'),
+              //                 actions: <Widget>[
+              //                   TextButton(
+              //                     onPressed: () => Navigator.pop(context, 'OK'),
+              //                     child: const Text('OK'),
+              //                   ),
+              //                 ],
+              //               ),
+              //             ));
+              // }
             },
             child: const Text(
               'Đăng Nhập',
