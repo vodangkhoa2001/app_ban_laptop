@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ban_laptop/screens/chat/components/chat_screen.dart';
 
 class Chat extends StatefulWidget {
   const Chat({Key? key}) : super(key: key);
@@ -15,12 +16,8 @@ class _ChatState extends State<Chat> {
         title: const Text('Tư Vấn Khách Hàng'),
         automaticallyImplyLeading: false,
       ),
-      body: const Center(
-        child: Text(
-          'Tư vấn khách hàng',
-          style: TextStyle(fontSize: 40),
-        ),
-      ),
+      body:
+        ChatScreen(),
     );
   }
 }

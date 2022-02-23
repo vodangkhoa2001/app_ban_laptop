@@ -1,7 +1,6 @@
 class UserAccount {
   final String id;
   final String username;
-  final String password;
   final String fullName;
   final String avatar;
   final String phone;
@@ -14,7 +13,6 @@ class UserAccount {
       {
       required this.id,
       required this.fullName,
-      required this.password,
       required this.username,
       required this.avatar,
       required this.phone,
@@ -29,7 +27,6 @@ class UserAccount {
     : id = json['id'],
     fullName = json['fullName'],
     username = json['username'],
-    password = json['password'],
     avatar = json['avatar'],
     phone = json['phone'],
     email = json['email'],
@@ -43,7 +40,6 @@ class UserAccount {
     data['id'] = id;
     data['fullName'] = fullName;
     data['username'] = username;
-    data['password'] = password;
     data['avatar'] = avatar;
     data['phone'] = phone;
     data['email'] = email;

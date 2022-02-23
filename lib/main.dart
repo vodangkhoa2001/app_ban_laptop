@@ -31,6 +31,7 @@ Future<void> main() async {
       child: MaterialApp(
         title: 'Flutter Demo',
         home: id==null? LoadingScreen():LoadingScreenHome(),
+        // home: Login_SignUp(),
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
         debugShowCheckedModeBanner: false,
       ),

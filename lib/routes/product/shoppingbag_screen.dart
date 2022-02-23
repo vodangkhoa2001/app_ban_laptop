@@ -45,21 +45,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.blue,
         //backgroundColor: Colors.grey,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.keyboard_arrow_left,
-            color: Colors.blue,
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              PageTransition(
-                type: PageTransitionType.rightToLeftWithFade,
-                child: const Category(),
-              ),
-            );
-          },
-        ),
+        
       ),
       body: ListView(
         children: [

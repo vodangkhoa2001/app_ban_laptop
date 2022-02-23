@@ -15,6 +15,7 @@ String urlProductType = baseUrl + 'category';
 String urlProductByType = baseUrl + 'products/type/';
 String urlUser = baseUrl + 'account/login';
 String urlInvoiceByUser = baseUrl + 'invoice/';
+String urlChangePass = baseUrl + 'account/password/';
 
 class CallApi {
   postData(data, apiUrl) async {
@@ -40,7 +41,6 @@ class CallApi {
       id: data['id'],
       username: data['TenDangNhap'],
       email: data['Email'],
-      password: data['MatKhau'],
       fullName: data['HoTen'],
       avatar: imgUserUrl + data['HinhAnh'],
       phone: data['SDT'],
@@ -112,14 +112,14 @@ class CallApi {
   }
 
 //login
-  static Future<List<String>> login(String username, String password) async {
+  static Future<List<String>> login(String email, String password) async {
     var response = await http.post(Uri.parse(urlUser),
-        body: jsonEncode({"TenDangNhap": username, "MatKhau": password}),
+        body: jsonEncode({"Email": email, "Password": password}),
         headers: {"Content-Type": "application/json"});
     Map<String, dynamic> responseData = jsonDecode(response.body);
     List<String> lst = [];
-    lst.add(responseData["status"]);
-    lst.add(responseData["data"]);
+    lst.add(responseData["mess"]);
+    lst.add(responseData["0"]);
     return lst;
   }
 
@@ -133,20 +133,37 @@ class CallApi {
     final data = responseData['data'] as List;
     List<Invoice> lstInvoice = data.map((e) {
       return Invoice(
-        id: e['id'],
-        maTaiKhoan: e['MaTaiKhoan'],
-        diaChiGiaoHang: e['DiaChiGiaoHang'],
-        sDTGiaoHang: e['SDT_GiaoHang'],
-        tongTien: e['TongTien'],
-        trangThoaiHoaDon :e['TrangThoai_HoaDon'],
-        hinhAnh : imgProductUrl + e['HinhAnh'],
-        tenSanPham : e['TenSanPham'],
-        hoTen : e['HoTen'],
-        soLuong : e['SoLuong'],
-        donGia:e['GiaNhap'],    
-        createdAt :e['created_at']
-      );
+          id: e['id'],
+          maTaiKhoan: e['MaTaiKhoan'],
+          diaChiGiaoHang: e['DiaChiGiaoHang'],
+          sDTGiaoHang: e['SDT_GiaoHang'],
+          tongTien: e['TongTien'],
+          trangThoaiHoaDon: e['TrangThoai_HoaDon'],
+          hinhAnh: imgProductUrl + e['HinhAnh'],
+          tenSanPham: e['TenSanPham'],
+          hoTen: e['HoTen'],
+          soLuong: e['SoLuong'],
+          donGia: e['GiaNhap'],
+          createdAt: e['created_at']);
     }).toList();
     return lstInvoice;
+  }
+
+  //doi mat khau
+  static Future<http.Response> changePassword(
+    String id,
+    String oldPassword,
+    String newPassword,
+  ) async {
+    final response = await http.post(Uri.parse(urlChangePass+id),
+        body: jsonEncode({
+          "MatKhau": oldPassword,
+          "MatKhauMoi": newPassword,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    return response;
   }
 }
