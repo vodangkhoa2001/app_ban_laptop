@@ -52,49 +52,55 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            title: Row(children: [
-          CircleAvatar(
-            child: Icon(Icons.support_agent_outlined),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Text('CSKH'),
-        ])),
-        body: Container(
-          color: Colors.grey[200],
-          child: ListView(children: [
-            admin('Xin chào! KHK mart có thể giúp gì được cho bạn', '11:00'),
-            user(
-                'Cho mình hỏi có laptop nào giá hợp lý cho sinh viên hay không?',
-                '11:02'),
-            admin(
-                'Cám ơn bạn đã nhắn tin cho chúng tôi! Nhân viên của chúng tôi sẽ nhắn lại sau ít phút.',
-                '11:02'),
-            admin(
-                'Xin chào bạn! Mình là Khoa, mình sẽ tư vấn cho bạn', '11:19'),
-            admin(
-                'Hiện tại bên mình có các dòng sản phẩm gamer và ultrabook. Không biết bạn muốn mình tư vấn loại nào',
-                '11:20'),
-            user('gamer đi ạ', '11:22'),
-          ]),
-        ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: TextField(
-            
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Nhập tin nhắn...',
-              suffixIcon: InkWell(
-                onTap: (){},
-                child: Icon(Icons.send_rounded),
-              )
+    return GestureDetector(
+      onTap: () {
+        // FocusScopeNode currentFocus = FocusScope.of(context);
+        //  if (!currentFocus.hasPrimaryFocus) {
+        //   currentFocus.unfocus();
+        // }
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: Scaffold(
+          appBar: AppBar(
+              title: Row(children: [
+            CircleAvatar(
+              child: Icon(Icons.support_agent_outlined),
             ),
+            SizedBox(
+              width: 10,
+            ),
+            Text('CSKH'),
+          ])),
+          body: Container(
+            color: Colors.grey[200],
+            child: ListView(children: [
+              admin('Xin chào! KHK mart có thể giúp gì được cho bạn', '11:00'),
+              user(
+                  'Cho mình hỏi có laptop nào giá hợp lý cho sinh viên hay không?',
+                  '11:02'),
+              admin(
+                  'Cám ơn bạn đã nhắn tin cho chúng tôi! Nhân viên của chúng tôi sẽ nhắn lại sau ít phút.',
+                  '11:02'),
+              admin('Xin chào bạn! Mình là Khoa, mình sẽ tư vấn cho bạn',
+                  '11:19'),
+              admin(
+                  'Hiện tại bên mình có các dòng sản phẩm gamer và ultrabook. Không biết bạn muốn mình tư vấn loại nào',
+                  '11:20'),
+              user('gamer đi ạ', '11:22'),
+            ]),
           ),
-        )
-         );
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Nhập tin nhắn...',
+                  suffixIcon: InkWell(
+                    onTap: () {},
+                    child: Icon(Icons.send_rounded),
+                  )),
+            ),
+          )),
+    );
   }
 }

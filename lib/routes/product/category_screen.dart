@@ -1,8 +1,8 @@
 // ignore_for_file: unnecessary_new, prefer_const_constructors
 
 // import 'dart:math';
-import 'dart:convert';
-import 'dart:ui';
+// import 'dart:convert';
+// import 'dart:ui';
 
 import 'package:ban_laptop/models/product/product.dart';
 import 'package:ban_laptop/models/product/product_info.dart';
@@ -36,7 +36,7 @@ class _CategoryState extends State<Category>
 
   _loadListProductByType(int id) async {
     for (var i = 1; i <= lstProductType.length; i++) {
-      final data = await CallApi.getAllProfuctByType(i);
+      final data = await CallApi.getAllProductByType(i);
       setState(() {
         lstproduct.add(data);
       });
@@ -111,7 +111,8 @@ class _CategoryState extends State<Category>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: Container(
+                      child: 
+                      Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(15),
@@ -129,9 +130,9 @@ class _CategoryState extends State<Category>
                             children: [
                               Positioned(
                                 child: Image.network(
-                                  lstproduct[i][index].HinhAnh,
-                                  fit: BoxFit.cover,
-                                  height: 170,
+                                  '${lstproduct[i][index].hinhAnh}',
+                                  // fit: BoxFit.cover,
+                                  height: 100,
                                 ),
                                 top: 10,
                                 left: 5,
@@ -151,21 +152,21 @@ class _CategoryState extends State<Category>
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        lstproduct[i][index].TenSanPham.length <
+                                        '${lstproduct[i][index].tenSanPham}'.length <
                                                 40
-                                            ? lstproduct[i][index].TenSanPham
+                                            ? '${lstproduct[i][index].tenSanPham}'
                                             : lstproduct[i][index]
-                                                    .TenSanPham
+                                                    .tenSanPham!
                                                     .substring(0, 38) +
                                                 "...",
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 20,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                       Text(
-                                        f.format(lstproduct[i][index].GiaBan) +
+                                        f.format(lstproduct[i][index].giaBan) +
                                             'VND',
                                         style: TextStyle(
                                           color: Colors.white,
@@ -174,11 +175,11 @@ class _CategoryState extends State<Category>
                                         ),
                                       ),
                                       Text(
-                                        f.format(lstproduct[i][index].GiaNhap) +
+                                        f.format(lstproduct[i][index].giaNhap) +
                                             'VND',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 18,
+                                          fontSize: 16,
                                         ),
                                       ),
                                       const SizedBox(
@@ -186,23 +187,23 @@ class _CategoryState extends State<Category>
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Row(
-                                            children: [
-                                              for (var i = 1; i < 6; i++)
-                                                (i <= starPoint)
-                                                    ? const Icon(
-                                                        Icons.star_rounded,
-                                                        size: 20,
-                                                        color: Colors.white)
-                                                    : const Icon(
-                                                        Icons
-                                                            .star_border_rounded,
-                                                        size: 20,
-                                                        color: Colors.white),
-                                            ],
-                                          ),
+                                          // Row(
+                                          //   children: [
+                                          //     for (var i = 1; i < 6; i++)
+                                          //       (i <= starPoint)
+                                          //           ? const Icon(
+                                          //               Icons.star_rounded,
+                                          //               size: 20,
+                                          //               color: Colors.white)
+                                          //           : const Icon(
+                                          //               Icons
+                                          //                   .star_border_rounded,
+                                          //               size: 20,
+                                          //               color: Colors.white),
+                                          //   ],
+                                          // ),
                                           InkWell(
                                             onTap: (){},
                                             child: Icon(Icons.shopping_cart_rounded,
@@ -223,6 +224,7 @@ class _CategoryState extends State<Category>
                           ),
                         ),
                       ),
+                    
                     ),
                   ],
                 );

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:ban_laptop/main.dart';
+import 'package:ban_laptop/models/product/product.dart';
 import 'package:ban_laptop/routes/account/terms_and_condition.dart';
 import 'package:ban_laptop/routes/login_signup/login_signup.dart';
 import 'package:ban_laptop/services/api.dart';
@@ -24,14 +25,16 @@ import 'package:ban_laptop/screens/loading.dart';
 final storage = new FlutterSecureStorage();
 
 class Account extends StatefulWidget {
-  const Account({Key? key}) : super(key: key);
-
+  Account({Key? key }) : super(key: key);
+  // Product product;
   @override
   _AccountState createState() => _AccountState();
 }
 
 class _AccountState extends State<Account> {
   UserAccount? account;
+  // Product product;
+  // _AccountState(this.product);
   bool _loading = false;
 
   _loadAccount() async {
@@ -112,7 +115,7 @@ class _AccountState extends State<Account> {
                           context,
                           PageTransition(
                               type: PageTransitionType.rightToLeftWithFade,
-                              child: const Order()));
+                              child: Order()));
                     },
                   ),
                 ),
@@ -146,7 +149,7 @@ class _AccountState extends State<Account> {
                               context,
                               PageTransition(
                                   type: PageTransitionType.rightToLeftWithFade,
-                                  child: const PasswordSetting()));
+                                  child: PasswordSetting(email: account!.email,)));
                         },
                       ),
                     ],

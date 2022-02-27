@@ -10,12 +10,12 @@ import 'package:http/http.dart' as http;
 final storage = new FlutterSecureStorage();
 
 String infoUrl = baseUrl + 'account/';
-String urlProduct = baseUrl + 'products/all';
+String urlProduct = baseUrl + 'products/';
 String urlProductType = baseUrl + 'category';
 String urlProductByType = baseUrl + 'products/type/';
 String urlUser = baseUrl + 'account/login';
 String urlInvoiceByUser = baseUrl + 'invoice/';
-String urlChangePass = baseUrl + 'account/password/';
+String urlChangePass = baseUrl + 'account/password';
 
 class CallApi {
   postData(data, apiUrl) async {
@@ -50,8 +50,8 @@ class CallApi {
     );
   }
 
-  static Future<List<Product>> getAllProfucts() async {
-    final response = await http.get(Uri.parse(urlProduct), headers: {
+  static Future<List<Product>> getAllProducts() async {
+    final response = await http.get(Uri.parse(urlProduct+'all'), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
@@ -60,19 +60,48 @@ class CallApi {
     List<Product> lstproduct = data.map((e) {
       return Product(
           id: e['id'],
-          TenSanPham: e['TenSanPham'],
-          GiaBan: e['GiaBan'],
-          GiaNhap: e['GiaNhap'],
-          SoLuong: e['SoLuong'],
-          MaNhaSanXuat: e['MaNhaSanXuat'],
-          MaDongSanPham: e['MaDongSanPham'],
-          HinhAnh: imgProductUrl + e['HinhAnh'],
-          MoTa: e['MoTa']);
+          maDongSanPham: e['MaDongSanPham'],
+          tenSanPham: e['TenSanPham'],
+          giaNhap: e['GiaNhap'],
+          giaBan: e['GiaBan'],
+          soLuong: e['SoLuong'],
+          maNhaSanXuat: e['MaNhaSanXuat'],
+          hinhAnh:imgProductUrl+ e['HinhAnh'],
+          moTa: e['MoTa'],
+          tenMau: e['TenMau'],
+          tenOCung: e['TenOCung'],
+          tenRam: e['TenRam'],
+          tenManHinh: e['TenManHinh'],
+          tenCPU: e['TenCPU']);
     }).toList();
     return lstproduct;
   }
 
-  static Future<List<Product>> getAllProfuctByType(int id) async {
+  static Future<Product> getProductDetail(String id) async {
+    final response = await http.get(Uri.parse(urlProduct+id), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    final responseData = jsonDecode(response.body);
+    final data = responseData['data'];
+      return Product(
+          id: data['id'],
+          maDongSanPham: data['MaDongSanPham'],
+          tenSanPham: data['TenSanPham'],
+          giaNhap: data['GiaNhap'],
+          giaBan: data['GiaBan'],
+          soLuong: data['SoLuong'],
+          maNhaSanXuat: data['MaNhaSanXuat'],
+          hinhAnh:imgProductUrl+ data['HinhAnh'],
+          moTa: data['MoTa'],
+          tenMau: data['TenMau'],
+          tenOCung: data['TenOCung'],
+          tenRam: data['TenRam'],
+          tenManHinh: data['TenManHinh'],
+          tenCPU: data['TenCPU']);    
+  }
+
+  static Future<List<Product>> getAllProductByType(int id) async {
     final response = await http.get(Uri.parse(urlProductByType + '$id'),
         headers: {
           'Content-Type': 'application/json',
@@ -83,14 +112,19 @@ class CallApi {
     List<Product> lstproduct = data.map((e) {
       return Product(
           id: e['id'],
-          TenSanPham: e['TenSanPham'],
-          GiaBan: e['GiaBan'],
-          GiaNhap: e['GiaNhap'],
-          SoLuong: e['SoLuong'],
-          MaNhaSanXuat: e['MaNhaSanXuat'],
-          MaDongSanPham: e['MaDongSanPham'],
-          HinhAnh: imgProductUrl + e['HinhAnh'],
-          MoTa: e['MoTa']);
+          maDongSanPham: e['MaDongSanPham'],
+          tenSanPham: e['TenSanPham'],
+          giaNhap: e['GiaNhap'],
+          giaBan: e['GiaBan'],
+          soLuong: e['SoLuong'],
+          maNhaSanXuat: e['MaNhaSanXuat'],
+          hinhAnh:imgProductUrl+ e['HinhAnh'],
+          moTa: e['MoTa'],
+          tenMau: e['TenMau'],
+          tenOCung: e['TenOCung'],
+          tenRam: e['TenRam'],
+          tenManHinh: e['TenManHinh'],
+          tenCPU: e['TenCPU']);
     }).toList();
     return lstproduct;
   }
@@ -151,14 +185,15 @@ class CallApi {
 
   //doi mat khau
   static Future<http.Response> changePassword(
-    String id,
+    String email,
     String oldPassword,
     String newPassword,
   ) async {
-    final response = await http.post(Uri.parse(urlChangePass+id),
+    final response = await http.post(Uri.parse(urlChangePass),
         body: jsonEncode({
-          "MatKhau": oldPassword,
-          "MatKhauMoi": newPassword,
+          "Email": email,
+          "OldPassword": oldPassword,
+          "NewPassword": newPassword,
         }),
         headers: {
           'Content-Type': 'application/json',

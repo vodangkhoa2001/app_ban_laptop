@@ -1,7 +1,9 @@
-// ignore_for_file: sized_box_for_whitespace, no_logic_in_create_state, prefer_const_constructors, unnecessary_new
+// ignore_for_file: sized_box_for_whitespace, no_logic_in_create_state, prefer_const_constructors, unnecessary_new, prefer_const_literals_to_create_immutables, deprecated_member_use
 
 import 'package:ban_laptop/models/product/product.dart';
+import 'package:ban_laptop/screens/account.dart';
 import 'package:ban_laptop/screens/shopping.dart';
+import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
@@ -19,6 +21,8 @@ class _DetailsState extends State<Details> {
   final Product product;
   _DetailsState(this.product);
   final f = new NumberFormat("#,##0", "vi_VN");
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +43,7 @@ class _DetailsState extends State<Details> {
                       height: 300,
                       child: AspectRatio(
                         aspectRatio: 1.02,
-                        child: Image.network(product.HinhAnh),
+                        child: Image.network('${product.hinhAnh}'),
                       ),
                     ),
                   ],
@@ -48,7 +52,7 @@ class _DetailsState extends State<Details> {
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(top: 20),
                   child: Text(
-                    product.TenSanPham,
+                    '${product.tenSanPham}',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                 ),
@@ -72,7 +76,7 @@ class _DetailsState extends State<Details> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        f.format(product.GiaBan)+' VND',
+                        f.format(product.giaBan) + ' VND',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -83,7 +87,7 @@ class _DetailsState extends State<Details> {
                         ),
                       ),
                       Text(
-                        f.format(product.GiaNhap)+' VND',
+                        f.format(product.giaNhap) + ' VND',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
@@ -138,7 +142,7 @@ class _DetailsState extends State<Details> {
                     // '\n\nỔ cứng SSD 256 GB giúp máy có tốc độ đọc ghi nhanh chóng đồng thời mang lại không gian bộ nhớ đủ lớn phục vụ cho nhu cầu lưu trữ của bạn như tài liệu trong học tập, dữ liệu trong công việc, các bộ phim hoặc bản nhạc trong giải trí. Đồng thời, tiết kiệm được thời gian khởi động máy hoặc mở các ứng dụng nặng, cải thiện được thời gian mở nhanh chóng hơn.'
                     // '\n\nFaceTime Camera cho hình ảnh rõ nét kết hợp với 3 microphone thuận tiện cho nhu cầu họp hoặc học online hay hội đàm trực tuyến, giải quyết hiệu quả công việc từ xa qua các phần mền Zoom, Google Meet,...'
                     // '\n\nHệ thống loa kép cho âm thanh to rõ, sống động để bạn có trải nghiệm nghe nhạc, xem phim và gọi điện trực tuyến thoải mái với âm thanh chất lượng cao. Tạo cho bạn cảm giác đắm chìm trong những chương trình giải trí hấp dẫn.',
-                    product.MoTa,
+                    '${product.moTa}',
                     style: TextStyle(fontSize: 15),
                   ),
                 ),
@@ -210,26 +214,22 @@ class _DetailsState extends State<Details> {
                         ),
                       ),
                     ],
-                    rows: const [
+                    rows: [
                       DataRow(cells: [
                         DataCell(Text('CPU')),
-                        DataCell(Text('Apple M1')),
+                        DataCell(Text('${product.tenCPU}')),
                       ]),
                       DataRow(cells: [
                         DataCell(Text('RAM')),
-                        DataCell(Text('16GB')),
+                        DataCell(Text('${product.tenRam}')),
                       ]),
                       DataRow(cells: [
                         DataCell(Text('Ổ Cứng')),
-                        DataCell(Text('512 SSD')),
+                        DataCell(Text('${product.tenOCung}')),
                       ]),
                       DataRow(cells: [
                         DataCell(Text('Màn hình')),
-                        DataCell(Text('13.3" Retina (2560 x 1600)')),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('Card màn hình')),
-                        DataCell(Text('Card tích hợp 8 nhân CPU')),
+                        DataCell(Text('${product.tenManHinh}')),
                       ]),
                     ],
                   ),
@@ -264,11 +264,6 @@ class _DetailsState extends State<Details> {
                           color: Colors.white,
                         ),
                       ),
-
-                      // const VerticalDivider(
-                      //   color: Colors.white,
-                      //   thickness: 2,
-                      // ),
                       Row(
                         children: const [
                           Icon(
@@ -277,22 +272,22 @@ class _DetailsState extends State<Details> {
                             size: 28.0,
                           ),
                           Icon(
-                            Icons.star_border,
+                            Icons.star,
                             color: Colors.white,
                             size: 28.0,
                           ),
                           Icon(
-                            Icons.star_border,
+                            Icons.star,
                             color: Colors.white,
                             size: 28.0,
                           ),
                           Icon(
-                            Icons.star_border,
+                            Icons.star,
                             color: Colors.white,
                             size: 28.0,
                           ),
                           Icon(
-                            Icons.star_border,
+                            Icons.star,
                             color: Colors.white,
                             size: 28.0,
                           ),
@@ -301,258 +296,93 @@ class _DetailsState extends State<Details> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1.0,
-                      color: Colors.blue,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
-                  //color: Colors.blue[300],
-                  padding:
-                      const EdgeInsets.only(bottom: 20, left: 10, right: 10),
-                  child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: const Text(
-                          'Tất cả bình luận',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.blue[100],
-                        ),
-                        padding: const EdgeInsets.all(5),
-                        child: Row(
-                          //mainAxisAlignment: MainAxisAlignment.left,
-                          children: [
-                            const Icon(
-                              Icons.account_circle,
-                              color: Colors.grey,
-                              size: 40,
-                            ),
-                            Column(
-                              // mainAxisAlignment:
-                              //     MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Container(
-                                          padding:
-                                              const EdgeInsets.only(left: 10),
-                                          child: const Text(
-                                            'Trần Hiếu Khoa',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                        Container(
-                                          padding:
-                                              const EdgeInsets.only(left: 10),
-                                          child: const Text('5 phút'),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.only(left: 20),
-                                      child: Row(
-                                        children: const [
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.yellow,
-                                            size: 20.0,
-                                          ),
-                                          Icon(
-                                            Icons.star_border,
-                                            color: Colors.yellow,
-                                            size: 20.0,
-                                          ),
-                                          Icon(
-                                            Icons.star_border,
-                                            color: Colors.yellow,
-                                            size: 20.0,
-                                          ),
-                                          Icon(
-                                            Icons.star_border,
-                                            color: Colors.yellow,
-                                            size: 20.0,
-                                          ),
-                                          Icon(
-                                            Icons.star_border,
-                                            color: Colors.yellow,
-                                            size: 20.0,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      padding:
-                                          const EdgeInsets.only(right: 110),
-                                      child: const Text('Sản phẩm quá tệ :(( '),
-                                    ),
-                                    Column(
-                                      children: const [
-                                        Icon(
-                                          Icons.reply,
-                                          color: Colors.blue,
-                                          size: 20.0,
-                                        ),
-                                        Text(
-                                          'Trả lời',
-                                          style: TextStyle(fontSize: 10),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  // padding: const EdgeInsets.only(top: 10),
-                  // child: TextField(
-                  //   maxLines: 5,
-                  //   decoration: InputDecoration(
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10.0),
-                  //     ),
-                  //     hintText: 'Nội dung đánh giá',
-                  //   ),
-                  // ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(left: 10),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          hintText: 'Nhận xét của bạn về sản phẩm',
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    Container(
-                      width: 70,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        //color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Colors.blue),
-                      ),
-                      child: MaterialButton(
-                        onPressed: () {},
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: const Icon(
-                          Icons.send,
-                          color: Colors.black,
-                          size: 30.0,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              height: 160,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.grey.shade300)),
+              child: ListView(
+                children: [
+                  
+                  Card(
+                    color: Colors.grey[200],
+                    child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/avatars/avatar_user_1.jpg'),
+                    ),
+                    title: Text('Trần Hiếu Khoa\t 5 phút',style: TextStyle(fontSize: 12),),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 5,),
+                        Text('Sản phẩm sử dụng tốt'),
+                        SizedBox(height: 5,),
+                        Row(
+                          children: [
+                            Icon(Icons.star,color: Colors.yellow,size: 15,),
+                            Icon(Icons.star,color: Colors.yellow,size: 15,),
+                            Icon(Icons.star,color: Colors.yellow,size: 15,),
+                            Icon(Icons.star,color: Colors.yellow,size: 15,),
+                            Icon(Icons.star,color: Colors.yellow,size: 15,),
+                          ],
+                        ),
+                      ],
+                    ),
+                    trailing: Icon(Icons.reply),
+                  ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20),
+                    child: Card(
+                      color: Colors.grey[200],
+                    child: ListTile(
+                    leading: CircleAvatar(
+                      child: Icon(Icons.person),
+                    ),
+                    title: Text('Admin\t 2 phút',style: TextStyle(fontSize: 12),),
+                    subtitle:
+                        Text('Cảm ơn bạn đã đánh giá sản phẩm'),
+                    trailing: Icon(Icons.reply),
+                    ))
+                    
+                  ),
+                ],
+              )),
+              SizedBox(height:100)
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          height: 52,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.blue[100],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 20,
-                child: MaterialButton(
-                  onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: const Icon(
-                    Icons.chat,
-                    color: Colors.black,
-                    size: 30.0,
-                  ),
-                ),
-              ),
-              Container(
-                height: 50,
-                width: 200,
-                padding: const EdgeInsets.only(left: 30),
-                child: MaterialButton(
-                  onPressed: () {},
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Text(
-                    "Thêm vào giỏ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 50,
-                child: MaterialButton(
-                  onPressed: () {},
-                  color: Colors.red[300],
-                  //height: 50,
-                  //minWidth: 100,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Text(
-                    "Mua ngay",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 23,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+      bottomSheet: Table(
+        border: const TableBorder(top: BorderSide(color: Colors.blue)),
+        children: [
+          TableRow(children: [
+            FlatButton(
+              onPressed: (){},
+              child: Container(
+                  padding: const EdgeInsets.all(15),
+                  child: Icon(Icons.chat,color: Colors.grey,)
+                )
+            ),
+            FlatButton(
+                onPressed: () {},
+                child: Container(
+                  padding: const EdgeInsets.all(15),
+                  child: Icon(Icons.add_shopping_cart,color: Colors.blue,)
+                )),
+            FlatButton(
+                color: Colors.blue,
+                onPressed: () {},
+                child: Container(
+                    padding: const EdgeInsets.all(15),
+                    child: const Text(
+                      'Mua ngay',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ))),
+          ]),
+        ],
       ),
     );
   }

@@ -17,7 +17,7 @@ class _ChatState extends State<Chat> {
         automaticallyImplyLeading: false,
       ),
       body:
-        ChatScreen(),
+        const ChatScreen(),
     );
   }
 }

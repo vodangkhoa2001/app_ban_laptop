@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 // import 'package:ban_laptop/routes/product/provider/product_provider.dart';
 // import 'package:provider/provider.dart';
 //import 'package:ban_laptop/screens/login_signup/login_signup.dart';
+import 'models/product/product.dart';
 import 'routes/login_signup/login_signup.dart';
 //import 'routes/product/product_detail.dart';
 
@@ -20,8 +21,13 @@ import 'screens/shopping.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
-  final storage = new FlutterSecureStorage();
-  String ?id = await storage.read(key: 'id');
+  final storage = FlutterSecureStorage();
+  String? id;
+  try {
+    id = await storage.read(key: 'id');
+  } catch (e) {
+    id = null;
+  }
   runApp(
     MultiProvider(
       providers: [
@@ -30,13 +36,13 @@ Future<void> main() async {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        home: id==null? LoadingScreen():LoadingScreenHome(),
+        home: id == null ? LoadingScreen() : LoadingScreenHome(),
         // home: Login_SignUp(),
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
         debugShowCheckedModeBanner: false,
       ),
     ),
-    );
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -67,8 +73,6 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  
-
   @override
   initState() {
     super.initState();
@@ -112,14 +116,12 @@ class LoadingScreenHome extends StatefulWidget {
 }
 
 class _LoadingScreenHomeState extends State<LoadingScreenHome> {
-  
-
   @override
   initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const HomePage()));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
     });
   }
 
@@ -149,9 +151,9 @@ class _LoadingScreenHomeState extends State<LoadingScreenHome> {
   }
 }
 
-
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key, }) : super(key: key);
+  // Product product;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -159,13 +161,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   static const primaryColor = Color(0xFF4478DE);
-
+  // Product product;
+  // _HomePageState(this.product);
   int currentTab = 0;
   final List<Widget> screens = [
     const Dashboard(),
     const Shopping(),
     const Chat(),
-    const Account()
+    Account()
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const Dashboard();
@@ -212,7 +215,6 @@ class _HomePageState extends State<HomePage> {
                   minWidth: 40,
                   onPressed: () {
                     setState(() {
-                      
                       currentScreen = const Shopping();
                       currentTab = 1;
                     });
@@ -263,7 +265,7 @@ class _HomePageState extends State<HomePage> {
                   minWidth: 40,
                   onPressed: () {
                     setState(() {
-                      currentScreen = const Account();
+                      currentScreen = Account();
                       currentTab = 3;
                     });
                   },

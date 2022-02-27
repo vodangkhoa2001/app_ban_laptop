@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:ban_laptop/models/invoice/invoice.dart';
+import 'package:ban_laptop/models/product/product.dart';
 import 'package:ban_laptop/screens/loading.dart';
 import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ import 'order_detail.dart';
 final storage = new FlutterSecureStorage();
 
 class Order extends StatefulWidget {
-  const Order({Key? key}) : super(key: key);
+  Order({Key? key}) : super(key: key);
+  // Product product;
 
   @override
   _OrderState createState() => _OrderState();
@@ -22,6 +24,8 @@ class Order extends StatefulWidget {
 class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
   List<Invoice> lstInvoice = [];
   TabController? tabController;
+  // Product product;
+  // _OrderState(this.product);
   String? id;
   getId() async {
     setState(() {});
@@ -65,7 +69,7 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
     _loading();
   }
 
-  var fontSize = 12.0;
+  var fontSize = 11.0;
   var height = 120.0;
   List status = [
     'Đã hủy',
@@ -114,9 +118,13 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
+                            width: 255,
                             padding: EdgeInsets.only(right: 10),
                             child: Text(
-                              lstInvoice[index].tenSanPham.toString(),
+                              lstInvoice[index].tenSanPham!.length>60?lstInvoice[index].tenSanPham!.substring(0,59)+'...':lstInvoice[index].tenSanPham.toString()
+                              
+                              
+                              // style: TextStyle(fontSize: 13),
                             ),
                           ),
                           Container(

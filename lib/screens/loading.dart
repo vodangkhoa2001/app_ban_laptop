@@ -44,7 +44,7 @@ class _LoadingHomeState extends State<LoadingHome> {
     super.initState();
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const HomePage()));
+          MaterialPageRoute(builder: (_) =>  HomePage()));
     });
   }   
   @override

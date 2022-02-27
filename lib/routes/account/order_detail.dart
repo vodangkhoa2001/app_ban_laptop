@@ -2,6 +2,8 @@
 
 // import 'package:flutter/cupertino.dart';
 import 'package:ban_laptop/models/invoice/invoice.dart';
+import 'package:ban_laptop/routes/product/product_detail.dart';
+import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
@@ -20,12 +22,12 @@ class _OrderDetailState extends State<OrderDetail> {
   Invoice invoice;
   _OrderDetailState(this.status, this.invoice);
   static const colorComplete = Color(0xFF26AA99);
-  // static const colorDisable = Color(0xFF7B7B7B);
   double borderRadius = 30;
   double fontSizeSmall = 10;
   double sizeIcon = 30;
   double widthLine = 20;
-  final f = new NumberFormat("#,##0", "vi_VN"); 
+  final f = new NumberFormat("#,##0", "vi_VN");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +53,7 @@ class _OrderDetailState extends State<OrderDetail> {
                             ? Colors.green[500]
                             : Colors.red[500]),
                   ),
-                  Text('ID Đơn hàng: '+ invoice.id.toString()),
+                  Text('ID Đơn hàng: ' + invoice.id.toString()),
                 ],
               )),
           // Column(
@@ -74,12 +76,12 @@ class _OrderDetailState extends State<OrderDetail> {
                 SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
-                  child: Text('Số điện thoại: '+ invoice.sDTGiaoHang.toString()),
+                  child:
+                      Text('Số điện thoại: ' + invoice.sDTGiaoHang.toString()),
                 ),
                 Padding(
                   padding: EdgeInsets.all(10),
-                  child: Text(
-                      'Địa chỉ: '+ invoice.diaChiGiaoHang.toString()),
+                  child: Text('Địa chỉ: ' + invoice.diaChiGiaoHang.toString()),
                 ),
               ],
             ),
@@ -119,7 +121,7 @@ class _OrderDetailState extends State<OrderDetail> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'SL: '+ invoice.soLuong.toString(),
+                                  'SL: ' + invoice.soLuong.toString(),
                                   style: TextStyle(
                                       fontSize: 14, color: Colors.grey),
                                 ),
@@ -204,7 +206,7 @@ class _OrderDetailState extends State<OrderDetail> {
                         )),
                   ),
                 ]),
-                TableRow(children:const <Widget>[
+                TableRow(children: const <Widget>[
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Text(
@@ -235,7 +237,12 @@ class _OrderDetailState extends State<OrderDetail> {
                   children: [
                     FlatButton(
                         color: Colors.blue,
-                        onPressed: () {},
+                        onPressed: () async {
+                          final data = await CallApi.getProductDetail('SP01');
+                        Navigator.push(
+                          context,MaterialPageRoute(builder: (context)=> Details(product: data))
+                        );
+                        },
                         child: Container(
                             padding: const EdgeInsets.all(15),
                             child: const Text(
@@ -260,7 +267,12 @@ class _OrderDetailState extends State<OrderDetail> {
                           ))),
                   FlatButton(
                       color: Colors.blue,
-                      onPressed: () {},
+                      onPressed: () async {
+                        final data = await CallApi.getProductDetail('SP01');
+                        Navigator.push(
+                          context,MaterialPageRoute(builder: (context)=> Details(product: data))
+                        );
+                      },
                       child: Container(
                           padding: const EdgeInsets.all(15),
                           child: const Text(
