@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+
 import 'package:ban_laptop/main.dart';
 import 'package:ban_laptop/screens/loading.dart';
 import 'package:ban_laptop/services/api.dart';
@@ -155,44 +157,46 @@ class _LoginState extends State<Login> {
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) => LoadingHome()),
                         (Route<dynamic> route) => false);
-                  } else if (data[0] == 'false') {
+                  } else {
                     showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: const Text(
-                                'Thông báo',
-                              ),
-                              content:
-                                  Text('Email hoặc mật khẩu không chính xác'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ));
+                      context: context,
+                      builder: (context) => Container(
+                        width: 200,
+                          child: AlertDialog(
+                        title: const Text(
+                          'Thông báo',
+                        ),
+                        content: Text('Email hoặc mật khẩu không chính xác'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      )),
+                    );
                   }
                 }
-                // else{
-                //   showDialog(
-                //         context: context,
-                //         builder: (context) => Container(
-                //               width: 200,
-                //               child: AlertDialog(
-                //                 title: const Text(
-                //                   'Thông báo',
-                //                 ),
-                //                 content: Text(
-                //                     'Email hoặc mật khẩu không được bỏ trống'),
-                //                 actions: <Widget>[
-                //                   TextButton(
-                //                     onPressed: () => Navigator.pop(context, 'OK'),
-                //                     child: const Text('OK'),
-                //                   ),
-                //                 ],
-                //               ),
-                //             ));
-                // }
+                else{ 
+                  showDialog(
+                        context: context,
+                        builder: (context) => Container(
+                              width: 200,
+                              child: AlertDialog(
+                                title: const Text(
+                                  'Thông báo',
+                                ),
+                                content: Text(
+                                    'Email hoặc mật khẩu không được bỏ trống'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            ));
+                }
               },
               child: const Text(
                 'Đăng Nhập',

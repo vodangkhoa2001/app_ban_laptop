@@ -2,16 +2,13 @@
 
 import 'package:ban_laptop/models/product/product.dart';
 import 'package:ban_laptop/routes/product/product_detail.dart';
+import 'package:ban_laptop/screens/home/components/total_product.dart';
 import 'package:ban_laptop/services/api.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import 'package:provider/provider.dart';
-import '../routes/product/provider/product_provider.dart';
-import 'home/components/product_card.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -23,6 +20,9 @@ class _DashboardState extends State<Dashboard> {
   final f = new NumberFormat("#,##0", "vi_VN");
   // late final ProductDemo product;
   List<Product> lstproduct = [];
+  var product = 2;
+   final storage = FlutterSecureStorage();
+  String? id;
 
   int activeIndex = 0;
   Icon customIcon = const Icon(Icons.search);
@@ -56,6 +56,11 @@ class _DashboardState extends State<Dashboard> {
 
   get child => null;
 
+  List<String> banners = [
+    "Mới",
+    "Khuyến mãi",
+    ""
+  ];
   //Tạo nút tròn khi chuyển banner
   // sài smooth page indicator trên pub.dev
   Widget buildIndicator() => AnimatedSmoothIndicator(
@@ -69,24 +74,41 @@ class _DashboardState extends State<Dashboard> {
         ),
       );
 
-  Widget card(int i) {
+  Widget card(int i,String status) {
     return InkWell(
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Details(product: lstproduct[i])));
+                  builder: (context) => Details(product: lstproduct[i],banner: status,)));
         },
-        child: Card(
+        child: 
+        Card(
             child: Container(
                 width: 200.0,
                 height: 100.0,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10))),
+                    border: Border.all(color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.all(Radius.circular(4))),
+                        
                 child: Stack(
                   children: [
+                    Container(
+                      width: 250,
+                      height: 110,
+                      padding: EdgeInsets.only(top: 15),
+                      child: Image.network('${lstproduct[i].hinhAnh}'),
+                    ),
+                    Container(
+                      // alignment: Alignment.center,
+                      padding: EdgeInsets.all(3),
+                      
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(3)),
+                    color: Colors.red,
+                  ),
+                  child: Text(status,style: TextStyle(color: Colors.white),),
+                ),
                     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                       Container(
                           height: 100,
@@ -103,7 +125,7 @@ class _DashboardState extends State<Dashboard> {
                                 Text(
                                     '${lstproduct[i].tenSanPham}'.length < 35
                                         ? '${lstproduct[i].tenSanPham}'
-                                        : lstproduct[0]
+                                        : lstproduct[i]
                                                 .tenSanPham!
                                                 .substring(0, 34) +
                                             "...",
@@ -112,19 +134,46 @@ class _DashboardState extends State<Dashboard> {
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                     )),
+                                    status==""|| status=="Mới"?Text(f.format(lstproduct[i].giaBan),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 17)):
                                 Text(f.format(lstproduct[i].giaNhap),
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 17))
+                                        color: Colors.white, fontSize: 17)),
+                                        Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () async {
+                                              final snackBar = SnackBar(
+                                                content: Text(
+                                                    'Thêm sản phẩm thành công'),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                                  id = await storage.read(key: 'id');
+                                              String data =
+                                                  await CallApi.addCart(
+                                                      id!,
+                                                      lstproduct[i]
+                                                          .id
+                                                          .toString(),
+                                                      1);
+                                            },
+                                            child: Icon(
+                                              Icons.shopping_cart_rounded,
+                                              size: 20,
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                        ],
+                                      )
                               ],
                             ),
                           )),
                     ]),
-                    Container(
-                      width: 250,
-                      height: 110,
-                      padding: EdgeInsets.only(top: 15),
-                      child: Image.network('${lstproduct[i].hinhAnh}'),
-                    ),
+                    
                   ],
                 ))));
   }
@@ -296,8 +345,14 @@ class _DashboardState extends State<Dashboard> {
                                 color: Colors.black,
                               )),
                           InkWell(
-                            onTap: () {},
-                            child: const Text("Tất cả"),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          TotalNewProduct(lstPro: lstproduct,banner:banners[0])));
+                            },
+                            child: Text("Tất cả"),
                           )
                         ],
                       ),
@@ -314,8 +369,7 @@ class _DashboardState extends State<Dashboard> {
                         child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
-                              for (int i = 0; i < lstproduct.length; i++)
-                                card(i),
+                              for (int i = 0; i < product; i++) card(i,banners[0]),
                             ])),
 
                     //sp khuyen mai
@@ -334,7 +388,13 @@ class _DashboardState extends State<Dashboard> {
                                 color: Colors.black,
                               )),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          TotalNewProduct(lstPro: lstproduct,banner: banners[1],)));
+                            },
                             child: const Text("Tất cả"),
                           )
                         ],
@@ -352,8 +412,7 @@ class _DashboardState extends State<Dashboard> {
                         child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
-                              for (int i = 0; i < lstproduct.length; i++)
-                                card(i),
+                              for (int i = 0; i < product; i++) card(i,banners[1]),
                             ])),
                   ],
                 ),

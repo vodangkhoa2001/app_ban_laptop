@@ -16,15 +16,18 @@ import 'package:page_transition/page_transition.dart';
 import 'package:ban_laptop/screens/shopping.dart';
 
 class Details extends StatefulWidget {
-  Details({Key? key, required this.product}) : super(key: key);
+  Details({Key? key, required this.product,required this.banner }) : super(key: key);
   Product product;
+  String banner;
+
   @override
-  _DetailsState createState() => _DetailsState(product);
+  _DetailsState createState() => _DetailsState(product,banner);
 }
 
 class _DetailsState extends State<Details> {
   final Product product;
-  _DetailsState(this.product);
+  String banner;
+  _DetailsState(this.product,this.banner);
   final f = new NumberFormat("#,##0", "vi_VN");
   // showDialog(
   //                         context: context,
@@ -47,12 +50,12 @@ class _DetailsState extends State<Details> {
     });
     Future.delayed(Duration(seconds: 1), toChat);
   }
-  toChat(){
+
+  toChat() {
     Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HomePage(tab: 2)),
-                        (route) => false);
+        context,
+        MaterialPageRoute(builder: (context) => HomePage(tab: 2)),
+        (route) => false);
   }
 
   void stop() {
@@ -144,7 +147,22 @@ class _DetailsState extends State<Details> {
                         ),
                       ],
                     ),
-                    child: Column(
+                    child:
+                     banner=="Mới"||banner==""?Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          f.format(product.giaBan) + ' VND',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            decorationColor: Colors.white,
+                            color: Colors.white,
+                            decorationStyle: TextDecorationStyle.solid,
+                          ),
+                        ),
+                      ],
+                    ):Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
@@ -306,6 +324,10 @@ class _DetailsState extends State<Details> {
                         DataRow(cells: [
                           DataCell(Text('Màn hình')),
                           DataCell(Text('${product.tenManHinh}')),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('Card đồ họa')),
+                          DataCell(Text('${product.tenCardManHinh}')),
                         ]),
                       ],
                     ),

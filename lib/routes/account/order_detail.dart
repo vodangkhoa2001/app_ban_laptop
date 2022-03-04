@@ -240,7 +240,7 @@ class _OrderDetailState extends State<OrderDetail> {
                         onPressed: () async {
                           final data = await CallApi.getProductDetail('SP01');
                         Navigator.push(
-                          context,MaterialPageRoute(builder: (context)=> Details(product: data))
+                          context,MaterialPageRoute(builder: (context)=> Details(product: data,banner: "",))
                         );
                         },
                         child: Container(
@@ -270,7 +270,7 @@ class _OrderDetailState extends State<OrderDetail> {
                       onPressed: () async {
                         final data = await CallApi.getProductDetail('SP01');
                         Navigator.push(
-                          context,MaterialPageRoute(builder: (context)=> Details(product: data))
+                          context,MaterialPageRoute(builder: (context)=> Details(product: data,banner:""))
                         );
                       },
                       child: Container(

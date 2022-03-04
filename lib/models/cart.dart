@@ -1,18 +1,15 @@
+import 'package:ban_laptop/models/product/product.dart';
+
 class Cart {
-  String? maSanPham;
-  int? soLuong;
+  int soLuong;
+  Product sanPham;
 
-  Cart({this.maSanPham, this.soLuong});
+  Cart({required this.sanPham,required this.soLuong});
 
-  Cart.fromJson(Map<String, dynamic> json) {
-    maSanPham = json['maSanPham'];
-    soLuong = json['soLuong'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['maSanPham'] = this.maSanPham;
-    data['soLuong'] = this.soLuong;
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['maSanPham'] = this.sanPham;
+  //   data['soLuong'] = this.soLuong;
+  //   return data;
+  // }
 }

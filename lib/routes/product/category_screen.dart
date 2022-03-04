@@ -13,6 +13,7 @@ import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -35,7 +36,6 @@ class _CategoryState extends State<Category>
   _CategoryState({this.tabController});
   List<List<Product>> lstproduct = [];
   List<ProductType> lstProductType = [];
-  
 
   _loadListProductByType(int id) async {
     for (var i = 1; i <= lstProductType.length; i++) {
@@ -47,7 +47,10 @@ class _CategoryState extends State<Category>
     stop();
   }
 
+  final storage = FlutterSecureStorage();
+  String? id;
   _loadListProductType() async {
+    id = await storage.read(key: 'id');
     final data = await CallApi.getAllProfuctType();
     setState(() {
       lstProductType = data;
@@ -84,7 +87,7 @@ class _CategoryState extends State<Category>
   @override
   void initState() {
     super.initState();
-      // loading();
+    // loading();
     setState(() {
       _loadListProductType();
     });
@@ -94,7 +97,6 @@ class _CategoryState extends State<Category>
   TextEditingController search = new TextEditingController();
 
   final f = new NumberFormat("#,##0", "vi_VN");
-
 
   Widget tab(int i) {
     return Column(
@@ -115,8 +117,7 @@ class _CategoryState extends State<Category>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: 
-                      Container(
+                      child: Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(15),
@@ -128,7 +129,10 @@ class _CategoryState extends State<Category>
                                 PageTransition(
                                     type:
                                         PageTransitionType.rightToLeftWithFade,
-                                    child: Details(product: lstproduct[i][index],)));
+                                    child: Details(
+                                      product: lstproduct[i][index],
+                                      banner: "",
+                                    )));
                           },
                           child: Stack(
                             children: [
@@ -156,7 +160,8 @@ class _CategoryState extends State<Category>
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${lstproduct[i][index].tenSanPham}'.length <
+                                        '${lstproduct[i][index].tenSanPham}'
+                                                    .length <
                                                 40
                                             ? '${lstproduct[i][index].tenSanPham}'
                                             : lstproduct[i][index]
@@ -173,10 +178,10 @@ class _CategoryState extends State<Category>
                                         f.format(lstproduct[i][index].giaBan) +
                                             'VND',
                                         style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 13,
-                                          decoration: TextDecoration.lineThrough
-                                        ),
+                                            color: Colors.white,
+                                            fontSize: 13,
+                                            decoration:
+                                                TextDecoration.lineThrough),
                                       ),
                                       Text(
                                         f.format(lstproduct[i][index].giaNhap) +
@@ -193,20 +198,27 @@ class _CategoryState extends State<Category>
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          
                                           InkWell(
-                                            onTap: (){
-                                              // Future<void> saveData() async {
-                                              //   Cart myData = Cart(maSanPham: , id: 1);
-
-                                              //   await FlutterSession().set('myData', myData);
-                                                
-                                              // }
+                                            onTap: () async {
+                                              final snackBar = SnackBar(
+                                                content: Text(
+                                                    'Thêm sản phẩm thành công'),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                              String data =
+                                                  await CallApi.addCart(
+                                                      id!,
+                                                      lstproduct[i][index]
+                                                          .id
+                                                          .toString(),
+                                                      1);
                                             },
-                                            child: Icon(Icons.shopping_cart_rounded,
-                                            size: 20,
-                                            color: Colors.white,
-                                          ),
+                                            child: Icon(
+                                              Icons.shopping_cart_rounded,
+                                              size: 20,
+                                              color: Colors.white,
+                                            ),
                                           )
                                         ],
                                       )
@@ -221,7 +233,6 @@ class _CategoryState extends State<Category>
                           ),
                         ),
                       ),
-                    
                     ),
                   ],
                 );
@@ -234,8 +245,8 @@ class _CategoryState extends State<Category>
   @override
   Widget build(BuildContext context) {
     return check
-                      ? Loading()
-                      : DefaultTabController(
+        ? Loading()
+        : DefaultTabController(
             length: lstProductType.length,
             child: Scaffold(
                 appBar: AppBar(
@@ -260,11 +271,9 @@ class _CategoryState extends State<Category>
                 body: TabBarView(
                   controller: tabController,
                   children: [
-                    for (var i = 0; i < lstProductType.length; i++) 
-                    tab(i),
+                    for (var i = 0; i < lstProductType.length; i++) tab(i),
                   ],
-                )
-                ),
-           );
+                )),
+          );
   }
 }

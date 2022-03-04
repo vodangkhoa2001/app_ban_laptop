@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ban_laptop/base_url.dart';
 import 'package:ban_laptop/models/account/account.dart';
+import 'package:ban_laptop/models/cart.dart';
 import 'package:ban_laptop/models/invoice/invoice.dart';
 import 'package:ban_laptop/models/product/product.dart';
 import 'package:ban_laptop/models/product/product_type.dart';
@@ -19,7 +20,9 @@ String urlInvoiceByUser = baseUrl + 'invoice/';
 String urlChangePass = baseUrl + 'account/password';
 String urlChangeName = baseUrl + 'account/edit-name/';
 String urlChangeAddress = baseUrl + 'account/edit-address/';
-
+String urlGetCart = baseUrl + 'get-cart';
+String urlAddCart = baseUrl + 'add-cart';
+String urlRemoveCart = baseUrl + 'remove-cart';
 
 class CallApi {
   static Future<String> signUp(String name, String pass, String email, String phone,String address) async {
@@ -82,6 +85,7 @@ class CallApi {
           tenOCung: e['TenOCung'],
           tenRam: e['TenRam'],
           tenManHinh: e['TenManHinh'],
+          tenCardManHinh: e['TenCardDoHoa'],
           tenCPU: e['TenCPU']);
     }).toList();
     return lstproduct;
@@ -108,6 +112,7 @@ class CallApi {
           tenOCung: data['TenOCung'],
           tenRam: data['TenRam'],
           tenManHinh: data['TenManHinh'],
+          tenCardManHinh: data['TenCardDoHoa'],
           tenCPU: data['TenCPU']);    
   }
 
@@ -134,6 +139,7 @@ class CallApi {
           tenOCung: e['TenOCung'],
           tenRam: e['TenRam'],
           tenManHinh: e['TenManHinh'],
+          tenCardManHinh: e['TenCardDoHoa'],
           tenCPU: e['TenCPU']);
     }).toList();
     return lstproduct;
@@ -236,6 +242,78 @@ class CallApi {
     final response = await http.post(Uri.parse(urlChangeAddress + id),
         body: jsonEncode({
           "DiaChi": newAddress,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    final responseData = jsonDecode(response.body);
+
+    return responseData['message'];
+  }
+  //get cart
+  static Future<List<Cart>> getCart(
+    String id,
+  ) async {
+    final response = await http.post(Uri.parse(urlGetCart),
+        body: jsonEncode({
+          "MaTaiKhoan": id,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    final responseData = jsonDecode(response.body);
+    final data = responseData['data'] as List;
+    List<Cart> lstCart = data.map((e) {
+      return Cart(
+          soLuong: e['sl'],
+          sanPham: Product(id: e['id'],
+          maDongSanPham: e['MaDongSanPham'],
+          tenSanPham: e['TenSanPham'],
+          giaNhap: e['GiaNhap'],
+          giaBan: e['GiaBan'],
+          soLuong: e['SoLuong'],
+          maNhaSanXuat: e['MaNhaSanXuat'],
+          hinhAnh:imgProductUrl+ e['HinhAnh'],
+          moTa: e['MoTa'],
+          tenMau: e['TenMau'],
+          tenOCung: e['TenOCung'],
+          tenRam: e['TenRam'],
+          tenManHinh: e['TenManHinh'],
+          tenCardManHinh: e['TenCardDoHoa'],
+          tenCPU: e['TenCPU']));
+    }).toList();
+    return lstCart;
+  }
+  //remove cart
+   static Future<String> addCart(
+    String id,
+    String maSP,
+    int sl,
+  ) async {
+    final response = await http.post(Uri.parse(urlAddCart),
+        body: jsonEncode({
+          "MaTaiKhoan":id,
+          "MaSanPham": maSP,
+          "SoLuong":sl
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    final responseData = jsonDecode(response.body);
+
+    return responseData['message'];
+  }
+  static Future<String> removeCart(
+    String id,
+    String maSP,
+  ) async {
+    final response = await http.post(Uri.parse(urlRemoveCart),
+        body: jsonEncode({
+          "MaTaiKhoan":id,
+          "MaSanPham": maSP
         }),
         headers: {
           'Content-Type': 'application/json',

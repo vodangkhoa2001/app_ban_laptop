@@ -13,7 +13,7 @@ class Product {
   String? tenRam;
   String? tenManHinh;
   String? tenCPU;
-
+  String? tenCardManHinh;
   Product(
       {this.id,
       this.maDongSanPham,
@@ -28,7 +28,8 @@ class Product {
       this.tenOCung,
       this.tenRam,
       this.tenManHinh,
-      this.tenCPU});
+      this.tenCPU,
+      this.tenCardManHinh});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -45,6 +46,7 @@ class Product {
     tenRam = json['TenRam'];
     tenManHinh = json['TenManHinh'];
     tenCPU = json['TenCPU'];
+    tenCardManHinh = json['TenCardDoHoa'];
   }
 
   Map<String, dynamic> toJson() {
@@ -63,6 +65,7 @@ class Product {
     data['TenRam'] = this.tenRam;
     data['TenManHinh'] = this.tenManHinh;
     data['TenCPU'] = this.tenCPU;
+    data['TenCardDoHoa'] = this.tenCardManHinh;
     return data;
   }
 }
