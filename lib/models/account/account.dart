@@ -1,6 +1,5 @@
 class UserAccount {
   final String id;
-  final String username;
   final String fullName;
   final String avatar;
   final String phone;
@@ -13,7 +12,6 @@ class UserAccount {
       {
       required this.id,
       required this.fullName,
-      required this.username,
       required this.avatar,
       required this.phone,
       required this.email,
@@ -26,7 +24,6 @@ class UserAccount {
   UserAccount.fromJson(Map<String, dynamic> json) 
     : id = json['id'],
     fullName = json['fullName'],
-    username = json['username'],
     avatar = json['avatar'],
     phone = json['phone'],
     email = json['email'],
@@ -39,7 +36,6 @@ class UserAccount {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = id;
     data['fullName'] = fullName;
-    data['username'] = username;
     data['avatar'] = avatar;
     data['phone'] = phone;
     data['email'] = email;

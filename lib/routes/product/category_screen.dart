@@ -4,6 +4,7 @@
 // import 'dart:convert';
 // import 'dart:ui';
 
+import 'package:ban_laptop/models/cart.dart';
 import 'package:ban_laptop/models/product/product.dart';
 import 'package:ban_laptop/models/product/product_info.dart';
 import 'package:ban_laptop/models/product/product_type.dart';
@@ -14,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+
+// import 'package:flutter_session/flutter_session.dart';
 
 import 'product_detail.dart';
 //product
@@ -91,6 +94,7 @@ class _CategoryState extends State<Category>
   TextEditingController search = new TextEditingController();
 
   final f = new NumberFormat("#,##0", "vi_VN");
+
 
   Widget tab(int i) {
     return Column(
@@ -189,23 +193,16 @@ class _CategoryState extends State<Category>
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          // Row(
-                                          //   children: [
-                                          //     for (var i = 1; i < 6; i++)
-                                          //       (i <= starPoint)
-                                          //           ? const Icon(
-                                          //               Icons.star_rounded,
-                                          //               size: 20,
-                                          //               color: Colors.white)
-                                          //           : const Icon(
-                                          //               Icons
-                                          //                   .star_border_rounded,
-                                          //               size: 20,
-                                          //               color: Colors.white),
-                                          //   ],
-                                          // ),
+                                          
                                           InkWell(
-                                            onTap: (){},
+                                            onTap: (){
+                                              // Future<void> saveData() async {
+                                              //   Cart myData = Cart(maSanPham: , id: 1);
+
+                                              //   await FlutterSession().set('myData', myData);
+                                                
+                                              // }
+                                            },
                                             child: Icon(Icons.shopping_cart_rounded,
                                             size: 20,
                                             color: Colors.white,

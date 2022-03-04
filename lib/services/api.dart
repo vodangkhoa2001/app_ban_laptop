@@ -10,25 +10,36 @@ import 'package:http/http.dart' as http;
 final storage = new FlutterSecureStorage();
 
 String infoUrl = baseUrl + 'account/';
+String urlSignUp = baseUrl + 'account/register';
 String urlProduct = baseUrl + 'products/';
 String urlProductType = baseUrl + 'category';
 String urlProductByType = baseUrl + 'products/type/';
 String urlUser = baseUrl + 'account/login';
 String urlInvoiceByUser = baseUrl + 'invoice/';
 String urlChangePass = baseUrl + 'account/password';
+String urlChangeName = baseUrl + 'account/edit-name/';
+String urlChangeAddress = baseUrl + 'account/edit-address/';
+
 
 class CallApi {
-  postData(data, apiUrl) async {
-    var fullUrl = baseUrl + apiUrl;
-    return await http.post(
-      Uri.parse(fullUrl),
-      body: jsonEncode(data),
-      headers: _setHeaders(),
+  static Future<String> signUp(String name, String pass, String email, String phone,String address) async {
+    final response = await http.post(Uri.parse(urlSignUp), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: jsonEncode({
+          "HoTen": name,
+          "Password":pass,
+          "Email":email,
+          "SDT":phone,
+          "DiaChi": address
+        }),
     );
-  }
+    
+    final responseData = jsonDecode(response.body);
 
-  _setHeaders() =>
-      {'Content-type': 'aplication/json', 'Accept': 'application/json'};
+    return responseData['message'];
+  }
 
   static Future<UserAccount> getUserInfo(id) async {
     final response = await http.get(Uri.parse(infoUrl + id), headers: {
@@ -39,7 +50,6 @@ class CallApi {
     final data = responseData['data'];
     return UserAccount(
       id: data['id'],
-      username: data['TenDangNhap'],
       email: data['Email'],
       fullName: data['HoTen'],
       avatar: imgUserUrl + data['HinhAnh'],
@@ -200,5 +210,39 @@ class CallApi {
           'Accept': 'application/json',
         });
     return response;
+  }
+
+  //doi ten
+  static Future<String> changeName(
+    String id,
+    String newName,
+  ) async {
+    final response = await http.post(Uri.parse(urlChangeName + id),
+        body: jsonEncode({
+          "HoTen": newName,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    final responseData = jsonDecode(response.body);
+
+    return responseData['message'];
+  }
+  static Future<String> changeAddress(
+    String id,
+    String newAddress,
+  ) async {
+    final response = await http.post(Uri.parse(urlChangeAddress + id),
+        body: jsonEncode({
+          "DiaChi": newAddress,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    final responseData = jsonDecode(response.body);
+
+    return responseData['message'];
   }
 }

@@ -17,6 +17,6 @@ class AccountProvider {
     dynamic data = await readJsonData();
     //Chuyển data sang danh sách UserAccount
     // lstResult = data.map((e) => UserAccount.fromJson(e));
-    return UserAccount(id: data['id'], fullName: data['fullName'], username: data['username'], avatar: data['avatar'], phone: data['phone'], email: data['email'], address: data['address'],account_type: data['account_type'],status: data['status']);
+    return UserAccount(id: data['id'], fullName: data['fullName'], avatar: data['avatar'], phone: data['phone'], email: data['email'], address: data['address'],account_type: data['account_type'],status: data['status']);
   }
 }

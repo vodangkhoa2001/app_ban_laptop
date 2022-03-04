@@ -1,8 +1,10 @@
-// ignore_for_file: unnecessary_new, non_constant_identifier_names
+// ignore_for_file: unnecessary_new, non_constant_identifier_names, deprecated_member_use, prefer_const_constructors
 
 // import 'package:ban_laptop/routes/login_signup/login.dart';
 import 'dart:convert';
 
+import 'package:ban_laptop/routes/login_signup/login_signup.dart';
+import 'package:ban_laptop/screens/loading.dart';
 import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
 // import 'package:page_transition/page_transition.dart';
@@ -18,7 +20,7 @@ class _SignUpState extends State<SignUp> {
   bool? isChecked = false; // kiem tra dieu kien
   bool _passwordVisible = false;
   bool _passwordVisible1 = false;
-  TextEditingController ho = TextEditingController(); 
+  TextEditingController ho = TextEditingController();
   TextEditingController ten = TextEditingController(); //ho
   TextEditingController matKhau = TextEditingController(); //mat khau
   TextEditingController email = TextEditingController(); //email
@@ -60,24 +62,24 @@ class _SignUpState extends State<SignUp> {
     super.initState();
   }
 
-  _signUp() async {
-    var data = {
-      'HoTen': ho.text+' '+ten.text,
-      'email': email.text,
-      'SDT': sdt.text,
-      'MatKhau': matKhau.text,
-      'DiaChi':address.text+', '+commune.text+ ', ' + district.text+','+city.text,
-      
-       
-    };
-    var res = await CallApi().postData(data, 'account/register');
-    var body = json.decode(res.body);
-    if (body[ "message"] == "Đã Đăng kí thành công.") {
-      _showDialog('Message', 'Đăng kí thành công!');
-    } else {
-      _showDialog('Message', 'Failed!');
-    }
-  }
+  // _signUp() async {
+  //   var data = {
+  //     'HoTen': ho.text+' '+ten.text,
+  //     'email': email.text,
+  //     'SDT': sdt.text,
+  //     'MatKhau': matKhau.text,
+  //     'DiaChi':address.text+', '+commune.text+ ', ' + district.text+','+city.text,
+
+  //   };
+  //   var res = await CallApi().postData(data, 'account/register');
+  //   var body = json.decode(res.body);
+  //   if (body[ "message"] == "Đã Đăng kí thành công.") {
+  //     _showDialog('Message', 'Đăng kí thành công!');
+  //   } else {
+  //     _showDialog('Message', 'Failed!');
+  //   }
+  // }
+  bool check = false;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,6 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    
                     const SizedBox(
                       height: 10,
                     ),
@@ -107,7 +108,6 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         Row(
                           children: [
-                            
                             Expanded(
                               //họ
                               child: TextField(
@@ -125,7 +125,6 @@ class _SignUpState extends State<SignUp> {
                             ),
                             //tên
                             Expanded(
-                              
                               child: TextField(
                                 controller: ten,
                                 decoration: const InputDecoration(
@@ -318,19 +317,109 @@ class _SignUpState extends State<SignUp> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(150, 48),
-              ),
-              onPressed: () {
-                
-                _signUp();
-              },
-              child: const Text(
-                'Đăng Kí',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
+            child: check
+                ? Loading()
+                : ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(150, 48),
+                    ),
+                    onPressed: () async {
+                      setState(() {
+                        check = true;
+                      });
+                      if (ten.text != "" &&
+                          ho.text != "" &&
+                          matKhau.text != "" &&
+                          email.text != "" &&
+                          sdt.text != "" &&
+                          address.text != "" &&
+                          commune.text != "" &&
+                          district.text != "" &&
+                          city.text != "") {
+                        String data = await CallApi.signUp(
+                            ho.text + ' ' + ten.text,
+                            matKhau.text,
+                            email.text,
+                            sdt.text,
+                            address.text +
+                                ', ' +
+                                commune.text +
+                                ', ' +
+                                district.text +
+                                ', ' +
+                                city.text);
+                        if (data == "Đã Đăng kí thành công.") {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Login_SignUp()),
+                              (route) => false);
+                        } else {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Container(
+                                    width: 300,
+                                    height: 60,
+                                    child: Center(
+                                      child:
+                                          const Text('Email đã được đăng ký'),
+                                    ),
+                                  ),
+                                  actions: [
+                                    Center(
+                                      child: FlatButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Đóng'),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              });
+                        }
+                        setState(() {
+                        check = false;
+                      });
+                      } else {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: Container(
+                                  width: 300,
+                                  height: 60,
+                                  child: Center(
+                                    child: const Text(
+                                        'Bạn cần điền đầy đủ thông tin'),
+                                  ),
+                                ),
+                                actions: [
+                                  Center(
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Đóng'),
+                                    ),
+                                  )
+                                ],
+                              );
+                            });
+                      }
+                      setState(() {
+                        check = false;
+                      });
+                    },
+                    child: const Text(
+                      'Đăng Kí',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
           ),
           const SizedBox(
             height: 10,

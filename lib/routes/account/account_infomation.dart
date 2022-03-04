@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:ban_laptop/main.dart';
 import 'package:ban_laptop/models/account/account.dart';
 import 'package:ban_laptop/routes/product/provider/account_provider.dart';
 import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'edit_account.dart';
+
 // import 'package:ban_laptop/models/account/account.dart';
+final storage = new FlutterSecureStorage();
 
 class AccountInfo extends StatefulWidget {
   UserAccount account;
@@ -19,6 +23,7 @@ class AccountInfo extends StatefulWidget {
 class _AccountInfoState extends State<AccountInfo> {
   final UserAccount account;
   _AccountInfoState(this.account);
+  TextEditingController txtAddress = new TextEditingController();
 
   @override
   void initState() {
@@ -38,7 +43,9 @@ class _AccountInfoState extends State<AccountInfo> {
                       context,
                       PageTransition(
                           type: PageTransitionType.rightToLeftWithFade,
-                          child: EditAccount(account: account,)));
+                          child: EditAccount(
+                            account: account,
+                          )));
                 },
                 child: const Text(
                   'Sửa',
@@ -92,23 +99,16 @@ class _AccountInfoState extends State<AccountInfo> {
                           'Số điện thoại',
                           style: TextStyle(color: Colors.black54, fontSize: 18),
                         ),
-                        trailing: Text(account.phone,
-                            style: TextStyle(fontSize: 17)),
+                        trailing:
+                            Text(account.phone, style: TextStyle(fontSize: 17)),
                       ),
-                      // ListTile(
-                      //   title: Text(
-                      //     'Giới tính',
-                      //     style: TextStyle(color: Colors.black54, fontSize: 18),
-                      //   ),
-                      //   trailing: Text('Nam', style: TextStyle(fontSize: 20)),
-                      // ),
                       ListTile(
                         title: Text(
                           'Email',
                           style: TextStyle(color: Colors.black54, fontSize: 18),
                         ),
-                        trailing: Text(account.email,
-                            style: TextStyle(fontSize: 17)),
+                        trailing:
+                            Text(account.email, style: TextStyle(fontSize: 17)),
                       )
                     ],
                   ),
@@ -132,41 +132,67 @@ class _AccountInfoState extends State<AccountInfo> {
                           FlatButton(
                               onPressed: () {
                                 showDialog<void>(
-                                context: context,
-                                barrierDismissible: false, // user must tap button!
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    // title: const Text('Địa chỉ mới của bạn!'),
-                                    content: SingleChildScrollView(
-                                      child: ListBody(
-                                        children: <Widget>[
-                                          Container(
-                                            width: 300,
-                                            child: TextField(
-                                            decoration: InputDecoration(
-                                              
-                                              hintText: 'Địa chỉ của bạn..',
-                                              suffixIcon: InkWell(
-                                                onTap: (){},
-                                                child: Icon(Icons.done_rounded),
+                                  context: context,
+                                  barrierDismissible:
+                                      false, // user must tap button!
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      // title: const Text('Địa chỉ mới của bạn!'),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: <Widget>[
+                                            Container(
+                                              width: 300,
+                                              child: TextField(
+                                                controller: txtAddress,
+                                                decoration: InputDecoration(
+                                                  hintText: 'Địa chỉ của bạn..',
+                                                  suffixIcon: InkWell(
+                                                    onTap: () async {
+                                                      String? id = await storage
+                                                          .read(key: "id");
+                                                      String data =
+                                                          await CallApi
+                                                              .changeAddress(
+                                                                  id!,
+                                                                  txtAddress
+                                                                      .text);
+                                                      if (data ==
+                                                          "thanh cong") {
+                                                        Navigator
+                                                            .pushAndRemoveUntil(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            HomePage(
+                                                                              tab: 3,
+                                                                            )),
+                                                                (route) =>
+                                                                    false);
+                                                      }
+                                                    },
+                                                    child: Icon(
+                                                        Icons.done_rounded),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          )
-                                        ],
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: const Text('Đóng'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('Đóng'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               },
-                                );},
                               child: const Text('Sửa',
                                   style: TextStyle(
                                       color: Colors.blue,

@@ -1,7 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:ban_laptop/main.dart';
 import 'package:ban_laptop/models/account/account.dart';
+import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+final storage = new FlutterSecureStorage();
 
 class EditAccount extends StatefulWidget {
   EditAccount({Key? key, required this.account}) : super(key: key);
@@ -23,7 +28,8 @@ class _EditAccountState extends State<EditAccount> {
       txtPhone.text = account.phone;
       txtEmail.text = account.email;
     });
-  } 
+  }
+
   UserAccount account;
   _EditAccountState(this.account);
   @override
@@ -70,8 +76,18 @@ class _EditAccountState extends State<EditAccount> {
           Padding(
             padding: const EdgeInsets.all(15),
             child: ElevatedButton(
-              onPressed: () {
-                // Respond to button press
+              onPressed: () async {
+                String? id = await storage.read(key: "id");
+                String data = await CallApi.changeName(id!, txtName.text);
+                if (data == "thanh cong") {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HomePage(
+                                tab: 3,
+                              )),
+                      (route) => false);
+                }
               },
               child: const Padding(
                 padding: EdgeInsets.all(17),

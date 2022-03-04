@@ -120,8 +120,10 @@ class _LoadingScreenHomeState extends State<LoadingScreenHome> {
   initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (_) => HomePage(
+                tab: 0,
+              )));
     });
   }
 
@@ -152,31 +154,49 @@ class _LoadingScreenHomeState extends State<LoadingScreenHome> {
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key, }) : super(key: key);
+  HomePage({Key? key, required this.tab}) : super(key: key);
   // Product product;
+  int tab;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(tab);
 }
 
 class _HomePageState extends State<HomePage> {
   static const primaryColor = Color(0xFF4478DE);
   // Product product;
   // _HomePageState(this.product);
-  int currentTab = 0;
-  final List<Widget> screens = [
-    const Dashboard(),
-    const Shopping(),
-    const Chat(),
-    Account()
-  ];
+  int currentTab;
+  _HomePageState(this.currentTab);
+  List<Widget> screens = [Dashboard(), Shopping(), Chat(), Account()];
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = const Dashboard();
+  Widget? currentScreen;
+
+  @override
+  void initState() {
+    super.initState();
+    switch (currentTab) {
+      case 0:
+        currentScreen = Dashboard();
+        break;
+      case 1:
+        currentScreen = Shopping();
+        break;
+      case 2:
+        currentScreen = Chat();
+        break;
+        
+      default:
+      currentScreen = Account();
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageStorage(
-        child: currentScreen,
+        child: currentScreen!,
         bucket: bucket,
       ),
       bottomNavigationBar: BottomAppBar(
@@ -216,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     setState(() {
                       currentScreen = const Shopping();
-                      currentTab = 1;
+                      currentTab =1;
                     });
                   },
                   child: Column(

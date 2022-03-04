@@ -58,77 +58,78 @@ class _PaymentState extends State<Payment> {
               ),
 
               //mục hiện giá tiền và khuyễn mãi
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Column(
-                  children: [
-                    Stack(
-                      alignment: Alignment.centerRight,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 10),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(left: 15),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              hintText: 'Nhập mã giảm giá',
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(90, 48),
-                              primary: Colors.blue,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(10),
-                                      bottomRight: Radius.circular(10))),
-                            ),
-                            onPressed: () => print('Chưa nhập mã'),
-                            child: const Text('Áp dụng'),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "Tổng giá trị sản phẩm:",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            "52.990.990đ",
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          "Tạm tính:",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "52.990.990đ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, color: Colors.red),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 10),
+              //   child: Column(
+              //     children: [
+              //       Stack(
+              //         alignment: Alignment.centerRight,
+              //         children: [
+              //           Padding(
+              //             padding: const EdgeInsets.only(top: 10, bottom: 10),
+              //             child: TextField(
+              //               decoration: InputDecoration(
+              //                 contentPadding: const EdgeInsets.only(left: 15),
+              //                 border: OutlineInputBorder(
+              //                   borderRadius: BorderRadius.circular(15.0),
+              //                 ),
+              //                 hintText: 'Nhập mã giảm giá',
+              //               ),
+              //             ),
+              //           ),
+              //           Positioned(
+              //             child: ElevatedButton(
+              //               style: ElevatedButton.styleFrom(
+              //                 fixedSize: const Size(90, 48),
+              //                 primary: Colors.blue,
+              //                 shape: const RoundedRectangleBorder(
+              //                     borderRadius: BorderRadius.only(
+              //                         topRight: Radius.circular(10),
+              //                         bottomRight: Radius.circular(10))),
+              //               ),
+              //               onPressed: () => print('Chưa nhập mã'),
+              //               child: const Text('Áp dụng'),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //       Padding(
+              //         padding: const EdgeInsets.only(top: 10),
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: const [
+              //             Text(
+              //               "Tổng giá trị sản phẩm:",
+              //               style: TextStyle(
+              //                 fontWeight: FontWeight.w400,
+              //               ),
+              //             ),
+              //             Text(
+              //               "52.990.990đ",
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: const [
+              //           Text(
+              //             "Tạm tính:",
+              //             style: TextStyle(
+              //               fontWeight: FontWeight.bold,
+              //             ),
+              //           ),
+              //           Text(
+              //             "52.990.990đ",
+              //             style: TextStyle(
+              //                 fontWeight: FontWeight.w400, color: Colors.red),
+              //           ),
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              
               //het mục hiện giá tiền và khuyễn mãi
 
               Padding(
@@ -379,6 +380,7 @@ class _PaymentState extends State<Payment> {
                   ],
                 ),
               ),
+            
             ],
           ),
 

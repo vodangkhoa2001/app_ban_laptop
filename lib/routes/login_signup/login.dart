@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(),
-                          labelText: "Nhập Email/Số Điện Thoại",
+                          labelText: "Nhập Email",
                           errorText: checkAccount == true
                               ? 'Email không được bỏ trống'
                               : null,
