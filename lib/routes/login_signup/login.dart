@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
+import 'dart:convert';
+
 import 'package:ban_laptop/main.dart';
 import 'package:ban_laptop/screens/loading.dart';
 import 'package:ban_laptop/services/api.dart';
@@ -151,52 +153,56 @@ class _LoginState extends State<Login> {
                 });
                 if (account.text != '' && password.text != '') {
                   final data = await CallApi.login(account.text, password.text);
-                  if (data[0] == 'true') {
-                    await storage.write(key: 'id', value: data[1]);
+                  
+                  if (data.statusCode == 200) {
+                     Map<String, dynamic> responseData = jsonDecode(data.body);
+                    await storage.write(key: 'id', value: responseData["0"]);
                     // await storage.write(key: 'Email', value: data[2]);
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) => LoadingHome()),
                         (Route<dynamic> route) => false);
                   } else {
+                    
                     showDialog(
                       context: context,
                       builder: (context) => Container(
-                        width: 200,
+                          width: 200,
                           child: AlertDialog(
-                        title: const Text(
-                          'Thông báo',
-                        ),
-                        content: Text('Email hoặc mật khẩu không chính xác'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'OK'),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      )),
+                            title: const Text(
+                              'Thông báo',
+                            ),
+                            content:
+                                Text('Email hoặc mật khẩu không chính xác'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          )),
                     );
                   }
                 }
-                else{ 
-                  showDialog(
-                        context: context,
-                        builder: (context) => Container(
-                              width: 200,
-                              child: AlertDialog(
-                                title: const Text(
-                                  'Thông báo',
-                                ),
-                                content: Text(
-                                    'Email hoặc mật khẩu không được bỏ trống'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context, 'OK'),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            ));
-                }
+                // else{
+                //   showDialog(
+                //         context: context,
+                //         builder: (context) => Container(
+                //               width: 200,
+                //               child: AlertDialog(
+                //                 title: const Text(
+                //                   'Thông báo',
+                //                 ),
+                //                 content: Text(
+                //                     'Email hoặc mật khẩu không được bỏ trống'),
+                //                 actions: <Widget>[
+                //                   TextButton(
+                //                     onPressed: () => Navigator.pop(context, 'OK'),
+                //                     child: const Text('OK'),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ));
+                // }
               },
               child: const Text(
                 'Đăng Nhập',

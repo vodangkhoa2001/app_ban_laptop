@@ -27,13 +27,10 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
   // Product product;
   // _OrderState(this.product);
   String? id;
-  getId() async {
-    setState(() {});
-    id = await storage.read(key: "id");
-  }
 
   _loadInvoice() async {
-    final data = await CallApi.getAllInvoiceByUser(id);
+    id = await storage.read(key: "id");
+    final data = await CallApi.getAllInvoiceByUser(id!);
     setState(() {
       lstInvoice = data;
     });
@@ -64,7 +61,6 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    getId();
     _loadStatus();
     _loading();
   }

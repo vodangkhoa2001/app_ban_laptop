@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:ban_laptop/main.dart';
+import 'package:ban_laptop/models/cart.dart';
 import 'package:ban_laptop/models/product/product.dart';
 import 'package:ban_laptop/routes/product/payment.dart';
 import 'package:ban_laptop/screens/account.dart';
@@ -10,32 +11,30 @@ import 'package:ban_laptop/screens/loading.dart';
 import 'package:ban_laptop/screens/shopping.dart';
 import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:ban_laptop/screens/shopping.dart';
 
 class Details extends StatefulWidget {
-  Details({Key? key, required this.product,required this.banner }) : super(key: key);
+  Details({Key? key, required this.product, required this.banner})
+      : super(key: key);
   Product product;
   String banner;
 
   @override
-  _DetailsState createState() => _DetailsState(product,banner);
+  _DetailsState createState() => _DetailsState(product, banner);
 }
 
 class _DetailsState extends State<Details> {
-  final Product product;
+  Product product;
   String banner;
-  _DetailsState(this.product,this.banner);
+  _DetailsState(this.product, this.banner);
   final f = new NumberFormat("#,##0", "vi_VN");
-  // showDialog(
-  //                         context: context,
-  //                         builder: (BuildContext context) => Container(
-  //                           width: 300,
-  //                           height:140,
-  //                           child: AlertDialog(content: CircularProgressIndicator()),
-  //                         ));
+  final storage = FlutterSecureStorage();
+  String? id;
   bool check = false;
   void loading() {
     setState(() {
@@ -147,45 +146,46 @@ class _DetailsState extends State<Details> {
                         ),
                       ],
                     ),
-                    child:
-                     banner=="Mới"||banner==""?Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          f.format(product.giaBan) + ' VND',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            decorationColor: Colors.white,
-                            color: Colors.white,
-                            decorationStyle: TextDecorationStyle.solid,
+                    child: banner == "Mới" || banner == ""
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                f.format(product.giaBan) + ' VND',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  decorationColor: Colors.white,
+                                  color: Colors.white,
+                                  decorationStyle: TextDecorationStyle.solid,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                f.format(product.giaBan) + ' VND',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  decoration: TextDecoration.lineThrough,
+                                  decorationColor: Colors.white,
+                                  color: Colors.white,
+                                  decorationStyle: TextDecorationStyle.solid,
+                                ),
+                              ),
+                              Text(
+                                f.format(product.giaNhap) + ' VND',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ):Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          f.format(product.giaBan) + ' VND',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            decoration: TextDecoration.lineThrough,
-                            decorationColor: Colors.white,
-                            color: Colors.white,
-                            decorationStyle: TextDecorationStyle.solid,
-                          ),
-                        ),
-                        Text(
-                          f.format(product.giaNhap) + ' VND',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -494,42 +494,14 @@ class _DetailsState extends State<Details> {
                         color: Colors.grey,
                       ))),
               FlatButton(
-                  onPressed: () {
-                    // !check?
-                    loading();
-
-                    // showDialog(
-                    //     context: context,
-                    //     barrierDismissible: true,
-                    //     builder: (BuildContext context) {
-                    //       return AlertDialog(
-                    //         content: Container(
-                    //           width: 300,
-                    //           height: 80,
-                    //           child: Column(
-                    //             children: [
-                    //               Text('Đã thêm thành công'),
-                    //               SizedBox(height: 10),
-                    //               Icon(
-                    //                 Icons.check_circle_rounded,
-                    //                 color: Colors.green[400],
-                    //                 size: 40,
-                    //               )
-                    //             ],
-                    //           ),
-                    //         ),
-                    //         actions: [
-                    //           Center(
-                    //             child: FlatButton(
-                    //               onPressed: () {
-                    //                 Navigator.pop(context);
-                    //               },
-                    //               child: Text('OK'),
-                    //             ),
-                    //           )
-                    //         ],
-                    //       );
-                    //     });
+                  onPressed: () async {
+                    id = await storage.read(key: 'id');
+                    final snackBar = SnackBar(
+                      content: Text('Thêm sản phẩm thành công'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    String data =
+                        await CallApi.addCart(id!, product.id.toString(), 1);
                   },
                   child: Container(
                       padding: const EdgeInsets.all(15),
@@ -560,11 +532,14 @@ class _DetailsState extends State<Details> {
                                 children: [
                                   FlatButton(
                                     onPressed: () {
+                                      Cart cart = new Cart(sanPham:product, soLuong: 1);
                                       Navigator.pop(context);
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Payment()));
+                                              builder: (context) => Payment(lstCart: [],
+                                                    cartItem: cart,
+                                                  )));
                                     },
                                     child: Text('OK'),
                                   ),

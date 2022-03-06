@@ -16,29 +16,32 @@ String urlProduct = baseUrl + 'products/';
 String urlProductType = baseUrl + 'category';
 String urlProductByType = baseUrl + 'products/type/';
 String urlUser = baseUrl + 'account/login';
-String urlInvoiceByUser = baseUrl + 'invoice/';
 String urlChangePass = baseUrl + 'account/password';
 String urlChangeName = baseUrl + 'account/edit-name/';
 String urlChangeAddress = baseUrl + 'account/edit-address/';
 String urlGetCart = baseUrl + 'get-cart';
 String urlAddCart = baseUrl + 'add-cart';
 String urlRemoveCart = baseUrl + 'remove-cart';
+String urlInvoice = baseUrl + 'invoice/';
 
 class CallApi {
-  static Future<String> signUp(String name, String pass, String email, String phone,String address) async {
-    final response = await http.post(Uri.parse(urlSignUp), headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: jsonEncode({
-          "HoTen": name,
-          "Password":pass,
-          "Email":email,
-          "SDT":phone,
-          "DiaChi": address
-        }),
+  static Future<String> signUp(String name, String pass, String email,
+      String phone, String address) async {
+    final response = await http.post(
+      Uri.parse(urlSignUp),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: jsonEncode({
+        "HoTen": name,
+        "Password": pass,
+        "Email": email,
+        "SDT": phone,
+        "DiaChi": address
+      }),
     );
-    
+
     final responseData = jsonDecode(response.body);
 
     return responseData['message'];
@@ -64,7 +67,7 @@ class CallApi {
   }
 
   static Future<List<Product>> getAllProducts() async {
-    final response = await http.get(Uri.parse(urlProduct+'all'), headers: {
+    final response = await http.get(Uri.parse(urlProduct + 'all'), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
@@ -79,7 +82,7 @@ class CallApi {
           giaBan: e['GiaBan'],
           soLuong: e['SoLuong'],
           maNhaSanXuat: e['MaNhaSanXuat'],
-          hinhAnh:imgProductUrl+ e['HinhAnh'],
+          hinhAnh: imgProductUrl + e['HinhAnh'],
           moTa: e['MoTa'],
           tenMau: e['TenMau'],
           tenOCung: e['TenOCung'],
@@ -92,28 +95,28 @@ class CallApi {
   }
 
   static Future<Product> getProductDetail(String id) async {
-    final response = await http.get(Uri.parse(urlProduct+id), headers: {
+    final response = await http.get(Uri.parse(urlProduct + id), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
     final responseData = jsonDecode(response.body);
     final data = responseData['data'];
-      return Product(
-          id: data['id'],
-          maDongSanPham: data['MaDongSanPham'],
-          tenSanPham: data['TenSanPham'],
-          giaNhap: data['GiaNhap'],
-          giaBan: data['GiaBan'],
-          soLuong: data['SoLuong'],
-          maNhaSanXuat: data['MaNhaSanXuat'],
-          hinhAnh:imgProductUrl+ data['HinhAnh'],
-          moTa: data['MoTa'],
-          tenMau: data['TenMau'],
-          tenOCung: data['TenOCung'],
-          tenRam: data['TenRam'],
-          tenManHinh: data['TenManHinh'],
-          tenCardManHinh: data['TenCardDoHoa'],
-          tenCPU: data['TenCPU']);    
+    return Product(
+        id: data['id'],
+        maDongSanPham: data['MaDongSanPham'],
+        tenSanPham: data['TenSanPham'],
+        giaNhap: data['GiaNhap'],
+        giaBan: data['GiaBan'],
+        soLuong: data['SoLuong'],
+        maNhaSanXuat: data['MaNhaSanXuat'],
+        hinhAnh: imgProductUrl + data['HinhAnh'],
+        moTa: data['MoTa'],
+        tenMau: data['TenMau'],
+        tenOCung: data['TenOCung'],
+        tenRam: data['TenRam'],
+        tenManHinh: data['TenManHinh'],
+        tenCardManHinh: data['TenCardDoHoa'],
+        tenCPU: data['TenCPU']);
   }
 
   static Future<List<Product>> getAllProductByType(int id) async {
@@ -133,7 +136,7 @@ class CallApi {
           giaBan: e['GiaBan'],
           soLuong: e['SoLuong'],
           maNhaSanXuat: e['MaNhaSanXuat'],
-          hinhAnh:imgProductUrl+ e['HinhAnh'],
+          hinhAnh: imgProductUrl + e['HinhAnh'],
           moTa: e['MoTa'],
           tenMau: e['TenMau'],
           tenOCung: e['TenOCung'],
@@ -162,20 +165,16 @@ class CallApi {
   }
 
 //login
-  static Future<List<String>> login(String email, String password) async {
+  static Future<http.Response> login(String email, String password) async {
     var response = await http.post(Uri.parse(urlUser),
         body: jsonEncode({"Email": email, "Password": password}),
         headers: {"Content-Type": "application/json"});
-    Map<String, dynamic> responseData = jsonDecode(response.body);
-    List<String> lst = [];
-    lst.add(responseData["mess"]);
-    lst.add(responseData["0"]);
-    return lst;
+    return response;
   }
 
   //get invoice
-  static Future<List<Invoice>> getAllInvoiceByUser(id) async {
-    final response = await http.get(Uri.parse(urlInvoiceByUser + id), headers: {
+  static Future<List<Invoice>> getAllInvoiceByUser(String id) async {
+    final response = await http.get(Uri.parse(urlInvoice + 'get/'+id), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
@@ -235,6 +234,7 @@ class CallApi {
 
     return responseData['message'];
   }
+
   static Future<String> changeAddress(
     String id,
     String newAddress,
@@ -251,6 +251,7 @@ class CallApi {
 
     return responseData['message'];
   }
+
   //get cart
   static Future<List<Cart>> getCart(
     String id,
@@ -268,36 +269,34 @@ class CallApi {
     List<Cart> lstCart = data.map((e) {
       return Cart(
           soLuong: e['sl'],
-          sanPham: Product(id: e['id'],
-          maDongSanPham: e['MaDongSanPham'],
-          tenSanPham: e['TenSanPham'],
-          giaNhap: e['GiaNhap'],
-          giaBan: e['GiaBan'],
-          soLuong: e['SoLuong'],
-          maNhaSanXuat: e['MaNhaSanXuat'],
-          hinhAnh:imgProductUrl+ e['HinhAnh'],
-          moTa: e['MoTa'],
-          tenMau: e['TenMau'],
-          tenOCung: e['TenOCung'],
-          tenRam: e['TenRam'],
-          tenManHinh: e['TenManHinh'],
-          tenCardManHinh: e['TenCardDoHoa'],
-          tenCPU: e['TenCPU']));
+          sanPham: Product(
+              id: e['id'],
+              maDongSanPham: e['MaDongSanPham'],
+              tenSanPham: e['TenSanPham'],
+              giaNhap: e['GiaNhap'],
+              giaBan: e['GiaBan'],
+              soLuong: e['SoLuong'],
+              maNhaSanXuat: e['MaNhaSanXuat'],
+              hinhAnh: imgProductUrl + e['HinhAnh'],
+              moTa: e['MoTa'],
+              tenMau: e['TenMau'],
+              tenOCung: e['TenOCung'],
+              tenRam: e['TenRam'],
+              tenManHinh: e['TenManHinh'],
+              tenCardManHinh: e['TenCardDoHoa'],
+              tenCPU: e['TenCPU']));
     }).toList();
     return lstCart;
   }
+
   //remove cart
-   static Future<String> addCart(
+  static Future<String> addCart(
     String id,
     String maSP,
     int sl,
   ) async {
     final response = await http.post(Uri.parse(urlAddCart),
-        body: jsonEncode({
-          "MaTaiKhoan":id,
-          "MaSanPham": maSP,
-          "SoLuong":sl
-        }),
+        body: jsonEncode({"MaTaiKhoan": id, "MaSanPham": maSP, "SoLuong": sl}),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -306,15 +305,62 @@ class CallApi {
 
     return responseData['message'];
   }
+
   static Future<String> removeCart(
     String id,
     String maSP,
   ) async {
     final response = await http.post(Uri.parse(urlRemoveCart),
-        body: jsonEncode({
-          "MaTaiKhoan":id,
-          "MaSanPham": maSP
-        }),
+        body: jsonEncode({"MaTaiKhoan": id, "MaSanPham": maSP}),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    final responseData = jsonDecode(response.body);
+
+    return responseData['message'];
+  }
+
+  static Future<String> addInvoice(
+    String id,
+    String address,
+    String phone,
+    int sumCash
+  ) async {
+    final response = await http.post(Uri.parse(urlInvoice + 'add'),
+        body: jsonEncode({"MaTaiKhoan": id, "DiaChiGiaoHang": address,"SDT_GiaoHang":phone,"TongTien":sumCash}
+         ),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    final responseData = jsonDecode(response.body);
+
+    return responseData['message'];
+  }
+  static Future<String> addInvoiceDetail(
+    String idInvoice,
+    String idProduct,
+    int soLuong,
+    int price,
+    int discountPrice
+  ) async {
+    final response = await http.post(Uri.parse(urlInvoice + idInvoice),
+        body: jsonEncode({"MaHoaDon": idInvoice, "MaSanPham": idProduct, "SoLuong":soLuong,"DonGia":price,"DonGiaKhuyenMai":discountPrice}
+         ),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        });
+    final responseData = jsonDecode(response.body);
+
+    return responseData['message'];
+  }
+  
+  static Future<String> cancleInvoice(
+    String idInvoice,
+  ) async {
+    final response = await http.post(Uri.parse(urlInvoice+"cancle/" + idInvoice),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

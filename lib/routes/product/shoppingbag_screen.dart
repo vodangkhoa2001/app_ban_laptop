@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, sized_box_for_whitespace, prefer_const_constructors
 // import 'dart:html';
 import 'package:ban_laptop/models/cart.dart';
+import 'package:ban_laptop/screens/loading.dart';
 import 'package:ban_laptop/services/api.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
@@ -52,19 +53,34 @@ class _ShoppingBagState extends State<ShoppingBag> {
     });
   }
 
+  bool check = false;
+  void loading() {
+    setState(() {
+      check = true;
+    });
+    Future.delayed(Duration(seconds: 1), stop);
+  }
+
+  void stop() {
+    setState(() {
+      check = false;
+    });
+  }
+
   int tong = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    loading();
     loadCart();
   }
 
   final f = new NumberFormat("#,##0", "vi_VN");
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return check?Loading(): Scaffold(
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -74,7 +90,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
         foregroundColor: Colors.blue,
         //backgroundColor: Colors.grey,
       ),
-      body: Container(
+      body:Container(
         padding: EdgeInsets.only(bottom: 100),
         child: ListView.builder(
             itemCount: lstCart.length,
@@ -216,7 +232,10 @@ class _ShoppingBagState extends State<ShoppingBag> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Payment()));
+                                              builder: (context) => Payment(
+                                                    lstCart: [],
+                                                    cartItem: lstCart[index],
+                                                  )));
                                     },
                                     child: Icon(
                                       Icons.monetization_on_rounded,
@@ -631,7 +650,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
                 context,
                 PageTransition(
                   type: PageTransitionType.rightToLeftWithFade,
-                  child: const Payment(),
+                  child: Payment(lstCart: lstCart),
                 ),
               );
             },
