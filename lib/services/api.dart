@@ -174,26 +174,31 @@ class CallApi {
 
   //get invoice
   static Future<List<Invoice>> getAllInvoiceByUser(String id) async {
-    final response = await http.get(Uri.parse(urlInvoice + 'get/'+id), headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    });
+    final response = await http.get(Uri.parse(urlInvoice + 'get/' + id),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        });
     final responseData = jsonDecode(response.body);
     final data = responseData['data'] as List;
     List<Invoice> lstInvoice = data.map((e) {
       return Invoice(
           id: e['id'],
+          maSP: e['maSP'],
           maTaiKhoan: e['MaTaiKhoan'],
           diaChiGiaoHang: e['DiaChiGiaoHang'],
           sDTGiaoHang: e['SDT_GiaoHang'],
           tongTien: e['TongTien'],
-          trangThoaiHoaDon: e['TrangThoai_HoaDon'],
+          trangThoaiHoaDon: e['TrangThai_HoaDon'],
           hinhAnh: imgProductUrl + e['HinhAnh'],
           tenSanPham: e['TenSanPham'],
+          ghiChu:e['GhiChu'],
           hoTen: e['HoTen'],
           soLuong: e['SoLuong'],
-          donGia: e['GiaNhap'],
-          createdAt: e['created_at']);
+          donGia: e['GiaBan'],
+          createdAt: DateTime.parse(e['created_at']),
+          updateAt: DateTime.parse(e['updated_at']));
+
     }).toList();
     return lstInvoice;
   }
@@ -322,14 +327,15 @@ class CallApi {
   }
 
   static Future<String> addInvoice(
-    String id,
-    String address,
-    String phone,
-    int sumCash
-  ) async {
+      String id, String address, String phone, int sumCash, String ghiChu) async {
     final response = await http.post(Uri.parse(urlInvoice + 'add'),
-        body: jsonEncode({"MaTaiKhoan": id, "DiaChiGiaoHang": address,"SDT_GiaoHang":phone,"TongTien":sumCash}
-         ),
+        body: jsonEncode({
+          "MaTaiKhoan": id,
+          "DiaChiGiaoHang": address,
+          "SDT_GiaoHang": phone,
+          "TongTien": sumCash,
+          "GhiChu":ghiChu
+        }),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -338,16 +344,17 @@ class CallApi {
 
     return responseData['message'];
   }
-  static Future<String> addInvoiceDetail(
-    String idInvoice,
-    String idProduct,
-    int soLuong,
-    int price,
-    int discountPrice
-  ) async {
+
+  static Future<String> addInvoiceDetail(String idInvoice, String idProduct,
+      int soLuong, int price, int discountPrice) async {
     final response = await http.post(Uri.parse(urlInvoice + idInvoice),
-        body: jsonEncode({"MaHoaDon": idInvoice, "MaSanPham": idProduct, "SoLuong":soLuong,"DonGia":price,"DonGiaKhuyenMai":discountPrice}
-         ),
+        body: jsonEncode({
+          "MaHoaDon": idInvoice,
+          "MaSanPham": idProduct,
+          "SoLuong": soLuong,
+          "DonGia": price,
+          "DonGiaKhuyenMai": discountPrice
+        }),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -356,15 +363,15 @@ class CallApi {
 
     return responseData['message'];
   }
-  
+
   static Future<String> cancleInvoice(
     String idInvoice,
   ) async {
-    final response = await http.post(Uri.parse(urlInvoice+"cancle/" + idInvoice),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        });
+    final response = await http
+        .get(Uri.parse(urlInvoice + "cancle/" + idInvoice), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    });
     final responseData = jsonDecode(response.body);
 
     return responseData['message'];

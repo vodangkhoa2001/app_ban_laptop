@@ -1,8 +1,13 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, avoid_print, prefer_const_constructors, deprecated_member_use
 
+import 'package:ban_laptop/main.dart';
 import 'package:ban_laptop/models/account/account.dart';
 import 'package:ban_laptop/models/cart.dart';
+import 'package:ban_laptop/models/invoice/invoice.dart';
 import 'package:ban_laptop/models/product/product.dart';
+import 'package:ban_laptop/routes/account/order.dart';
+import 'package:ban_laptop/routes/account/order_detail.dart';
+import 'package:ban_laptop/routes/product/category_screen.dart';
 import 'package:ban_laptop/screens/account.dart';
 import 'package:ban_laptop/screens/loading.dart';
 import 'package:ban_laptop/services/api.dart';
@@ -11,8 +16,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
 
 class Payment extends StatefulWidget {
-  Payment({Key? key, required this.lstCart, this.cartItem})
-      : super(key: key);
+  Payment({Key? key, required this.lstCart, this.cartItem}) : super(key: key);
   List<Cart> lstCart = [];
   Cart? cartItem;
   @override
@@ -94,51 +98,8 @@ class _PaymentState extends State<Payment> {
                 child: FlatButton(
                   onPressed: () {
                     Navigator.pop(context);
-                  },
-                  child: Text('OK'),
-                ),
-              )
-            ],
-          );
-        });
-  }
-
-  void loadingPayDetail() {
-    setState(() {
-      check = true;
-    });
-    Future.delayed(Duration(seconds: 1), stopPayDetail);
-  }
-
-  void stopPayDetail() {
-    setState(() {
-      check = false;
-    });
-    showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Container(
-              width: 300,
-              height: 80,
-              child: Column(
-                children: [
-                  Text('Hoàn tất đặt hàng'),
-                  SizedBox(height: 10),
-                  Icon(
-                    Icons.check_circle_rounded,
-                    color: Colors.green[400],
-                    size: 40,
-                  )
-                ],
-              ),
-            ),
-            actions: [
-              Center(
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Order()));
                   },
                   child: Text('OK'),
                 ),
@@ -159,8 +120,8 @@ class _PaymentState extends State<Payment> {
     super.initState();
     loading();
 
-      lstCart.length > 1 ? lstCart : lstCart.add(cartItem!);
-      for (int i = 0; i < lstCart.length; i++) {
+    lstCart.isNotEmpty ? lstCart : lstCart.add(cartItem!);
+    for (int i = 0; i < lstCart.length; i++) {
       tong += lstCart[i].soLuong * lstCart[i].sanPham.giaBan!;
       loadInfoUser();
     }
@@ -515,12 +476,13 @@ class _PaymentState extends State<Payment> {
         child: MaterialButton(
           onPressed: () async {
             loadingPay();
-            String idInvoice =
-                await CallApi.addInvoice(id!, address.text, phone.text, tong);
+            String? idInvoice = await CallApi.addInvoice(
+                id!, address.text, phone.text, tong, note.text);
+
             if (idInvoice != "") {
               for (int i = 0; i < lstCart.length; i++) {
                 CallApi.addInvoiceDetail(idInvoice, lstCart[i].sanPham.id!,
-                    lstCart[i].sanPham.soLuong!, lstCart[i].sanPham.giaBan!, 0);
+                    lstCart[i].soLuong, lstCart[i].sanPham.giaBan!, 0);
                 CallApi.removeCart(id!, lstCart[i].sanPham.id!);
               }
               lstCart.clear();

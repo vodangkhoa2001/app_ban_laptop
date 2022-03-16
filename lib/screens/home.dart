@@ -20,7 +20,7 @@ class _DashboardState extends State<Dashboard> {
   final f = new NumberFormat("#,##0", "vi_VN");
   // late final ProductDemo product;
   List<Product> lstproduct = [];
-  var product = 2;
+  var product = 4;
    final storage = FlutterSecureStorage();
   String? id;
 

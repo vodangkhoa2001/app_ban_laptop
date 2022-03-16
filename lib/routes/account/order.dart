@@ -28,19 +28,20 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
   // _OrderState(this.product);
   String? id;
 
+  
   _loadInvoice() async {
-    id = await storage.read(key: "id");
     final data = await CallApi.getAllInvoiceByUser(id!);
     setState(() {
       lstInvoice = data;
     });
   }
 
-  _loadStatus() {
+  _loadStatus() async {
     setState(() {
       tabController = TabController(length: status.length, vsync: this);
       tabController!.addListener((_handleTabSelection));
     });
+      id = await storage.read(key: "id");
   }
 
   _handleTabSelection() {
@@ -49,7 +50,7 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
 
   bool check = true;
 
-  void _loading() {
+    _loading() {
     if (id == null) {
       Future.delayed(Duration(seconds: 1), _loading);
     } else {
@@ -61,6 +62,7 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+     
     _loadStatus();
     _loading();
   }
@@ -133,7 +135,7 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
                                   margin: EdgeInsets.only(right: 20),
                                   width: 150,
                                   child: Text(
-                                    f.format(lstInvoice[index].tongTien) +
+                                    f.format(lstInvoice[index].soLuong! * lstInvoice[index].donGia!.toInt()) +
                                         ' VND',
                                     style: TextStyle(color: Colors.red),
                                   ),

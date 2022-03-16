@@ -1,7 +1,8 @@
-// ignore_for_file: deprecated_member_use, sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors
+// ignore_for_file: deprecated_member_use, sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 // import 'package:flutter/cupertino.dart';
 import 'package:ban_laptop/models/invoice/invoice.dart';
+import 'package:ban_laptop/routes/account/order.dart';
 import 'package:ban_laptop/routes/product/product_detail.dart';
 import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,88 @@ class _OrderDetailState extends State<OrderDetail> {
   double sizeIcon = 30;
   double widthLine = 20;
   final f = new NumberFormat("#,##0", "vi_VN");
+
+  String formatDate(DateTime date) {
+    String min;
+    String month;
+    String day;
+    date.minute > 9
+        ? min = date.minute.toString()
+        : min = '0' + date.minute.toString();
+    date.month > 9
+        ? month = date.month.toString()
+        : month = '0' + date.month.toString();
+    date.day > 9 ? day = date.day.toString() : day = '0' + date.day.toString();
+    return (date.hour).toString() +
+        ":" +
+        min +
+        " " +
+        date.day.toString() +
+        "/" +
+        month +
+        "/" +
+        date.year.toString();
+  }
+
+  bool check = false;
+  void loading() {
+    setState(() {
+      check = true;
+    });
+    Future.delayed(Duration(seconds: 1), stop);
+  }
+  snackBar(){
+    final snackBar = SnackBar(
+                      content: Text('Hủy sản phẩm thành công'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+  void stop() {
+    setState(() {
+      check = false;
+    });
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              width: 300,
+              height: 80,
+              child: Column(
+                children: [
+                  Text('Bạn có muốn hủy đơn hàng?'),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+            actions: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                FlatButton(
+                  onPressed: () async {
+                    await CallApi.cancleInvoice(invoice.id!);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Order()));
+                    Future.delayed(
+                      Duration(seconds: 1),snackBar()
+                    );
+                    
+                  },
+                  child: Text('OK'),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Đóng'),
+                ),
+              ])
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +155,11 @@ class _OrderDetailState extends State<OrderDetail> {
                     'Thông tin nhận hàng',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   ),
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text('Đã tạo: ' + formatDate(invoice.createdAt!)),
                 ),
                 SizedBox(height: 20),
                 Padding(
@@ -232,55 +320,84 @@ class _OrderDetailState extends State<OrderDetail> {
       bottomSheet: Table(
         border: const TableBorder(top: BorderSide(color: Colors.blue)),
         children: [
-          (status != 'Chưa đánh giá')
+          (status == "Chờ xác nhận")
               ? TableRow(
                   children: [
                     FlatButton(
                         color: Colors.blue,
-                        onPressed: () async {
-                          final data = await CallApi.getProductDetail('SP01');
-                        Navigator.push(
-                          context,MaterialPageRoute(builder: (context)=> Details(product: data,banner: "",))
-                        );
+                        onPressed: () {
+                          loading();
                         },
                         child: Container(
                             padding: const EdgeInsets.all(15),
                             child: const Text(
-                              'Mua lại',
+                              'Hủy',
                               textAlign: TextAlign.center,
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
-                            )))
+                            ))),
                   ],
                 )
-              : TableRow(children: [
-                  FlatButton(
-                      onPressed: () {},
-                      child: Container(
-                          padding: const EdgeInsets.all(15),
-                          child: const Text(
-                            'Đánh giá',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.blue,
-                            ),
-                          ))),
-                  FlatButton(
-                      color: Colors.blue,
-                      onPressed: () async {
-                        final data = await CallApi.getProductDetail('SP01');
-                        Navigator.push(
-                          context,MaterialPageRoute(builder: (context)=> Details(product: data,banner:""))
-                        );
-                      },
-                      child: Container(
-                          padding: const EdgeInsets.all(15),
-                          child: const Text(
-                            'Mua lại',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          ))),
-                ]),
+              : (status != 'Chưa đánh giá')
+                  ? TableRow(
+                      children: [
+                        FlatButton(
+                            color: Colors.blue,
+                            onPressed: () async {
+                              final data =
+                                  await CallApi.getProductDetail(invoice.maSP!);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Details(
+                                            product: data,
+                                            banner: "",
+                                          )));
+                            },
+                            child: Container(
+                                padding: const EdgeInsets.all(15),
+                                child: const Text(
+                                  'Mua lại',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                )))
+                      ],
+                    )
+                  : TableRow(children: [
+                      FlatButton(
+                          onPressed: () {},
+                          child: Container(
+                              padding: const EdgeInsets.all(15),
+                              child: const Text(
+                                'Đánh giá',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ))),
+                      FlatButton(
+                          color: Colors.blue,
+                          onPressed: () async {
+                            final data =
+                                  await CallApi.getProductDetail(invoice.maSP!);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Details(
+                                            product: data,
+                                            banner: "",
+                                          )));
+                          },
+                          child: Container(
+                              padding: const EdgeInsets.all(15),
+                              child: const Text(
+                                'Mua lại',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ))),
+                    ]),
         ],
       ),
     );

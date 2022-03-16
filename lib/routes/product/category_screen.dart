@@ -174,17 +174,9 @@ class _CategoryState extends State<Category>
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
+                                      
                                       Text(
                                         f.format(lstproduct[i][index].giaBan) +
-                                            'VND',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 13,
-                                            decoration:
-                                                TextDecoration.lineThrough),
-                                      ),
-                                      Text(
-                                        f.format(lstproduct[i][index].giaNhap) +
                                             'VND',
                                         style: TextStyle(
                                           color: Colors.white,

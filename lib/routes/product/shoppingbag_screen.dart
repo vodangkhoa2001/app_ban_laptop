@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, sized_box_for_whitespace, prefer_const_constructors
 // import 'dart:html';
 import 'package:ban_laptop/models/cart.dart';
+import 'package:ban_laptop/routes/product/product_detail.dart';
 import 'package:ban_laptop/screens/loading.dart';
 import 'package:ban_laptop/services/api.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -46,7 +47,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
     id = await storage.read(key: 'id');
     final data = await CallApi.getCart(id!);
     setState(() {
-      lstCart = data;
+      lstCart.addAll(data);
       for (int i = 0; i < lstCart.length; i++) {
         tong += lstCart[i].soLuong * lstCart[i].sanPham.giaBan!;
       }
@@ -73,8 +74,10 @@ class _ShoppingBagState extends State<ShoppingBag> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    setState(() {
+      loadCart();
+    });
     loading();
-    loadCart();
   }
 
   final f = new NumberFormat("#,##0", "vi_VN");
@@ -95,7 +98,9 @@ class _ShoppingBagState extends State<ShoppingBag> {
         child: ListView.builder(
             itemCount: lstCart.length,
             itemBuilder: (context, index) => InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Details(product: lstCart[index].sanPham, banner: "")));
+                  },
                   child: Card(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -650,7 +655,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
                 context,
                 PageTransition(
                   type: PageTransitionType.rightToLeftWithFade,
-                  child: Payment(lstCart: lstCart),
+                  child: Payment(lstCart: lstCart,),
                 ),
               );
             },
