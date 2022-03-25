@@ -8,6 +8,8 @@ import 'package:ban_laptop/models/product/product_type.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:ban_laptop/models/banner.dart';
+
 final storage = new FlutterSecureStorage();
 
 String infoUrl = baseUrl + 'account/';
@@ -192,13 +194,12 @@ class CallApi {
           trangThoaiHoaDon: e['TrangThai_HoaDon'],
           hinhAnh: imgProductUrl + e['HinhAnh'],
           tenSanPham: e['TenSanPham'],
-          ghiChu:e['GhiChu'],
+          ghiChu: e['GhiChu'],
           hoTen: e['HoTen'],
           soLuong: e['SoLuong'],
           donGia: e['GiaBan'],
           createdAt: DateTime.parse(e['created_at']),
           updateAt: DateTime.parse(e['updated_at']));
-
     }).toList();
     return lstInvoice;
   }
@@ -326,15 +327,15 @@ class CallApi {
     return responseData['message'];
   }
 
-  static Future<String> addInvoice(
-      String id, String address, String phone, int sumCash, String ghiChu) async {
+  static Future<String> addInvoice(String id, String address, String phone,
+      int sumCash, String ghiChu) async {
     final response = await http.post(Uri.parse(urlInvoice + 'add'),
         body: jsonEncode({
           "MaTaiKhoan": id,
           "DiaChiGiaoHang": address,
           "SDT_GiaoHang": phone,
           "TongTien": sumCash,
-          "GhiChu":ghiChu
+          "GhiChu": ghiChu
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -367,13 +368,63 @@ class CallApi {
   static Future<String> cancleInvoice(
     String idInvoice,
   ) async {
-    final response = await http
-        .get(Uri.parse(urlInvoice + "cancle/" + idInvoice), headers: {
+    final response =
+        await http.get(Uri.parse(urlInvoice + "cancle/" + idInvoice), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     });
     final responseData = jsonDecode(response.body);
 
     return responseData['message'];
+  }
+
+  //banner
+  static Future<List<Banner>> getBanner() async {
+    final response = await http.get(Uri.parse(baseUrl + "banner"), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    });
+    final responseData = jsonDecode(response.body);
+
+    final data = responseData['data'] as List;
+    List<Banner> lstBanner = data.map((e) {
+      return Banner(
+          id: e["id"],
+          tenBanner: e["TenBanner"],
+          moTa: e["MoTa"],
+          hinhAnh: imgBannerUrl + e["HinhAnh"],
+          trangThai: e["TrangThai"]);
+    }).toList();
+    return lstBanner;
+  }
+
+  //lay sp moi
+  static Future<List<Product>> getNewProduct() async {
+    final response = await http.get(Uri.parse(urlProduct + "newproduct/all"), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    });
+    final responseData = jsonDecode(response.body);
+
+    final data = responseData['data'] as List;
+    List<Product> lstNewProduct = data.map((e) {
+      return Product(
+          id: e['id'],
+          maDongSanPham: e['MaDongSanPham'],
+          tenSanPham: e['TenSanPham'],
+          giaNhap: e['GiaNhap'],
+          giaBan: e['GiaBan'],
+          soLuong: e['SoLuong'],
+          maNhaSanXuat: e['MaNhaSanXuat'],
+          hinhAnh: imgProductUrl + e['HinhAnh'],
+          moTa: e['MoTa'],
+          tenMau: e['TenMau'],
+          tenOCung: e['TenOCung'],
+          tenRam: e['TenRam'],
+          tenManHinh: e['TenManHinh'],
+          tenCardManHinh: e['TenCardDoHoa'],
+          tenCPU: e['TenCPU']);
+    }).toList();
+    return lstNewProduct;
   }
 }
