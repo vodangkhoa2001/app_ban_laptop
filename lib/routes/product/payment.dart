@@ -169,6 +169,7 @@ class _PaymentState extends State<Payment> {
                                     children: [
                                       Container(
                                         width: 190,
+
                                         padding: EdgeInsets.only(right: 10),
                                         child: Text(
                                           lstCart[index]

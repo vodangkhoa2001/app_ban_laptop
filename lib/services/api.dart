@@ -400,7 +400,8 @@ class CallApi {
 
   //lay sp moi
   static Future<List<Product>> getNewProduct() async {
-    final response = await http.get(Uri.parse(urlProduct + "newproduct/all"), headers: {
+    final response =
+        await http.get(Uri.parse(urlProduct + "newproduct/all"), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     });

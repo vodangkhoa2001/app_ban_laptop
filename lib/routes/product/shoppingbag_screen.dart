@@ -347,6 +347,7 @@ class _ShoppingBagState extends State<ShoppingBag> {
                             ),
                           ],
                         ),
+
                       ]),
                 )
               ],
@@ -395,6 +396,33 @@ class _ShoppingBagState extends State<ShoppingBag> {
                           ),
                         ),
                       ),
+                       child: MaterialButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeftWithFade,
+                        child: Payment(
+                          lstCart: lstCart,
+                        ),
+                      ),
+                    );
+                  },
+                  color: Colors.blue,
+                  height: 50,
+                  minWidth: 100,
+                  // shape: RoundedRectangleBorder(
+                  //   borderRadius: BorderRadius.circular(15),
+                  // ),
+                  child: const Text(
+                    "Đặt mua tất cả",
+                    style: TextStyle(
+                      // fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
               ),
             ),
           );
