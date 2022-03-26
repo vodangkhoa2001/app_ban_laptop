@@ -153,7 +153,7 @@ class _PaymentState extends State<Payment> {
                                   height: 90,
                                   child: Image.network(
                                     lstCart[index].sanPham.hinhAnh.toString(),
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
                                 Container(
@@ -162,7 +162,7 @@ class _PaymentState extends State<Payment> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        width: 255,
+                                        width: 170,
                                         padding: EdgeInsets.only(right: 10),
                                         child: Text(
                                           lstCart[index]
@@ -181,7 +181,7 @@ class _PaymentState extends State<Payment> {
                                             Container(
                                               margin:
                                                   EdgeInsets.only(right: 20),
-                                              width: 150,
+                                              width: 120,
                                               child: Text(
                                                 f.format(lstCart[index]
                                                         .sanPham
