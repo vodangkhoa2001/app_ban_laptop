@@ -23,6 +23,7 @@ class _DashboardState extends State<Dashboard> {
   // late final ProductDemo product;
   List<Product> lstproduct = [];
   List<Product> lstNewProduct = [];
+  List<Product> lstDiscountProduct = [];
   List<banner.Banner> lstBanner = [];
   var product = 4;
   final storage = FlutterSecureStorage();
@@ -65,11 +66,19 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
+  Future<void> getDiscountProduct() async {
+    List<Product> data = await CallApi.getDiscountProduct();
+    setState(() {
+      lstDiscountProduct = data;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getBanner();
     getNewProduct();
+    getDiscountProduct();
     loadAllProduct();
     onLoading();
   }
@@ -90,7 +99,7 @@ class _DashboardState extends State<Dashboard> {
         ),
       );
 
-  Widget card(int i,List lst, String status) {
+  Widget card(int i, List lst, String status) {
     return InkWell(
         onTap: () {
           Navigator.push(
@@ -146,9 +155,7 @@ class _DashboardState extends State<Dashboard> {
                                 Text(
                                     '${lst[i].tenSanPham}'.length < 35
                                         ? '${lst[i].tenSanPham}'
-                                        : lst[i]
-                                                .tenSanPham!
-                                                .substring(0, 34) +
+                                        : lst[i].tenSanPham!.substring(0, 34) +
                                             "...",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -162,29 +169,27 @@ class _DashboardState extends State<Dashboard> {
                                     : Text(f.format(lst[i].giaNhap),
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 17)),
-                                
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: InkWell(
-                                        onTap: () async {
-                                          final snackBar = SnackBar(
-                                            content:
-                                                Text('Thêm sản phẩm thành công'),
-                                          );
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
-                                          id = await storage.read(key: 'id');
-                                          String data = await CallApi.addCart(id!,
-                                              lst[i].id.toString(), 1);
-                                        },
-                                        child: Icon(
-                                          Icons.shopping_cart_rounded,
-                                          size: 20,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    )
-                                  
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      final snackBar = SnackBar(
+                                        content:
+                                            Text('Thêm sản phẩm thành công'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                      id = await storage.read(key: 'id');
+                                      String data = await CallApi.addCart(
+                                          id!, lst[i].id.toString(), 1);
+                                    },
+                                    child: Icon(
+                                      Icons.shopping_cart_rounded,
+                                      size: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                           )),
@@ -386,7 +391,7 @@ class _DashboardState extends State<Dashboard> {
                             scrollDirection: Axis.horizontal,
                             children: [
                               for (int i = 0; i < lstNewProduct.length; i++)
-                                card(i,lstNewProduct, banners[0]),
+                                card(i, lstNewProduct, banners[0]),
                             ])),
 
                     //sp khuyen mai
@@ -410,7 +415,7 @@ class _DashboardState extends State<Dashboard> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => TotalNewProduct(
-                                            lstPro: lstNewProduct,
+                                            lstPro: lstDiscountProduct,
                                             banner: banners[1],
                                           )));
                             },
@@ -431,8 +436,10 @@ class _DashboardState extends State<Dashboard> {
                         child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
-                              for (int i = 0; i < lstNewProduct.length; i++)
-                                card(i,lstNewProduct, banners[1]),
+                              for (int i = 0;
+                                  i < lstDiscountProduct.length;
+                                  i++)
+                                card(i, lstDiscountProduct, banners[1]),
                             ])),
                   ],
                 ),

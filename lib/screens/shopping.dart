@@ -18,7 +18,7 @@ class _ShoppingState extends State<Shopping> {
   final List<Widget> screens = [
     const Category(),
     const Discount(),
-    const ShoppingBag()
+    ShoppingBag()
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const Category();
@@ -94,7 +94,7 @@ class _ShoppingState extends State<Shopping> {
                 minWidth: 30,
                 onPressed: () {
                   setState(() {
-                    currentScreen = const ShoppingBag();
+                    currentScreen = ShoppingBag();
                     currentTab = 2;
                   });
                 },

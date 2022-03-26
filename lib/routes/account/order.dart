@@ -2,6 +2,7 @@
 
 import 'package:ban_laptop/models/invoice/invoice.dart';
 import 'package:ban_laptop/models/product/product.dart';
+import 'package:ban_laptop/routes/product/not_product.dart';
 import 'package:ban_laptop/screens/loading.dart';
 import 'package:ban_laptop/services/api.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,8 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
     return ListView.builder(
       itemCount: lstInvoice.length,
       itemBuilder: (context, index) => lstInvoice[index].trangThoaiHoaDon == i
-          ? InkWell(
+          ? 
+          InkWell(
               onTap: () {
                 Navigator.push(
                   context,
@@ -106,7 +108,7 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
                       height: 90,
                       child: Image.network(
                         lstInvoice[index].hinhAnh.toString(),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                       ),
                     ),
                     Container(
@@ -151,7 +153,7 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
                 ),
               ),
             )
-          : Padding(padding: EdgeInsets.zero),
+          :Padding(padding: EdgeInsets.zero),
     );
   }
 
@@ -163,6 +165,7 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
         appBar: AppBar(
           title: const Text('Đơn hàng'),
           centerTitle: true,
+
           bottom: TabBar(
             // labelColor: Colors.blue,
             controller: tabController,
@@ -209,6 +212,7 @@ class _OrderState extends State<Order> with SingleTickerProviderStateMixin {
        check?Loading(): TabBarView(
           controller: tabController,
           children: [
+
             invoice(1),
             invoice(2),
             invoice(3),

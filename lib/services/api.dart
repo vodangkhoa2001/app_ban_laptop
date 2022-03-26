@@ -427,4 +427,33 @@ class CallApi {
     }).toList();
     return lstNewProduct;
   }
+  static Future<List<Product>> getDiscountProduct() async {
+    final response = await http.get(Uri.parse(urlProduct + "list-discount"), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    });
+    final responseData = jsonDecode(response.body);
+
+    final data = responseData['data'] as List;
+    List<Product> lstDiscountProduct = data.map((e) {
+      return Product(
+          id: e['id'],
+          maDongSanPham: e['MaDongSanPham'],
+          tenSanPham: e['TenSanPham'],
+          giaNhap: e['GiaNhap'],
+          giaBan: e['GiaBan'],
+          soLuong: e['SoLuong'],
+          maNhaSanXuat: e['MaNhaSanXuat'],
+          hinhAnh: imgProductUrl + e['HinhAnh'],
+          moTa: e['MoTa'],
+          tenMau: e['TenMau'],
+          tenOCung: e['TenOCung'],
+          tenRam: e['TenRam'],
+          tenManHinh: e['TenManHinh'],
+          tenCardManHinh: e['TenCardDoHoa'],
+          tenCPU: e['TenCPU']);
+    }).toList();
+    return lstDiscountProduct;
+  }
+  
 }

@@ -97,9 +97,16 @@ class _PaymentState extends State<Payment> {
               Center(
                 child: FlatButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Order()));
+                    
+
+                        // Navigator.pop(context);
+                        Navigator.pop(context);
+                    Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => Order()))
+                        .then((value) {
+                      setState(() {
+                      });
+                    });
                   },
                   child: Text('OK'),
                 ),
@@ -119,7 +126,6 @@ class _PaymentState extends State<Payment> {
     // TODO: implement initState
     super.initState();
     loading();
-
     lstCart.isNotEmpty ? lstCart : lstCart.add(cartItem!);
     for (int i = 0; i < lstCart.length; i++) {
       tong += lstCart[i].soLuong * lstCart[i].sanPham.giaBan!;
@@ -153,7 +159,7 @@ class _PaymentState extends State<Payment> {
                                   height: 90,
                                   child: Image.network(
                                     lstCart[index].sanPham.hinhAnh.toString(),
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
                                 Container(
@@ -162,7 +168,7 @@ class _PaymentState extends State<Payment> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        width: 255,
+                                        width: 190,
                                         padding: EdgeInsets.only(right: 10),
                                         child: Text(
                                           lstCart[index]
@@ -181,7 +187,7 @@ class _PaymentState extends State<Payment> {
                                             Container(
                                               margin:
                                                   EdgeInsets.only(right: 20),
-                                              width: 150,
+                                              width: 120,
                                               child: Text(
                                                 f.format(lstCart[index]
                                                         .sanPham
